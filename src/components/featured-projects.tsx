@@ -14,6 +14,7 @@ export default function FeaturedProjects() {
       language: "TypeScript",
       langColor: "bg-blue-500",
       githubUrl: "https://github.com/devJam2026/tokenizer-visualizer",
+      isCyan: true,
     },
     {
       name: "Hyperparameter Playground",
@@ -23,6 +24,7 @@ export default function FeaturedProjects() {
       language: "React",
       langColor: "bg-sky-400",
       githubUrl: "https://github.com/devJam2026/hyperparameter-playground",
+      isCyan: false,
     },
     {
       name: "Context Window Dashboard",
@@ -32,6 +34,7 @@ export default function FeaturedProjects() {
       language: "Next.js",
       langColor: "bg-slate-400",
       githubUrl: "https://github.com/devJam2026/context-window-dashboard",
+      isCyan: true,
     },
     {
       name: "Attention Notebook",
@@ -41,16 +44,17 @@ export default function FeaturedProjects() {
       language: "Python",
       langColor: "bg-yellow-500",
       githubUrl: "https://github.com/devJam2026/attention-notebook",
+      isCyan: false,
     },
   ];
 
   return (
-    <section id="projects" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-8 md:py-12 scroll-mt-20">
+    <section id="projects" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
         <div>
-          <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-500 uppercase">
+          <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
             Featured Projects
           </span>
           <h2 className="text-3xl font-black text-foreground mt-1">
@@ -61,7 +65,7 @@ export default function FeaturedProjects() {
           href="https://github.com/devJam2026"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:text-violet-500 dark:hover:text-violet-300 flex items-center gap-1 transition-colors duration-200"
+          className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200"
         >
           View GitHub Profile <span className="text-[10px]">→</span>
         </a>
@@ -73,19 +77,25 @@ export default function FeaturedProjects() {
           return (
             <div
               key={project.name}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-xl border border-card-border bg-card-bg p-6 transition-all duration-300 hover:border-violet-500/20 hover:-translate-y-0.5"
+              className={`group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 ${
+                project.isCyan ? "premium-card premium-card-cyan" : "premium-card"
+              }`}
             >
               <div>
                 {/* Project Header */}
                 <div className="flex items-start justify-between mb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-card-border bg-input-bg text-violet-600 dark:text-violet-400 shadow-inner">
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-lg border border-card-border bg-input-bg shadow-inner ${
+                    project.isCyan ? "text-cyan-400" : "text-orange-500"
+                  }`}>
                     <GithubIcon className="h-5 w-5" />
                   </div>
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-1.5 rounded-lg border border-card-border hover:border-violet-500/20 bg-background text-text-muted hover:text-foreground transition-colors duration-200"
+                    className={`p-1.5 rounded-lg border border-card-border bg-background text-text-muted hover:text-foreground transition-colors duration-200 ${
+                      project.isCyan ? "hover:border-cyan-500/20" : "hover:border-orange-500/20"
+                    }`}
                     title="View Source on GitHub"
                   >
                     <ArrowUpRight className="h-4 w-4" />
@@ -93,7 +103,9 @@ export default function FeaturedProjects() {
                 </div>
 
                 {/* Project Meta */}
-                <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors duration-200">
+                <h3 className={`text-base font-bold text-foreground mb-2 transition-colors duration-200 ${
+                  project.isCyan ? "group-hover:text-cyan-400" : "group-hover:text-orange-500"
+                }`}>
                   {project.name}
                 </h3>
                 
@@ -125,7 +137,11 @@ export default function FeaturedProjects() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-[10px] uppercase font-bold text-violet-600 dark:text-violet-400 group-hover:text-violet-500 dark:group-hover:text-violet-300"
+                  className={`flex items-center gap-1 text-[10px] uppercase font-bold transition-colors ${
+                    project.isCyan 
+                      ? "text-cyan-400 hover:text-orange-500" 
+                      : "text-orange-500 hover:text-cyan-400"
+                  }`}
                 >
                   <GithubIcon className="h-3 w-3" />
                   Clone repo

@@ -15,20 +15,29 @@ export default function Icon() {
     (
       <div
         style={{
-          fontSize: 16,
-          background: "linear-gradient(to bottom right, #7c3aed, #3b82f6)",
+          background: "linear-gradient(to bottom right, #f97316, #06b6d4)",
           width: "100%",
           height: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "white",
           borderRadius: "8px",
-          fontFamily: "monospace",
-          fontWeight: "bold",
         }}
       >
-        {"</>"}
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="white"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="16 18 22 12 16 6" />
+          <polyline points="8 6 2 12 8 18" />
+          <line x1="14" y1="4" x2="10" y2="20" />
+        </svg>
       </div>
     ),
     {

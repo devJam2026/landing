@@ -102,12 +102,12 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <a href="#" className="flex items-center gap-2 group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-blue-500 text-white font-mono text-xl font-bold shadow-md shadow-violet-500/20 group-hover:scale-105 transition-transform duration-200">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-cyan-500 text-white font-mono text-xl font-bold shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform duration-200">
                 &lt;/&gt;
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-black tracking-wider text-foreground">
-                  DEV<span className="text-violet-500">JAM</span>
+                  DEV<span className="text-orange-500">JAM</span>
                 </span>
                 <span className="text-[10px] text-text-muted font-medium">
                   Engineering Labs for Curious Minds
@@ -123,12 +123,12 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={() => setActiveTab(link.name)}
-                className={`relative py-2 text-sm font-semibold transition-colors duration-200 ${activeTab === link.name ? "text-violet-500 dark:text-violet-400" : "text-text-muted hover:text-foreground"
+                className={`relative py-2 text-sm font-semibold transition-colors duration-200 ${activeTab === link.name ? "text-orange-500 dark:text-orange-400" : "text-text-muted hover:text-foreground"
                   }`}
               >
                 {link.name}
                 {activeTab === link.name && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-violet-500 shadow-md shadow-violet-500/50" />
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-orange-500 shadow-md shadow-orange-500/50" />
                 )}
               </a>
             ))}
@@ -167,13 +167,13 @@ export default function Navbar() {
               {isDark ? (
                 <Sun className="h-4 w-4 text-amber-500" />
               ) : (
-                <Moon className="h-4 w-4 text-violet-600" />
+                <Moon className="h-4 w-4 text-cyan-400" />
               )}
             </button>
 
             <a
               href="#labs"
-              className="inline-flex items-center justify-center rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 hover:bg-violet-500 hover:shadow-violet-500/35 transition-all duration-200"
+              className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 hover:bg-orange-600 hover:shadow-orange-500/35 transition-all duration-200"
             >
               Explore Labs
               <span className="ml-1.5 transition-transform duration-200 hover:translate-x-0.5">→</span>
@@ -199,7 +199,7 @@ export default function Navbar() {
               {isDark ? (
                 <Sun className="h-4 w-4 text-amber-500" />
               ) : (
-                <Moon className="h-4 w-4 text-violet-600" />
+                <Moon className="h-4 w-4 text-cyan-400" />
               )}
             </button>
             <button
@@ -225,7 +225,7 @@ export default function Navbar() {
                 setMobileMenuOpen(false);
               }}
               className={`block px-3 py-2.5 rounded-lg text-base font-semibold transition-colors duration-200 ${activeTab === link.name
-                  ? "bg-violet-50 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 border-l-2 border-violet-500"
+                  ? "bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border-l-2 border-orange-500"
                   : "text-text-muted hover:bg-card-bg hover:text-foreground"
                 }`}
             >
@@ -244,7 +244,7 @@ export default function Navbar() {
             <a
               href="#labs"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg bg-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-violet-500/25"
+              className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-500/25"
             >
               Explore Labs →
             </a>
@@ -289,10 +289,10 @@ export default function Navbar() {
                 filteredItems.map((item, idx) => {
                   const tagColors =
                     item.type === "Lab"
-                      ? "text-violet-600 dark:text-violet-400 bg-violet-500/10 border-violet-500/20"
+                      ? "text-orange-500 dark:text-orange-400 bg-orange-500/10 border-orange-500/20"
                       : item.type === "Article"
-                        ? "text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-500/20"
-                        : "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
+                        ? "text-cyan-500 dark:text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+                        : "text-emerald-500 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20";
 
                   return (
                     <a
@@ -305,7 +305,7 @@ export default function Navbar() {
                       className="flex flex-col p-2.5 rounded-lg border border-transparent hover:border-card-border hover:bg-card-bg/50 transition-all duration-200"
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-sm font-bold text-foreground hover:text-violet-500 transition-colors">
+                        <span className="text-sm font-bold text-foreground hover:text-orange-500 transition-colors">
                           {item.title}
                         </span>
                         <span className={`text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded border ${tagColors}`}>

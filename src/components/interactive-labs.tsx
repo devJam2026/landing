@@ -145,34 +145,34 @@ export default function InteractiveLabs() {
   };
 
   const getStepBg = (step: string) => {
-    if (pipelineStep === "success") return "bg-emerald-500 border-emerald-400 text-white";
+    if (pipelineStep === "success") return "bg-cyan-500 border-cyan-400 text-white";
     if (pipelineStep === "idle") return "bg-input-bg border-card-border text-text-muted";
     
     const stepsOrder = ["source", "build", "test", "deploy"];
     const currentIdx = stepsOrder.indexOf(pipelineStep);
     const targetIdx = stepsOrder.indexOf(step);
     
-    if (currentIdx > targetIdx) return "bg-emerald-500 border-emerald-400 text-white";
-    if (currentIdx === targetIdx) return "bg-violet-600 border-violet-500 animate-pulse text-white";
+    if (currentIdx > targetIdx) return "bg-cyan-500 border-cyan-400 text-white";
+    if (currentIdx === targetIdx) return "bg-orange-500 border-orange-400 animate-pulse text-white";
     return "bg-input-bg border-card-border text-text-muted";
   };
 
   const colors = [
-    "bg-violet-500/10 border-violet-500/20 dark:border-violet-500/30 text-violet-700 dark:text-violet-300",
+    "bg-orange-500/10 border-orange-500/20 dark:border-orange-500/30 text-orange-700 dark:text-orange-300",
+    "bg-cyan-500/10 border-cyan-500/20 dark:border-cyan-500/30 text-cyan-700 dark:text-cyan-300",
     "bg-blue-500/10 border-blue-500/20 dark:border-blue-500/30 text-blue-700 dark:text-blue-300",
-    "bg-emerald-500/10 border-emerald-500/20 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300",
     "bg-amber-500/10 border-amber-500/20 dark:border-amber-500/30 text-amber-700 dark:text-amber-300",
     "bg-rose-500/10 border-rose-500/20 dark:border-rose-500/30 text-rose-700 dark:text-rose-300",
-    "bg-cyan-500/10 border-cyan-500/20 dark:border-cyan-500/30 text-cyan-700 dark:text-cyan-300",
+    "bg-emerald-500/10 border-emerald-500/20 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300",
   ];
 
   return (
-    <section id="labs" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-8 md:py-12 scroll-mt-20">
+    <section id="labs" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
         <div>
-          <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-500 uppercase">
+          <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
             Featured Labs
           </span>
           <h2 className="text-3xl font-black text-foreground mt-1">
@@ -181,7 +181,7 @@ export default function InteractiveLabs() {
         </div>
         <a
           href="#"
-          className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:text-violet-500 dark:hover:text-violet-300 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
+          className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
         >
           View all labs <span className="text-[10px]">→</span>
         </a>
@@ -190,10 +190,10 @@ export default function InteractiveLabs() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
         
         {/* Lab 1: Tokenizer Visualizer */}
-        <div className="glass-panel rounded-xl p-6 flex flex-col justify-between hover:border-violet-500/20 transition-all duration-300">
+        <div className="premium-card rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-violet-500/10 dark:bg-violet-950/40 text-violet-600 dark:text-violet-400 border border-violet-500/20">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-orange-500/10 text-orange-500 border border-orange-500/20">
                 AI Lab
               </span>
               <span className="text-[10px] text-text-muted font-semibold">BPE Algorithm</span>
@@ -214,7 +214,7 @@ export default function InteractiveLabs() {
                   type="text"
                   value={tokenText}
                   onChange={(e) => setTokenText(e.target.value)}
-                  className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-xs text-foreground placeholder-gray-500 focus:border-violet-500 focus:outline-none"
+                  className="w-full rounded-lg border border-input-border bg-input-bg px-3 py-2 text-xs text-foreground placeholder-gray-500 focus:border-orange-500 focus:outline-none"
                   placeholder="Type anything to tokenize..."
                 />
               </div>
@@ -223,7 +223,7 @@ export default function InteractiveLabs() {
               <div>
                 <label className="block text-[10px] font-bold text-text-muted uppercase mb-1.5 flex justify-between">
                   <span>Tokens Output</span>
-                  <span className="text-violet-600 dark:text-violet-400 font-bold font-mono">Count: {tokenizedList.length}</span>
+                  <span className="text-orange-500 font-bold font-mono">Count: {tokenizedList.length}</span>
                 </label>
                 <div className="min-h-24 p-3 rounded-lg border border-card-border bg-background/50 flex flex-wrap gap-1 items-start text-xs font-mono">
                   {tokenizedList.map((tok, idx) => (
@@ -254,10 +254,10 @@ export default function InteractiveLabs() {
         </div>
 
         {/* Lab 2: React Rendering Visualizer */}
-        <div className="glass-panel rounded-xl p-6 flex flex-col justify-between hover:border-blue-500/20 transition-all duration-300">
+        <div className="premium-card premium-card-cyan rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-blue-500/10 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                 Frontend Lab
               </span>
               <span className="text-[10px] text-text-muted font-semibold">Reconciliation</span>
@@ -278,7 +278,7 @@ export default function InteractiveLabs() {
                 <div
                   className={`w-28 sm:w-32 rounded-lg border text-center p-2 text-[9px] sm:text-[10px] font-mono transition-all duration-300 ${
                     flashingNodes["parent"]
-                      ? "bg-violet-500/20 border-violet-500 dark:bg-violet-600/30 dark:border-violet-500 shadow-md shadow-violet-500/20 scale-102"
+                      ? "bg-orange-500/20 border-orange-500 shadow-md shadow-orange-500/20 scale-102"
                       : "bg-card-bg border-card-border text-foreground"
                   }`}
                 >
@@ -293,7 +293,7 @@ export default function InteractiveLabs() {
                   <div
                     className={`w-20 sm:w-24 rounded-lg border text-center p-1.5 text-[8px] sm:text-[9px] font-mono transition-all duration-300 ${
                       flashingNodes["childA"]
-                        ? "bg-blue-500/20 border-blue-500"
+                        ? "bg-cyan-500/20 border-cyan-500"
                         : "bg-card-bg/60 border-card-border text-text-muted"
                     }`}
                   >
@@ -305,7 +305,7 @@ export default function InteractiveLabs() {
                   <div
                     className={`w-24 sm:w-28 rounded-lg border text-center p-1.5 text-[8px] sm:text-[9px] font-mono transition-all duration-300 ${
                       flashingNodes["childB"]
-                        ? "bg-violet-500/20 border-violet-500 dark:bg-violet-600/30 dark:border-violet-500 shadow-md shadow-violet-500/20"
+                        ? "bg-orange-500/20 border-orange-500 shadow-md shadow-orange-500/20"
                         : "bg-card-bg border-card-border text-foreground"
                     }`}
                   >
@@ -318,7 +318,7 @@ export default function InteractiveLabs() {
                     <div
                       className={`w-18 sm:w-24 rounded border text-center p-1 mx-auto text-[7px] sm:text-[8px] transition-all duration-300 ${
                         flashingNodes["grandchild"]
-                          ? "bg-violet-500/30 border-violet-400"
+                          ? "bg-orange-500/30 border-orange-400"
                           : "bg-background border-card-border text-text-muted"
                       }`}
                     >
@@ -330,7 +330,7 @@ export default function InteractiveLabs() {
 
               {/* Logs terminal */}
               <div className="flex flex-col border border-card-border bg-[#030712] dark:bg-slate-950/80 rounded-lg p-3 font-mono text-[8px] sm:text-[9px] text-gray-400 h-36 overflow-y-auto w-full">
-                <span className="text-violet-500 font-semibold mb-1">Renderer Log:</span>
+                <span className="text-orange-500 font-semibold mb-1">Renderer Log:</span>
                 {renderLogs.map((log, i) => (
                   <span key={i} className="leading-relaxed border-b border-white/[0.01] py-0.5">
                     {log}
@@ -343,13 +343,13 @@ export default function InteractiveLabs() {
             <div className="flex flex-col sm:flex-row items-center gap-2 mb-2 w-full">
               <button
                 onClick={handleUpdateParent}
-                className="w-full sm:flex-1 py-2 text-[10px] font-bold rounded bg-violet-600 hover:bg-violet-500 text-white transition-colors cursor-pointer"
+                className="w-full sm:flex-1 py-2 text-[10px] font-bold rounded bg-orange-500 hover:bg-orange-600 text-white transition-colors cursor-pointer"
               >
                 Set Parent State
               </button>
               <button
                 onClick={handleUpdateChild}
-                className="w-full sm:flex-1 py-2 text-[10px] font-bold rounded border border-card-border bg-card-bg hover:bg-background text-foreground transition-colors cursor-pointer"
+                className="w-full sm:flex-1 py-2 text-[10px] font-bold rounded border border-card-border bg-card-bg hover:bg-background text-foreground transition-colors hover:text-orange-500 cursor-pointer"
               >
                 Set ChildB State
               </button>
@@ -361,10 +361,10 @@ export default function InteractiveLabs() {
         </div>
 
         {/* Lab 3: System Design Simulator */}
-        <div className="glass-panel rounded-xl p-6 flex flex-col justify-between hover:border-orange-500/20 transition-all duration-300">
+        <div className="premium-card rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-orange-500/10 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border border-orange-500/20">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-orange-500/10 text-orange-500 border border-orange-500/20">
                 System Design Lab
               </span>
               <span className="text-[10px] text-text-muted font-semibold">Distributed flow</span>
@@ -387,7 +387,7 @@ export default function InteractiveLabs() {
                   </div>
                   <span>User</span>
                   {packetState === "to-lb" && (
-                    <div className="absolute top-3 left-4 h-1.5 w-1.5 rounded-full bg-violet-500 animate-ping" />
+                    <div className="absolute top-3 left-4 h-1.5 w-1.5 rounded-full bg-orange-500 animate-ping" />
                   )}
                 </div>
 
@@ -395,12 +395,12 @@ export default function InteractiveLabs() {
 
                 {/* Load Balancer */}
                 <div className="flex flex-col items-center gap-1.5 relative">
-                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded bg-card-bg border border-card-border flex items-center justify-center text-orange-500 shadow-sm">
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded bg-card-bg border border-card-border flex items-center justify-center text-cyan-400 shadow-sm">
                     <Network className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </div>
                   <span>LB</span>
                   {packetState === "to-web" && (
-                    <div className="absolute top-3 left-4 h-1.5 w-1.5 rounded-full bg-orange-500 animate-ping" />
+                    <div className="absolute top-3 left-4 h-1.5 w-1.5 rounded-full bg-cyan-500 animate-ping" />
                   )}
                 </div>
 
@@ -410,20 +410,20 @@ export default function InteractiveLabs() {
                 <div className="flex flex-col gap-1.5 relative">
                   {/* Web Server 1 */}
                   <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded border text-[7px] sm:text-[8px] transition-colors duration-300 ${
-                    lbSelected === "Web-1" ? "border-violet-500 bg-violet-500/10 text-foreground font-bold" : "border-card-border bg-card-bg/60"
+                    lbSelected === "Web-1" ? "border-orange-500 bg-orange-500/10 text-foreground font-bold" : "border-card-border bg-card-bg/60"
                   }`}>
                     <Cpu className="h-2.5 w-2.5" />
                     <span>Web-1</span>
                   </div>
                   {/* Web Server 2 */}
                   <div className={`flex items-center gap-1 px-1.5 py-0.5 rounded border text-[7px] sm:text-[8px] transition-colors duration-300 ${
-                    lbSelected === "Web-2" ? "border-violet-500 bg-violet-500/10 text-foreground font-bold" : "border-card-border bg-card-bg/60"
+                    lbSelected === "Web-2" ? "border-orange-500 bg-orange-500/10 text-foreground font-bold" : "border-card-border bg-card-bg/60"
                   }`}>
                     <Cpu className="h-2.5 w-2.5" />
                     <span>Web-2</span>
                   </div>
                   {packetState === "to-db" && (
-                    <div className="absolute top-4 left-12 h-1.5 w-1.5 rounded-full bg-amber-500 animate-ping" />
+                    <div className="absolute top-4 left-12 h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
                   )}
                 </div>
 
@@ -431,7 +431,7 @@ export default function InteractiveLabs() {
 
                 {/* Databases Node */}
                 <div className="flex flex-col items-center gap-1.5 relative">
-                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded bg-card-bg border border-card-border flex items-center justify-center text-amber-500 shadow-sm">
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded bg-card-bg border border-card-border flex items-center justify-center text-cyan-400 shadow-sm">
                     <Database className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </div>
                   <span>DB Cluster</span>
@@ -448,7 +448,7 @@ export default function InteractiveLabs() {
             <button
               onClick={simulateRequest}
               disabled={packetState !== "idle"}
-              className="w-full py-2 text-[10px] font-bold rounded bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full py-2 text-[10px] font-bold rounded bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
             >
               <Send className="h-3 w-3" />
               Send Request
@@ -460,10 +460,10 @@ export default function InteractiveLabs() {
         </div>
 
         {/* Lab 4: CI/CD Pipeline Visualizer */}
-        <div className="glass-panel rounded-xl p-6 flex flex-col justify-between hover:border-green-500/20 transition-all duration-300">
+        <div className="premium-card premium-card-cyan rounded-2xl p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-green-50/80 dark:bg-green-950/40 text-green-600 dark:text-green-400 border border-green-500/20">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                 DevOps Lab
               </span>
               <span className="text-[10px] text-text-muted font-semibold">Pipeline execution</span>
@@ -520,7 +520,7 @@ export default function InteractiveLabs() {
               {/* Progress bar */}
               <div className="w-full bg-input-bg h-1 rounded-full overflow-hidden mb-3">
                 <div 
-                  className="bg-emerald-500 h-full transition-all duration-300" 
+                  className="bg-orange-500 h-full transition-all duration-300" 
                   style={{ width: `${progressWidth}%` }}
                 />
               </div>
@@ -528,7 +528,7 @@ export default function InteractiveLabs() {
               {/* Console logging */}
               <div className="border border-card-border bg-[#030712] dark:bg-slate-950 rounded p-2 font-mono text-[8px] text-gray-400 h-20 overflow-y-auto flex flex-col gap-0.5">
                 {pipelineLogs.map((log, idx) => (
-                  <span key={idx} className={log.startsWith("✓") ? "text-emerald-400 font-semibold" : log.startsWith("🎉") ? "text-yellow-400 font-bold" : "text-gray-500"}>
+                  <span key={idx} className={log.startsWith("✓") ? "text-cyan-400 font-semibold" : log.startsWith("🎉") ? "text-orange-400 font-bold" : "text-gray-500"}>
                     {log}
                   </span>
                 ))}
@@ -539,7 +539,7 @@ export default function InteractiveLabs() {
             <button
               onClick={runPipeline}
               disabled={pipelineStep !== "idle" && pipelineStep !== "success"}
-              className="w-full py-2 text-[10px] font-bold rounded bg-green-600 hover:bg-green-500 disabled:opacity-50 text-white transition-colors flex items-center justify-center gap-1 cursor-pointer"
+              className="w-full py-2 text-[10px] font-bold rounded bg-cyan-500 hover:bg-cyan-600 disabled:opacity-50 text-white transition-colors flex items-center justify-center gap-1 cursor-pointer"
             >
               {pipelineStep === "idle" || pipelineStep === "success" ? (
                 <>

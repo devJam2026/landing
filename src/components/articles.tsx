@@ -12,8 +12,9 @@ export default function Articles() {
       readTime: "6 min read",
       category: "AI Engineering",
       icon: Cpu,
-      iconBg: "bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/10 dark:border-violet-500/20",
+      iconBg: "bg-orange-500/10 text-orange-500 border-orange-500/20",
       slug: "what-is-tokenization",
+      isCyan: false,
     },
     {
       title: "How Attention Works?",
@@ -22,8 +23,9 @@ export default function Articles() {
       readTime: "8 min read",
       category: "AI Engineering",
       icon: Key,
-      iconBg: "bg-violet-500/10 text-violet-600 dark:text-violet-400 border-violet-500/10 dark:border-violet-500/20",
+      iconBg: "bg-orange-500/10 text-orange-500 border-orange-500/20",
       slug: "how-attention-works",
+      isCyan: false,
     },
     {
       title: "Micro Frontends Architecture",
@@ -32,8 +34,9 @@ export default function Articles() {
       readTime: "10 min read",
       category: "Frontend Engineering",
       icon: Globe,
-      iconBg: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/10 dark:border-blue-500/20",
+      iconBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
       slug: "micro-frontends-architecture",
+      isCyan: true,
     },
     {
       title: "Rate Limiter Deep Dive",
@@ -42,8 +45,9 @@ export default function Articles() {
       readTime: "12 min read",
       category: "System Design",
       icon: BookOpen,
-      iconBg: "bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/10 dark:border-orange-500/20",
+      iconBg: "bg-orange-500/10 text-orange-500 border-orange-500/20",
       slug: "rate-limiter-deep-dive",
+      isCyan: false,
     },
   ];
 
@@ -53,7 +57,7 @@ export default function Articles() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
         <div>
-          <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-500 uppercase">
+          <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
             Latest Articles
           </span>
           <h2 className="text-3xl font-black text-foreground mt-1">
@@ -62,7 +66,7 @@ export default function Articles() {
         </div>
         <a
           href="#"
-          className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:text-violet-500 dark:hover:text-violet-300 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
+          className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
         >
           View all articles <span className="text-[10px]">→</span>
         </a>
@@ -76,7 +80,9 @@ export default function Articles() {
             <a
               key={article.slug}
               href="#"
-              className="group flex gap-4 p-5 rounded-xl border border-card-border bg-card-bg hover:border-violet-500/20 hover:bg-background/40 transition-all duration-300 cursor-not-allowed"
+              className={`group flex gap-4 p-5 rounded-xl transition-all duration-300 cursor-not-allowed ${
+                article.isCyan ? "premium-card premium-card-cyan" : "premium-card"
+              }`}
             >
               {/* Left Column Icon */}
               <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${article.iconBg} shadow-inner`}>
@@ -94,7 +100,9 @@ export default function Articles() {
                       {article.readTime}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-foreground group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors duration-200">
+                  <h3 className={`text-base font-bold text-foreground transition-colors duration-200 ${
+                    article.isCyan ? "group-hover:text-cyan-400" : "group-hover:text-orange-500"
+                  }`}>
                     {article.title}
                   </h3>
                   <p className="text-xs text-text-muted leading-relaxed mt-1">

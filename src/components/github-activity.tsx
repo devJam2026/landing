@@ -5,10 +5,10 @@ import { FolderGit, GitCommit, LayoutGrid, Star, ArrowUpRight, Info } from "luci
 
 export default function GithubActivity() {
   const stats = [
-    { label: "Repositories", value: "28", icon: FolderGit, color: "text-violet-600 dark:text-violet-400 bg-violet-500/10 border-violet-500/10 dark:border-violet-500/20" },
-    { label: "Commits (30 days)", value: "146", icon: GitCommit, color: "text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-500/10 dark:border-blue-500/20" },
-    { label: "Projects", value: "7", icon: LayoutGrid, color: "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/10 dark:border-emerald-500/20" },
-    { label: "Stars", value: "2.5k+", icon: Star, color: "text-amber-600 dark:text-amber-400 bg-amber-500/10 border-amber-500/10 dark:border-amber-500/20" },
+    { label: "Repositories", value: "28", icon: FolderGit, color: "text-orange-500 bg-orange-500/10 border-orange-500/20" },
+    { label: "Commits (30 days)", value: "146", icon: GitCommit, color: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20" },
+    { label: "Projects", value: "7", icon: LayoutGrid, color: "text-orange-500 bg-orange-500/10 border-orange-500/20" },
+    { label: "Stars", value: "2.5k+", icon: Star, color: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20" },
   ];
 
   const weeksCount = 28;
@@ -41,10 +41,10 @@ export default function GithubActivity() {
   const getCellColor = (level: number) => {
     switch (level) {
       case 0: return "bg-slate-100 dark:bg-gray-900 border-slate-200 dark:border-gray-950"; 
-      case 1: return "bg-emerald-100 dark:bg-emerald-950/40 border-emerald-200/10 dark:border-emerald-900/10"; 
-      case 2: return "bg-emerald-300/50 dark:bg-emerald-800/40 border-emerald-300/15 dark:border-emerald-700/20"; 
-      case 3: return "bg-emerald-500/50 dark:bg-emerald-600/70 border-emerald-500/15 dark:border-emerald-500/30"; 
-      case 4: return "bg-emerald-500 dark:bg-emerald-400 border-emerald-400 dark:border-emerald-300/30 shadow-sm shadow-emerald-400/15 animate-pulse-slow"; 
+      case 1: return "bg-cyan-950/20 border-cyan-900/10"; 
+      case 2: return "bg-cyan-800/40 border-cyan-700/20"; 
+      case 3: return "bg-cyan-600/65 border-cyan-500/30"; 
+      case 4: return "bg-cyan-400 border-cyan-300/30 shadow-sm shadow-cyan-400/15 animate-pulse-slow"; 
       default: return "bg-slate-100 dark:bg-gray-900";
     }
   };
@@ -58,16 +58,16 @@ export default function GithubActivity() {
   return (
     <div id="activity" className="w-full flex flex-col scroll-mt-20">
       
-      <div className="glass-panel rounded-2xl p-6 md:p-8 hover:border-violet-500/10 transition-all duration-300">
+      <div className="premium-card rounded-2xl p-6 md:p-8">
         
         {/* Header inside Panel */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-card-border pb-6 mb-8 gap-4">
           <div>
-            <h3 className="text-sm font-bold tracking-wider text-text-muted uppercase">
+            <h3 className="text-sm font-bold tracking-wider text-orange-500 uppercase">
               DEVJAM REPOSITORY ACTIVITY
             </h3>
             <span className="text-xs text-text-muted">
-              Dynamic tracking on <a href="https://github.com/devJam2026" className="text-violet-600 dark:text-violet-400 hover:underline font-bold">github.com/devJam2026</a>
+              Dynamic tracking on <a href="https://github.com/devJam2026" target="_blank" rel="noopener noreferrer" className="text-cyan-500 dark:text-cyan-400 hover:underline font-bold">GitHub</a>
             </span>
           </div>
           <a
@@ -148,17 +148,17 @@ export default function GithubActivity() {
               <div className="flex items-center gap-1.5 shrink-0">
                 <span>Less</span>
                 <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-slate-100 dark:bg-gray-900 border-slate-200 dark:border-gray-950" />
-                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-emerald-100 dark:bg-emerald-950/40 border-emerald-200/10 dark:border-emerald-900/10" />
-                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-emerald-300/50 dark:bg-emerald-800/40 border-emerald-300/15 dark:border-emerald-700/20" />
-                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-emerald-500/50 dark:bg-emerald-600/70 border-emerald-500/15 dark:border-emerald-500/30" />
-                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-emerald-50 dark:bg-emerald-400 border-emerald-400 dark:border-emerald-300/30" />
+                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-cyan-950/20 border-cyan-900/10" />
+                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-cyan-800/40 border-cyan-700/20" />
+                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-cyan-600/65 border-cyan-500/30" />
+                <div className="h-2.5 w-2.5 rounded-sm border-[0.5px] bg-cyan-400 border-cyan-300/30" />
                 <span>More</span>
               </div>
 
               <div className="min-h-4 text-[10px] text-text-muted flex items-center gap-1.5">
                 {hoverDetail ? (
                   <>
-                    <Info className="h-3.5 w-3.5 text-violet-500" />
+                    <Info className="h-3.5 w-3.5 text-orange-500" />
                     <span>
                       {hoverDetail.count === 0 ? "No contributions" : `${hoverDetail.count} contributions`} on {hoverDetail.dateString}
                     </span>

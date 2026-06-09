@@ -16,7 +16,7 @@ import Footer from "@/components/footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-background overflow-x-hidden selection:bg-violet-600/30 selection:text-violet-200 transition-colors duration-300">
+    <div className="relative min-h-screen bg-[#030712] overflow-x-hidden selection:bg-orange-500/30 selection:text-orange-200 transition-colors duration-300">
       
       {/* Navigation Header */}
       <Navbar />
@@ -49,7 +49,7 @@ export default function Home() {
         <ArchitectureNotes />
 
         {/* 4. Articles and GitHub Activity Side-by-Side (Matches Mockup) */}
-        <section className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-8 md:py-12 scroll-mt-20 w-full">
+        <section className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Latest Articles - Left Column (5/12 width) */}

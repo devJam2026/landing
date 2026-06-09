@@ -9,49 +9,45 @@ export default function LearningTracks() {
       title: "AI Engineering",
       tagline: "LLMs, RAG, Agents, MCP, Machine Learning & more.",
       icon: Brain,
-      borderColor: "hover:border-violet-500/30",
-      glowColor: "group-hover:bg-violet-500/5",
-      iconColor: "text-violet-600 dark:text-violet-400 bg-violet-500/10 border-violet-500/10 dark:border-violet-500/20",
-      arrowColor: "text-violet-600 dark:text-violet-400 group-hover:text-violet-500 dark:group-hover:text-violet-300",
+      iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
+      arrowColor: "text-orange-500 group-hover:text-orange-400",
       href: "#labs",
+      isCyan: false,
     },
     {
       title: "Frontend Engineering",
       tagline: "React, Next.js, TypeScript, Micro Frontends, Performance & Architecture.",
       icon: Code,
-      borderColor: "hover:border-blue-500/30",
-      glowColor: "group-hover:bg-blue-500/5",
-      iconColor: "text-blue-600 dark:text-blue-400 bg-blue-500/10 border-blue-500/10 dark:border-blue-500/20",
-      arrowColor: "text-blue-600 dark:text-blue-400 group-hover:text-blue-500 dark:group-hover:text-blue-300",
+      iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
+      arrowColor: "text-cyan-400 group-hover:text-cyan-300",
       href: "#labs",
+      isCyan: true,
     },
     {
       title: "System Design",
       tagline: "Scalability, Distributed Systems, Design Patterns, Databases, Caching & more.",
       icon: Network,
-      borderColor: "hover:border-orange-500/30",
-      glowColor: "group-hover:bg-orange-500/5",
-      iconColor: "text-orange-600 dark:text-orange-400 bg-orange-500/10 border-orange-500/10 dark:border-orange-500/20",
-      arrowColor: "text-orange-600 dark:text-orange-400 group-hover:text-orange-500 dark:group-hover:text-orange-300",
+      iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
+      arrowColor: "text-orange-500 group-hover:text-orange-400",
       href: "#labs",
+      isCyan: false,
     },
     {
       title: "DevOps & CI/CD",
       tagline: "Docker, GitHub Actions, Azure DevOps, Pipelines, Testing & more.",
       icon: InfinityIcon,
-      borderColor: "hover:border-green-500/30",
-      glowColor: "group-hover:bg-green-500/5",
-      iconColor: "text-green-600 dark:text-green-400 bg-green-500/10 border-green-500/10 dark:border-green-500/20",
-      arrowColor: "text-green-600 dark:text-green-400 group-hover:text-green-500 dark:group-hover:text-green-300",
+      iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
+      arrowColor: "text-cyan-400 group-hover:text-cyan-300",
       href: "#labs",
+      isCyan: true,
     },
   ];
 
   return (
-    <section id="tracks" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-8 md:py-12 scroll-mt-20">
+    <section id="tracks" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
         <div>
-          <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-500 uppercase">
+          <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
             Learning Tracks
           </span>
           <h2 className="text-3xl font-black text-foreground mt-1">
@@ -60,7 +56,7 @@ export default function LearningTracks() {
         </div>
         <a
           href="#labs"
-          className="text-xs font-bold text-violet-600 dark:text-violet-400 hover:text-violet-500 dark:hover:text-violet-300 flex items-center gap-1 transition-colors duration-200"
+          className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200"
         >
           View all tracks <span className="text-[10px]">→</span>
         </a>
@@ -73,11 +69,10 @@ export default function LearningTracks() {
             <a
               key={track.title}
               href={track.href}
-              className={`group relative flex flex-col justify-between overflow-hidden rounded-xl border border-card-border bg-card-bg p-6 transition-all duration-300 hover:-translate-y-1 ${track.borderColor}`}
+              className={`group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 ${
+                track.isCyan ? "premium-card premium-card-cyan" : "premium-card"
+              }`}
             >
-              {/* Card glow background overlay */}
-              <div className={`absolute inset-0 -z-10 transition-colors duration-300 ${track.glowColor}`} />
-              
               <div>
                 {/* Icon wrapper */}
                 <div className={`mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border ${track.iconColor} shadow-inner`}>

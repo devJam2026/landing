@@ -54,21 +54,21 @@ export default function LearningRoadmap() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "Completed":
-        return "text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/10 dark:border-emerald-500/20";
+        return "text-emerald-500 bg-emerald-500/10 border-emerald-500/20";
       case "Active":
-        return "text-violet-600 dark:text-violet-400 bg-violet-500/10 border-violet-500/10 dark:border-violet-500/20 animate-pulse";
+        return "text-orange-500 bg-orange-500/10 border-orange-500/20 animate-pulse";
       default:
         return "text-text-muted bg-input-bg border-card-border";
     }
   };
 
   return (
-    <section id="roadmap" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-8 md:py-12 scroll-mt-20 w-full">
+    <section id="roadmap" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20 w-full">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
         <div>
-          <span className="text-xs font-bold tracking-widest text-violet-600 dark:text-violet-500 uppercase">
+          <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
             Curriculum
           </span>
           <h2 className="text-3xl font-black text-foreground mt-1">
@@ -85,7 +85,7 @@ export default function LearningRoadmap() {
         {/* Left Column - Visual Horizontal/Vertical Timeline (8/12 width) */}
         <div className="lg:col-span-8 w-full">
           {/* Timeline Wrapper */}
-          <div className="glass-panel rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 overflow-x-auto w-full relative">
+          <div className="premium-card premium-card-cyan rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 overflow-x-auto w-full relative">
             
             {/* Ambient Background connecting pipe for desktop */}
             <div className="absolute top-1/2 left-8 right-8 h-0.5 bg-card-border/60 -translate-y-1/2 hidden md:block -z-10" />
@@ -106,11 +106,11 @@ export default function LearningRoadmap() {
                     <div
                       className={`h-12 w-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
                         isSelected
-                          ? "bg-violet-600 border-violet-500 text-white shadow-lg shadow-violet-500/35 scale-110"
+                          ? "bg-orange-500 border-orange-400 text-white shadow-lg shadow-orange-500/35 scale-110"
                           : step.status === "Completed"
-                          ? "bg-emerald-500/10 border-emerald-500 text-emerald-600 dark:text-emerald-400"
+                          ? "bg-emerald-500/10 border-emerald-500 text-emerald-500"
                           : step.status === "Active"
-                          ? "bg-violet-500/10 border-violet-500 text-violet-500"
+                          ? "bg-orange-500/10 border-orange-500 text-orange-500"
                           : "bg-background border-card-border text-text-muted"
                       }`}
                     >
@@ -146,7 +146,7 @@ export default function LearningRoadmap() {
 
         {/* Right Column - Syllabus Focus Node Details Card (4/12 width) */}
         <div className="lg:col-span-4 w-full">
-          <div className="glass-panel rounded-2xl p-6 md:p-8 border-violet-500/10 bg-card-bg/60 flex flex-col gap-5 min-h-[280px] hover:border-violet-500/25 transition-all duration-300 relative overflow-hidden">
+          <div className="premium-card rounded-2xl p-6 md:p-8 border-orange-500/10 bg-card-bg/60 flex flex-col gap-5 min-h-[280px] hover:border-orange-500/25 transition-all duration-300 relative overflow-hidden">
             
             <div className="flex items-center justify-between border-b border-card-border pb-3.5">
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-text-muted/80">Syllabus Details</span>
@@ -170,7 +170,7 @@ export default function LearningRoadmap() {
                 </div>
                 <div className="h-1.5 w-full bg-input-bg rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-violet-600 rounded-full transition-all duration-500"
+                    className="h-full bg-orange-500 rounded-full transition-all duration-500"
                     style={{ width: activeStep.progress }}
                   />
                 </div>
