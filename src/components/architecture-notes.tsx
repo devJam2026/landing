@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ArrowRight, BookOpen, Layers } from "lucide-react";
 
 export default function ArchitectureNotes() {
@@ -115,12 +116,12 @@ export default function ArchitectureNotes() {
             Featured Architecture Notes
           </h2>
         </div>
-        <a
-          href="#articles"
+        <Link
+          href="/articles"
           className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200"
         >
           View Technical Notes <span className="text-[10px]">→</span>
-        </a>
+        </Link>
       </div>
 
       {/* Grid of Notes */}

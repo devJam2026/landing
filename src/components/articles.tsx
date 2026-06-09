@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { BookOpen, Cpu, Globe, Key } from "lucide-react";
 
 export default function Articles() {
@@ -14,6 +15,7 @@ export default function Articles() {
       icon: Cpu,
       iconBg: "bg-orange-500/10 text-orange-500 border-orange-500/20",
       slug: "what-is-tokenization",
+      href: "/articles/#llm-basics",
       isCyan: false,
     },
     {
@@ -25,6 +27,7 @@ export default function Articles() {
       icon: Key,
       iconBg: "bg-orange-500/10 text-orange-500 border-orange-500/20",
       slug: "how-attention-works",
+      href: "/articles/#transformers",
       isCyan: false,
     },
     {
@@ -36,6 +39,7 @@ export default function Articles() {
       icon: Globe,
       iconBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
       slug: "micro-frontends-architecture",
+      href: "/articles/#frontend-architecture",
       isCyan: true,
     },
     {
@@ -47,6 +51,7 @@ export default function Articles() {
       icon: BookOpen,
       iconBg: "bg-orange-500/10 text-orange-500 border-orange-500/20",
       slug: "rate-limiter-deep-dive",
+      href: "/articles/#system-design",
       isCyan: false,
     },
   ];
@@ -64,12 +69,12 @@ export default function Articles() {
             Technical Writing & Notes
           </h2>
         </div>
-        <a
-          href="#"
-          className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
+        <Link
+          href="/articles"
+          className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200"
         >
           View all articles <span className="text-[10px]">→</span>
-        </a>
+        </Link>
       </div>
 
       {/* Grid of Articles */}
@@ -77,10 +82,10 @@ export default function Articles() {
         {articles.map((article) => {
           const Icon = article.icon;
           return (
-            <a
+            <Link
               key={article.slug}
-              href="#"
-              className={`group flex gap-4 p-5 rounded-xl transition-all duration-300 cursor-not-allowed ${
+              href={article.href}
+              className={`group flex gap-4 p-5 rounded-xl transition-all duration-300 ${
                 article.isCyan ? "premium-card premium-card-cyan" : "premium-card"
               }`}
             >
@@ -114,7 +119,7 @@ export default function Articles() {
                   {article.date}
                 </div>
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>

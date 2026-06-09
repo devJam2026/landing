@@ -36,8 +36,8 @@ export default function AboutPage() {
 
   const socialLinks = [
     { name: "GitHub", href: "https://github.com/devJam2026", icon: GithubIcon, color: "hover:text-orange-500 hover:border-orange-500/30" },
-    { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedinIcon, color: "hover:text-blue-500 hover:border-blue-500/30" },
-    { name: "YouTube", href: "https://youtube.com", icon: YoutubeIcon, color: "hover:text-orange-600 hover:border-orange-600/30" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/avick-mukherjee-400a4214/", icon: LinkedinIcon, color: "hover:text-blue-500 hover:border-blue-500/30" },
+    { name: "YouTube", href: "https://www.youtube.com/@DevJam-v5h", icon: YoutubeIcon, color: "hover:text-orange-600 hover:border-orange-600/30" },
   ];
 
   return (

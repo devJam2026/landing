@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Star, GitFork, ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "./brand-icons";
 
@@ -14,6 +15,7 @@ export default function FeaturedProjects() {
       language: "TypeScript",
       langColor: "bg-blue-500",
       githubUrl: "https://github.com/devJam2026/tokenizer-visualizer",
+      projectUrl: "/projects/tokenizer-visualizer-studio",
       isCyan: true,
     },
     {
@@ -24,6 +26,7 @@ export default function FeaturedProjects() {
       language: "React",
       langColor: "bg-sky-400",
       githubUrl: "https://github.com/devJam2026/hyperparameter-playground",
+      projectUrl: "/projects/hyperparameter-playground",
       isCyan: false,
     },
     {
@@ -34,6 +37,7 @@ export default function FeaturedProjects() {
       language: "Next.js",
       langColor: "bg-slate-400",
       githubUrl: "https://github.com/devJam2026/context-window-dashboard",
+      projectUrl: "/projects/context-window-dashboard",
       isCyan: true,
     },
     {
@@ -44,6 +48,7 @@ export default function FeaturedProjects() {
       language: "Python",
       langColor: "bg-yellow-500",
       githubUrl: "https://github.com/devJam2026/attention-notebook",
+      projectUrl: "/projects/mini-attention-notebook",
       isCyan: false,
     },
   ];
@@ -106,7 +111,9 @@ export default function FeaturedProjects() {
                 <h3 className={`text-base font-bold text-foreground mb-2 transition-colors duration-200 ${
                   project.isCyan ? "group-hover:text-cyan-400" : "group-hover:text-orange-500"
                 }`}>
-                  {project.name}
+                  <Link href={project.projectUrl}>
+                    {project.name}
+                  </Link>
                 </h3>
                 
                 <p className="text-xs text-text-muted leading-relaxed mb-6">

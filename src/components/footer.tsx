@@ -7,9 +7,24 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim()) {
+      try {
+        await fetch("https://formsubmit.co/ajax/avickmukh@gmail.com", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            email: email,
+            _subject: "New DevJam Subscriber!"
+          })
+        });
+      } catch (err) {
+        console.error("Failed to submit subscription", err);
+      }
       setSubscribed(true);
       setEmail("");
       setTimeout(() => setSubscribed(false), 3000);
@@ -93,7 +108,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/avick-mukherjee-400a4214/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors duration-200"
@@ -103,7 +118,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://youtube.com"
+                  href="https://www.youtube.com/@DevJam-v5h"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors duration-200"
@@ -113,7 +128,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://twitter.com"
+                  href="https://x.com/AVICKMUKH"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors duration-200"

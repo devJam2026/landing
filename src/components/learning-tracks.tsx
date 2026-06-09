@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Brain, Code, Network, Infinity as InfinityIcon } from "lucide-react";
 
 export default function LearningTracks() {
@@ -11,7 +12,7 @@ export default function LearningTracks() {
       icon: Brain,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       arrowColor: "text-orange-500 group-hover:text-orange-400",
-      href: "#labs",
+      href: "/labs",
       isCyan: false,
     },
     {
@@ -20,7 +21,7 @@ export default function LearningTracks() {
       icon: Code,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       arrowColor: "text-cyan-400 group-hover:text-cyan-300",
-      href: "#labs",
+      href: "/labs",
       isCyan: true,
     },
     {
@@ -29,7 +30,7 @@ export default function LearningTracks() {
       icon: Network,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       arrowColor: "text-orange-500 group-hover:text-orange-400",
-      href: "#labs",
+      href: "/labs",
       isCyan: false,
     },
     {
@@ -38,7 +39,7 @@ export default function LearningTracks() {
       icon: InfinityIcon,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       arrowColor: "text-cyan-400 group-hover:text-cyan-300",
-      href: "#labs",
+      href: "/labs",
       isCyan: true,
     },
   ];
@@ -54,19 +55,19 @@ export default function LearningTracks() {
             Four Pillars of DevJam
           </h2>
         </div>
-        <a
-          href="#labs"
+        <Link
+          href="/labs"
           className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200"
         >
           View all tracks <span className="text-[10px]">→</span>
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {tracks.map((track) => {
           const Icon = track.icon;
           return (
-            <a
+            <Link
               key={track.title}
               href={track.href}
               className={`group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 ${
@@ -97,7 +98,7 @@ export default function LearningTracks() {
                   →
                 </span>
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Play, Send, RefreshCw, Cpu, Database, Network, ChevronRight } from "lucide-react";
 
 interface InteractiveLabsProps {
@@ -185,12 +186,12 @@ export default function InteractiveLabs({ singleLab }: InteractiveLabsProps = {}
               Interactive. Practical. Hands-on.
             </h2>
           </div>
-          <a
-            href="#"
-            className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
+          <Link
+            href="/labs"
+            className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200"
           >
             View all labs <span className="text-[10px]">→</span>
-          </a>
+          </Link>
         </div>
       )}
 

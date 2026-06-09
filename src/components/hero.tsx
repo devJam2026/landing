@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Brain, Code, Infinity as InfinityIcon, Layers, Folder, File, Terminal } from "lucide-react";
 import { GithubIcon, LinkedinIcon, TwitterIcon, YoutubeIcon } from "./brand-icons";
 
@@ -30,9 +31,9 @@ export default function Hero() {
 
   const socialLinks = [
     { name: "GitHub", href: "https://github.com/devJam2026", icon: GithubIcon, color: "hover:text-orange-500" },
-    { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedinIcon, color: "hover:text-blue-500" },
-    { name: "Twitter", href: "https://twitter.com", icon: TwitterIcon, color: "hover:text-cyan-400" },
-    { name: "YouTube", href: "https://youtube.com", icon: YoutubeIcon, color: "hover:text-orange-600" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/avick-mukherjee-400a4214/", icon: LinkedinIcon, color: "hover:text-blue-500" },
+    { name: "Twitter", href: "https://x.com/AVICKMUKH", icon: TwitterIcon, color: "hover:text-cyan-400" },
+    { name: "YouTube", href: "https://www.youtube.com/@DevJam-v5h", icon: YoutubeIcon, color: "hover:text-orange-600" },
   ];
 
   return (
@@ -82,20 +83,20 @@ export default function Hero() {
 
             {/* Premium CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-3 w-full sm:w-auto">
-              <a
-                href="#labs"
+              <Link
+                href="/labs"
                 className="w-full sm:w-48 inline-flex items-center justify-center rounded-lg bg-orange-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:bg-orange-600 hover:shadow-orange-500/35 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 Explore Labs
                 <span className="ml-1.5">→</span>
-              </a>
-              <a
-                href="#projects"
+              </Link>
+              <Link
+                href="/projects"
                 className="w-full sm:w-48 inline-flex items-center justify-center rounded-lg border border-card-border bg-card-bg/40 px-6 py-3.5 text-sm font-semibold text-foreground hover:border-cyan-500/30 hover:text-cyan-400 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 View Projects
                 <GithubIcon className="ml-2 h-4 w-4" />
-              </a>
+              </Link>
             </div>
 
             {/* Social Links */}
