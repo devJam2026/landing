@@ -27,18 +27,19 @@ export default function Navbar() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const searchItems = [
-    { type: "Lab", title: "Tokenizer Visualizer", href: "#labs", desc: "Visualize how text is tokenized across LLMs" },
-    { type: "Lab", title: "React Rendering Visualizer", href: "#labs", desc: "Understand component rendering & tree reconciliation" },
-    { type: "Lab", title: "System Design Simulator", href: "#labs", desc: "Simulate load balancing & database queries" },
-    { type: "Lab", title: "CI/CD Pipeline Visualizer", href: "#labs", desc: "Build & visualize build-test-deploy automation" },
-    { type: "Article", title: "What is Tokenization?", href: "#articles", desc: "Breaking down tokens, vocabulary, and embeddings" },
-    { type: "Article", title: "How Attention Works?", href: "#articles", desc: "A visual guide to attention mechanism in transformers" },
-    { type: "Article", title: "Micro Frontends Architecture", href: "#articles", desc: "Design, build, and scale micro frontends the right way" },
-    { type: "Article", title: "Rate Limiter Deep Dive", href: "#articles", desc: "Designing rate limiters scaling to millions of requests" },
-    { type: "Roadmap", title: "AI Engineering Roadmap", href: "#tracks", desc: "From AI Foundations to Agent architectures" },
-    { type: "Roadmap", title: "Frontend Mastery Roadmap", href: "#tracks", desc: "From core DOM/React to performance engineering" },
-    { type: "Roadmap", title: "System Design Roadmap", href: "#tracks", desc: "From DNS/Caching to distributed storage" },
-    { type: "Roadmap", title: "DevOps & CI/CD Roadmap", href: "#tracks", desc: "From Docker containers to multi-ring CD pipelines" },
+    { type: "Lab", title: "Tokenizer Visualizer", href: "/labs/tokenizer-visualizer", desc: "Visualize how text is tokenized across LLMs" },
+    { type: "Lab", title: "React Rendering Visualizer", href: "/labs/react-rendering-visualizer", desc: "Understand component rendering & tree reconciliation" },
+    { type: "Lab", title: "System Design Simulator", href: "/labs/system-design-simulator", desc: "Simulate load balancing & database queries" },
+    { type: "Lab", title: "CI/CD Pipeline Visualizer", href: "/labs/cicd-pipeline-visualizer", desc: "Build & visualize build-test-deploy automation" },
+    { type: "Article", title: "What is Tokenization?", href: "/articles/#llm-basics", desc: "Breaking down tokens, vocabulary, and embeddings" },
+    { type: "Article", title: "How Attention Works?", href: "/articles/#transformers", desc: "A visual guide to attention mechanism in transformers" },
+    { type: "Article", title: "Micro Frontends Architecture", href: "/articles/#frontend-architecture", desc: "Design, build, and scale micro frontends the right way" },
+    { type: "Article", title: "Rate Limiter Deep Dive", href: "/articles/#system-design", desc: "Designing rate limiters scaling to millions of requests" },
+    { type: "Roadmap", title: "LLM Foundation Roadmap", href: "/roadmaps/#llm-foundation", desc: "Master vector space, tokens, embeddings, and context window" },
+    { type: "Roadmap", title: "AI Engineering Roadmap", href: "/roadmaps/#ai-engineer", desc: "From AI Foundations to Agent architectures" },
+    { type: "Roadmap", title: "Frontend Mastery Roadmap", href: "/roadmaps/#frontend-architect", desc: "From core DOM/React to performance engineering" },
+    { type: "Roadmap", title: "System Design Roadmap", href: "/roadmaps/#system-design", desc: "From DNS/Caching to distributed storage" },
+    { type: "Roadmap", title: "DevOps & CI/CD Roadmap", href: "/roadmaps/#devops-ci-cd", desc: "From Docker containers to multi-ring CD pipelines" },
   ];
 
   // Autofocus input when modal opens

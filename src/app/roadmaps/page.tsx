@@ -77,7 +77,7 @@ export default function RoadmapsPage() {
             {roadmaps.map((roadmap) => {
               const Icon = roadmap.icon;
               return (
-                <Card key={roadmap.name} isCyan={roadmap.isCyan}>
+                <Card key={roadmap.name} isCyan={roadmap.isCyan} id={roadmap.name.toLowerCase().replace(/[\s/]+/g, "-")}>
                   <div>
                     {/* Header */}
                     <div className="flex items-center gap-3 mb-4">

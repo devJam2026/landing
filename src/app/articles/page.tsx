@@ -113,7 +113,7 @@ export default function ArticlesPage() {
           {/* Grouped Categories Listing */}
           <div className="flex flex-col gap-12 w-full">
             {categories.map((category) => (
-              <div key={category.name} className="flex flex-col gap-4">
+              <div id={category.name.toLowerCase().replace(/\s+/g, "-")} key={category.name} className="flex flex-col gap-4 scroll-mt-24">
                 <div className="flex items-center gap-2 border-b border-card-border pb-2.5">
                   <span className="h-2 w-2 rounded-full bg-orange-500" />
                   <h3 className="text-sm font-bold font-mono text-foreground uppercase tracking-widest">

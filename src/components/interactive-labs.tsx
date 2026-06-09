@@ -3,7 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { Play, Send, RefreshCw, Cpu, Database, Network, ChevronRight } from "lucide-react";
 
-export default function InteractiveLabs() {
+interface InteractiveLabsProps {
+  singleLab?: "tokenizer" | "react" | "system" | "cicd";
+}
+
+export default function InteractiveLabs({ singleLab }: InteractiveLabsProps = {}) {
   // --- Tokenizer Visualizer State ---
   const [tokenText, setTokenText] = useState("DevJam makes learning fun and highly interactive.");
   const [tokenizedList, setTokenizedList] = useState<{ text: string; id: number }[]>([]);
@@ -166,31 +170,35 @@ export default function InteractiveLabs() {
     "bg-emerald-500/10 border-emerald-500/20 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300",
   ];
 
-  return (
-    <section id="labs" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20">
-      
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
-        <div>
-          <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
-            Featured Labs
-          </span>
-          <h2 className="text-3xl font-black text-foreground mt-1">
-            Interactive. Practical. Hands-on.
-          </h2>
-        </div>
-        <a
-          href="#"
-          className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
-        >
-          View all labs <span className="text-[10px]">→</span>
-        </a>
-      </div>
+  const showAll = !singleLab;
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 w-full">
+  return (
+    <section id="labs" className={singleLab ? "w-full" : "mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20"}>
+      
+      {showAll && (
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
+          <div>
+            <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
+              Featured Labs
+            </span>
+            <h2 className="text-3xl font-black text-foreground mt-1">
+              Interactive. Practical. Hands-on.
+            </h2>
+          </div>
+          <a
+            href="#"
+            className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200 cursor-not-allowed"
+          >
+            View all labs <span className="text-[10px]">→</span>
+          </a>
+        </div>
+      )}
+
+      <div className={singleLab ? "w-full" : "grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 w-full"}>
         
         {/* Lab 1: Tokenizer Visualizer */}
-        <div className="premium-card rounded-2xl p-6 flex flex-col justify-between">
+        {(showAll || singleLab === "tokenizer") && (
+          <div id="tokenizer-visualizer" className="premium-card rounded-2xl p-6 flex flex-col justify-between scroll-mt-24 w-full">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-orange-500/10 text-orange-500 border border-orange-500/20">
@@ -251,10 +259,12 @@ export default function InteractiveLabs() {
             <span>•</span>
             <span>BPE split style</span>
           </div>
-        </div>
+          </div>
+        )}
 
         {/* Lab 2: React Rendering Visualizer */}
-        <div className="premium-card premium-card-cyan rounded-2xl p-6 flex flex-col justify-between">
+        {(showAll || singleLab === "react") && (
+          <div id="react-visualizer" className="premium-card premium-card-cyan rounded-2xl p-6 flex flex-col justify-between scroll-mt-24 w-full">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
@@ -358,10 +368,12 @@ export default function InteractiveLabs() {
           <div className="flex items-center gap-4 text-[10px] text-text-muted pt-3 border-t border-card-border">
             <span>Algorithm: Virtual DOM Diffing</span>
           </div>
-        </div>
+          </div>
+        )}
 
         {/* Lab 3: System Design Simulator */}
-        <div className="premium-card rounded-2xl p-6 flex flex-col justify-between">
+        {(showAll || singleLab === "system") && (
+          <div id="system-visualizer" className="premium-card rounded-2xl p-6 flex flex-col justify-between scroll-mt-24 w-full">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-orange-500/10 text-orange-500 border border-orange-500/20">
@@ -457,10 +469,12 @@ export default function InteractiveLabs() {
           <div className="flex items-center gap-4 text-[10px] text-text-muted pt-3 border-t border-card-border">
             <span>Topology: Round Robin LB</span>
           </div>
-        </div>
+          </div>
+        )}
 
         {/* Lab 4: CI/CD Pipeline Visualizer */}
-        <div className="premium-card premium-card-cyan rounded-2xl p-6 flex flex-col justify-between">
+        {(showAll || singleLab === "cicd") && (
+          <div id="pipeline-visualizer" className="premium-card premium-card-cyan rounded-2xl p-6 flex flex-col justify-between scroll-mt-24 w-full">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
@@ -557,7 +571,8 @@ export default function InteractiveLabs() {
           <div className="flex items-center gap-4 text-[10px] text-text-muted pt-3 border-t border-card-border">
             <span>Trigger: Push to main</span>
           </div>
-        </div>
+          </div>
+        )}
 
       </div>
     </section>
