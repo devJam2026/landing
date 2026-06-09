@@ -167,7 +167,7 @@ export default function InteractiveLabs() {
   ];
 
   return (
-    <section id="labs" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20">
+    <section id="labs" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
@@ -187,7 +187,7 @@ export default function InteractiveLabs() {
         </a>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 w-full">
         
         {/* Lab 1: Tokenizer Visualizer */}
         <div className="premium-card rounded-2xl p-6 flex flex-col justify-between">

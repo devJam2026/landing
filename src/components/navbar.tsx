@@ -1,12 +1,24 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Sun, Moon, Search } from "lucide-react";
 import { GithubIcon } from "./brand-icons";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("Home");
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (pathname === "/") setActiveTab("Home");
+    else if (pathname.startsWith("/labs")) setActiveTab("Labs");
+    else if (pathname.startsWith("/roadmaps")) setActiveTab("Roadmaps");
+    else if (pathname.startsWith("/articles")) setActiveTab("Articles");
+    else if (pathname.startsWith("/projects")) setActiveTab("Projects");
+    else if (pathname.startsWith("/about")) setActiveTab("About");
+  }, [pathname]);
   const [isDark, setIsDark] = useState(false);
 
   // --- Global Search State ---
@@ -87,21 +99,21 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "Labs", href: "#labs" },
-    { name: "Roadmaps", href: "#tracks" },
-    { name: "Articles", href: "#articles" },
-    { name: "Projects", href: "#projects" },
-    { name: "About", href: "#about" },
+    { name: "Home", href: "/" },
+    { name: "Labs", href: "/labs" },
+    { name: "Roadmaps", href: "/roadmaps" },
+    { name: "Articles", href: "/articles" },
+    { name: "Projects", href: "/projects" },
+    { name: "About", href: "/about" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-card-border bg-background/80 backdrop-blur-md transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.04] bg-[#030712]/75 backdrop-blur-md shadow-lg transition-all duration-300">
       <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <a href="#" className="flex items-center gap-2 group">
+            <Link href="/" className="flex items-center gap-2 group">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-cyan-500 text-white font-mono text-xl font-bold shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform duration-200">
                 &lt;/&gt;
               </div>
@@ -113,16 +125,15 @@ export default function Navbar() {
                   Engineering Labs for Curious Minds
                 </span>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10 lg:gap-12">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setActiveTab(link.name)}
                 className={`relative py-2 text-sm font-semibold transition-colors duration-200 ${activeTab === link.name ? "text-orange-500 dark:text-orange-400" : "text-text-muted hover:text-foreground"
                   }`}
               >
@@ -130,7 +141,7 @@ export default function Navbar() {
                 {activeTab === link.name && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-orange-500 shadow-md shadow-orange-500/50" />
                 )}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -171,13 +182,13 @@ export default function Navbar() {
               )}
             </button>
 
-            <a
-              href="#labs"
+            <Link
+              href="/labs"
               className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 hover:bg-orange-600 hover:shadow-orange-500/35 transition-all duration-200"
             >
               Explore Labs
               <span className="ml-1.5 transition-transform duration-200 hover:translate-x-0.5">→</span>
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -215,13 +226,12 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-card-border bg-background/95 backdrop-blur-lg px-4 pt-2 pb-6 space-y-2">
+        <div className="md:hidden border-b border-white/[0.04] bg-[#030712]/95 backdrop-blur-xl px-6 pt-4 pb-8 space-y-3 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               onClick={() => {
-                setActiveTab(link.name);
                 setMobileMenuOpen(false);
               }}
               className={`block px-3 py-2.5 rounded-lg text-base font-semibold transition-colors duration-200 ${activeTab === link.name
@@ -230,7 +240,7 @@ export default function Navbar() {
                 }`}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
           <div className="pt-4 border-t border-card-border flex items-center justify-between px-3">
             <a
@@ -241,13 +251,13 @@ export default function Navbar() {
             >
               <GithubIcon className="h-5 w-5" />
             </a>
-            <a
-              href="#labs"
+            <Link
+              href="/labs"
               onClick={() => setMobileMenuOpen(false)}
               className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-500/25"
             >
               Explore Labs →
-            </a>
+            </Link>
           </div>
         </div>
       )}

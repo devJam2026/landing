@@ -44,7 +44,7 @@ export default function LearningTracks() {
   ];
 
   return (
-    <section id="tracks" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20">
+    <section id="tracks" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
         <div>
           <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
@@ -62,7 +62,7 @@ export default function LearningTracks() {
         </a>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {tracks.map((track) => {
           const Icon = track.icon;
           return (

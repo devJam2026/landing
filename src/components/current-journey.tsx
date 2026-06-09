@@ -11,7 +11,7 @@ export default function CurrentJourney() {
   ];
 
   return (
-    <section id="journey" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20 w-full">
+    <section id="journey" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20 w-full">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* Left Column - Current Journey Progress (7/12 width) */}

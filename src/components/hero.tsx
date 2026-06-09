@@ -36,7 +36,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative overflow-hidden pt-2 pb-6 md:pt-3 md:pb-8 w-full">
+    <section className="relative overflow-hidden pt-4 pb-7 md:pt-6 md:pb-10 w-full">
       {/* Background radial glows using orange and cyan accents */}
       <div className="absolute top-0 left-1/4 h-[500px] w-[500px] rounded-full bg-orange-500/5 dark:bg-orange-500/[0.02] blur-3xl -z-10 animate-glow" />
       <div className="absolute top-20 right-1/4 h-[500px] w-[500px] rounded-full bg-cyan-500/5 dark:bg-cyan-500/[0.02] blur-3xl -z-10 animate-glow" />
@@ -81,17 +81,17 @@ export default function Hero() {
             </div>
 
             {/* Premium CTA Buttons */}
-            <div className="flex flex-wrap justify-center lg:justify-start items-center gap-4 mt-2 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-4 mt-3 w-full sm:w-auto">
               <a
                 href="#labs"
-                className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-orange-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:bg-orange-600 hover:shadow-orange-500/35 hover:-translate-y-0.5 transition-all duration-200"
+                className="w-full sm:w-48 inline-flex items-center justify-center rounded-lg bg-orange-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:bg-orange-600 hover:shadow-orange-500/35 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 Explore Labs
                 <span className="ml-1.5">→</span>
               </a>
               <a
                 href="#projects"
-                className="w-full sm:w-auto inline-flex items-center justify-center rounded-lg border border-card-border bg-card-bg/40 px-6 py-3.5 text-sm font-semibold text-foreground hover:border-cyan-500/30 hover:text-cyan-400 hover:-translate-y-0.5 transition-all duration-200"
+                className="w-full sm:w-48 inline-flex items-center justify-center rounded-lg border border-card-border bg-card-bg/40 px-6 py-3.5 text-sm font-semibold text-foreground hover:border-cyan-500/30 hover:text-cyan-400 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
                 View Projects
                 <GithubIcon className="ml-2 h-4 w-4" />

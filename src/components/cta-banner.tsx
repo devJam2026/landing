@@ -5,7 +5,7 @@ import { Rocket } from "lucide-react";
 
 export default function CtaBanner() {
   return (
-    <section className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 my-4 md:my-6 w-full">
+    <section className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 my-4 md:my-7 w-full">
       <div className="relative overflow-hidden rounded-2xl premium-card p-8 md:p-12">
         {/* Glow effect */}
         <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-orange-600/10 dark:bg-orange-600/[0.04] blur-3xl -z-10 animate-pulse-slow" />

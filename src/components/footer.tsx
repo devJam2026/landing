@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-card-border bg-background py-8 text-text-muted transition-colors duration-300">
       <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 w-full">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 w-full">
           {/* Brand Column */}
           <div className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col gap-4">
             <div className="flex items-center gap-2">
@@ -52,53 +53,24 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <a href="#labs" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
+                <Link href="/labs" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
                   Labs
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#tracks" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
+                <Link href="/roadmaps" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
                   Roadmaps
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#articles" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
+                <Link href="/articles" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
                   Articles
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#projects" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
+                <Link href="/projects" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
                   Projects
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources Column */}
-          <div>
-            <h3 className="text-sm font-bold tracking-wider text-foreground uppercase mb-4">
-              Resources
-            </h3>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <a href="#" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200 cursor-not-allowed">
-                  Cheat Sheets
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200 cursor-not-allowed">
-                  Notes
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200 cursor-not-allowed">
-                  Books
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200 cursor-not-allowed">
-                  Tools
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

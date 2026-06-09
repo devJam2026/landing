@@ -29,7 +29,7 @@ export default function WhyDevJam() {
   ];
 
   return (
-    <section id="why" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20 w-full">
+    <section id="why" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20 w-full">
       <div className="flex flex-col items-center text-center mb-10 max-w-2xl mx-auto">
         <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
           Why DevJam?

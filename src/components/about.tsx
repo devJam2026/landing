@@ -32,7 +32,7 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20 border-t border-card-border">
+    <section id="about" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20 border-t border-card-border">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         {/* Left column description */}

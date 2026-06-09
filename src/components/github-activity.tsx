@@ -4,19 +4,114 @@ import React, { useState } from "react";
 import { FolderGit, GitCommit, LayoutGrid, Star, ArrowUpRight, Info } from "lucide-react";
 
 export default function GithubActivity() {
+  const [repoCount, setRepoCount] = useState<string>("28");
+  const [commitCount, setCommitCount] = useState<string>("146");
+  const [projectCount, setProjectCount] = useState<string>("7");
+  const [starCount, setStarCount] = useState<string>("2.5k+");
+
+  React.useEffect(() => {
+    async function fetchGitHubStats() {
+      try {
+        const cachedData = localStorage.getItem("devjam_github_stats");
+        const cachedTime = localStorage.getItem("devjam_github_stats_time");
+        const cacheDuration = 15 * 60 * 1000; // 15 minutes cache
+
+        if (cachedData && cachedTime && (Date.now() - parseInt(cachedTime, 10) < cacheDuration)) {
+          const parsed = JSON.parse(cachedData);
+          setRepoCount(parsed.repos);
+          setCommitCount(parsed.commits);
+          setStarCount(parsed.stars);
+          setProjectCount(parsed.projects);
+          return;
+        }
+
+        // Fetch user basic info
+        const userRes = await fetch("https://api.github.com/users/devJam2026");
+        if (!userRes.ok) throw new Error("Failed to fetch user profile");
+        const userData = await userRes.json();
+        const reposCountVal = String(userData.public_repos);
+
+        // Fetch repos for stars
+        const reposRes = await fetch("https://api.github.com/users/devJam2026/repos?per_page=100");
+        let starsCountVal = "0";
+        let actualProjects = "6";
+        if (reposRes.ok) {
+          const reposData = await reposRes.json();
+          const totalStars = reposData.reduce((acc: number, repo: { stargazers_count?: number }) => acc + (repo.stargazers_count || 0), 0);
+          starsCountVal = String(totalStars);
+          actualProjects = String(reposData.length);
+        }
+
+        // Fetch commits in last 30 days
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const dateStr = thirtyDaysAgo.toISOString().split("T")[0];
+        
+        const commitsRes = await fetch(
+          `https://api.github.com/search/commits?q=author:devJam2026+author-date:>${dateStr}`,
+          {
+            headers: {
+              Accept: "application/vnd.github.cloak-preview",
+            },
+          }
+        );
+        let commitsCountVal = "36";
+        if (commitsRes.ok) {
+          const commitsData = await commitsRes.json();
+          commitsCountVal = String(commitsData.total_count);
+        } else {
+          // Fallback search
+          const fallbackRes = await fetch("https://api.github.com/search/commits?q=author:devJam2026", {
+            headers: {
+              Accept: "application/vnd.github.cloak-preview",
+            },
+          });
+          if (fallbackRes.ok) {
+            const fallbackData = await fallbackRes.json();
+            commitsCountVal = String(fallbackData.total_count);
+          }
+        }
+
+        const finalStats = {
+          repos: reposCountVal,
+          commits: commitsCountVal,
+          stars: starsCountVal,
+          projects: actualProjects,
+        };
+
+        localStorage.setItem("devjam_github_stats", JSON.stringify(finalStats));
+        localStorage.setItem("devjam_github_stats_time", String(Date.now()));
+
+        setRepoCount(finalStats.repos);
+        setCommitCount(finalStats.commits);
+        setStarCount(finalStats.stars);
+        setProjectCount(finalStats.projects);
+      } catch (err) {
+        console.error("Error fetching GitHub stats:", err);
+      }
+    }
+
+    fetchGitHubStats();
+  }, []);
+
   const stats = [
-    { label: "Repositories", value: "28", icon: FolderGit, color: "text-orange-500 bg-orange-500/10 border-orange-500/20" },
-    { label: "Commits (30 days)", value: "146", icon: GitCommit, color: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20" },
-    { label: "Projects", value: "7", icon: LayoutGrid, color: "text-orange-500 bg-orange-500/10 border-orange-500/20" },
-    { label: "Stars", value: "2.5k+", icon: Star, color: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20" },
+    { label: "Repositories", value: repoCount, icon: FolderGit, color: "text-orange-500 bg-orange-500/10 border-orange-500/20" },
+    { label: "Commits (30 days)", value: commitCount, icon: GitCommit, color: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20" },
+    { label: "Projects", value: projectCount, icon: LayoutGrid, color: "text-orange-500 bg-orange-500/10 border-orange-500/20" },
+    { label: "Stars", value: starCount, icon: Star, color: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20" },
   ];
+
+  interface ContributionCell {
+    count: number;
+    date: string;
+    level: number;
+  }
 
   const weeksCount = 28;
   const daysInWeek = 7;
-  const months = ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"];
 
-  // Seeding deterministic realistic values to avoid SSR hydration mismatch
-  const contributionGrid: number[][] = [];
+  // Seeding deterministic realistic values for SSR/Hydration matching
+  const defaultGrid: ContributionCell[][] = [];
   const seedList = [
     0,1,0,2,3,0,0, 1,2,0,3,4,1,0, 0,0,1,2,3,0,1, 2,3,1,4,0,2,0,
     0,1,2,2,3,0,0, 2,0,1,3,2,1,0, 1,1,2,3,4,0,0, 0,2,3,1,0,2,0,
@@ -28,15 +123,90 @@ export default function GithubActivity() {
   ];
 
   for (let w = 0; w < weeksCount; w++) {
-    const weekDays: number[] = [];
+    const weekDays: ContributionCell[] = [];
     for (let d = 0; d < daysInWeek; d++) {
       const idx = (w * daysInWeek + d) % seedList.length;
-      weekDays.push(seedList[idx]);
+      const level = seedList[idx];
+      const count = level === 0 ? 0 : level === 1 ? 1 : level === 2 ? 3 : level === 3 ? 6 : 12;
+      
+      const mockDate = new Date();
+      mockDate.setDate(mockDate.getDate() - ((weeksCount - w - 1) * 7 + (6 - d)));
+      const dateString = mockDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      
+      weekDays.push({ count, date: dateString, level });
     }
-    contributionGrid.push(weekDays);
+    defaultGrid.push(weekDays);
   }
 
+  const [grid, setGrid] = useState<ContributionCell[][]>(defaultGrid);
   const [hoverDetail, setHoverDetail] = useState<{ count: number; dateString: string } | null>(null);
+
+  // Fetch real-time contributions grid on client mount
+  React.useEffect(() => {
+    async function fetchContributionsMap() {
+      try {
+        const cachedMap = localStorage.getItem("devjam_contributions_map");
+        const cachedTime = localStorage.getItem("devjam_contributions_map_time");
+        const cacheDuration = 15 * 60 * 1000; // 15 minutes cache
+
+        if (cachedMap && cachedTime && (Date.now() - parseInt(cachedTime, 10) < cacheDuration)) {
+          setGrid(JSON.parse(cachedMap));
+          return;
+        }
+
+        const res = await fetch("https://github-contributions-api.deno.dev/devJam2026.json");
+        if (!res.ok) throw new Error("Failed to fetch contribution map");
+        const data = await res.json();
+
+        if (data && Array.isArray(data.contributions) && data.contributions.length > 0) {
+          const apiWeeks = data.contributions;
+          const selectedWeeks = apiWeeks.slice(-28); // last 28 weeks
+
+          interface APIDay {
+            date: string;
+            contributionCount: number;
+            contributionLevel: string;
+          }
+
+          const newGrid = selectedWeeks.map((week: APIDay[]) => {
+            return week.map((day: APIDay) => {
+              let level = 0;
+              switch (day.contributionLevel) {
+                case "NONE": level = 0; break;
+                case "FIRST_QUARTILE": level = 1; break;
+                case "SECOND_QUARTILE": level = 2; break;
+                case "THIRD_QUARTILE": level = 3; break;
+                case "FOURTH_QUARTILE": level = 4; break;
+                default: level = 0;
+              }
+
+              const d = new Date(day.date);
+              // Avoid timezone offset issue when displaying date
+              const formattedDate = new Date(d.getTime() + d.getTimezoneOffset() * 60000).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric"
+              });
+
+              return {
+                count: day.contributionCount || 0,
+                date: formattedDate,
+                level: level
+              };
+            });
+          });
+
+          localStorage.setItem("devjam_contributions_map", JSON.stringify(newGrid));
+          localStorage.setItem("devjam_contributions_map_time", String(Date.now()));
+          setGrid(newGrid);
+        }
+      } catch (err) {
+        console.error("Error fetching contributions map:", err);
+      }
+    }
+
+    fetchContributionsMap();
+  }, []);
 
   const getCellColor = (level: number) => {
     switch (level) {
@@ -49,11 +219,25 @@ export default function GithubActivity() {
     }
   };
 
-  const handleCellHover = (level: number, colIndex: number, rowIndex: number) => {
-    const contributionsCount = level === 0 ? 0 : level === 1 ? 1 : level === 2 ? 3 : level === 3 ? 6 : 12;
-    const dateStr = `Day ${rowIndex + 1}, Week ${colIndex + 1}`;
-    setHoverDetail({ count: contributionsCount, dateString: dateStr });
+  const getMonthsHeader = (currentGrid: ContributionCell[][]) => {
+    const list: string[] = [];
+    if (!currentGrid || currentGrid.length === 0) return list;
+    
+    const step = Math.floor(currentGrid.length / 7);
+    for (let i = 0; i < 7; i++) {
+      const colIdx = Math.min(i * step, currentGrid.length - 1);
+      const week = currentGrid[colIdx];
+      const cell = week && week[0];
+      if (cell && cell.date) {
+        const month = cell.date.split(" ")[0];
+        list.push(month);
+      }
+    }
+    while (list.length < 7) list.push("");
+    return list;
   };
+
+  const months = getMonthsHeader(grid);
 
   return (
     <div id="activity" className="w-full flex flex-col scroll-mt-20">
@@ -128,14 +312,14 @@ export default function GithubActivity() {
 
               {/* Heatmap Matrix columns */}
               <div className="flex-1 flex gap-1 justify-between">
-                {contributionGrid.map((week, colIdx) => (
+                {grid.map((week, colIdx) => (
                   <div key={colIdx} className="flex flex-col gap-1">
-                    {week.map((level, rowIdx) => (
+                    {week.map((cell, rowIdx) => (
                       <div
                         key={rowIdx}
-                        onMouseEnter={() => handleCellHover(level, colIdx, rowIdx)}
+                        onMouseEnter={() => setHoverDetail({ count: cell.count, dateString: cell.date })}
                         onMouseLeave={() => setHoverDetail(null)}
-                        className={`h-2.5 w-2.5 rounded-sm border-[0.5px] transition-colors duration-150 cursor-pointer ${getCellColor(level)}`}
+                        className={`h-2.5 w-2.5 rounded-sm border-[0.5px] transition-colors duration-150 cursor-pointer ${getCellColor(cell.level)}`}
                       />
                     ))}
                   </div>

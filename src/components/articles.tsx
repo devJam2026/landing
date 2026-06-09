@@ -73,7 +73,7 @@ export default function Articles() {
       </div>
 
       {/* Grid of Articles */}
-      <div className="grid grid-cols-1 gap-4 w-full">
+      <div className="grid grid-cols-1 gap-6 w-full">
         {articles.map((article) => {
           const Icon = article.icon;
           return (

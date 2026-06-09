@@ -49,7 +49,7 @@ export default function FeaturedProjects() {
   ];
 
   return (
-    <section id="projects" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-6 scroll-mt-20">
+    <section id="projects" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
@@ -72,7 +72,7 @@ export default function FeaturedProjects() {
       </div>
 
       {/* Grid of Projects */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
         {projects.map((project) => {
           return (
             <div
