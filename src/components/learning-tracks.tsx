@@ -2,44 +2,53 @@
 
 import React from "react";
 import Link from "next/link";
-import { Brain, Code, Network, Infinity as InfinityIcon } from "lucide-react";
+import { Brain, Code, Network, Infinity as InfinityIcon, Binary } from "lucide-react";
 
 export default function LearningTracks() {
   const tracks = [
     {
-      title: "AI Engineering",
-      tagline: "LLMs, RAG, Agents, MCP, Machine Learning & more.",
-      icon: Brain,
-      iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
-      arrowColor: "text-orange-500 group-hover:text-orange-400",
-      href: "/labs",
-      isCyan: false,
-    },
-    {
-      title: "Frontend Engineering",
-      tagline: "React, Next.js, TypeScript, Micro Frontends, Performance & Architecture.",
+      title: "Frontend Architect",
+      tagline: "From browser fundamentals to scalable frontend systems.",
       icon: Code,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       arrowColor: "text-cyan-400 group-hover:text-cyan-300",
-      href: "/labs",
+      href: "/roadmaps",
       isCyan: true,
     },
     {
       title: "System Design",
-      tagline: "Scalability, Distributed Systems, Design Patterns, Databases, Caching & more.",
+      tagline: "Learn how distributed systems are designed and scaled.",
       icon: Network,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       arrowColor: "text-orange-500 group-hover:text-orange-400",
-      href: "/labs",
+      href: "/roadmaps",
       isCyan: false,
     },
     {
-      title: "DevOps & CI/CD",
-      tagline: "Docker, GitHub Actions, Azure DevOps, Pipelines, Testing & more.",
+      title: "AI Engineer",
+      tagline: "Master LLMs, RAG, Agents and AI Systems.",
+      icon: Brain,
+      iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
+      arrowColor: "text-cyan-400 group-hover:text-cyan-300",
+      href: "/roadmaps",
+      isCyan: true,
+    },
+    {
+      title: "DSA",
+      tagline: "Prepare for coding interviews with structured problem-solving.",
+      icon: Binary,
+      iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
+      arrowColor: "text-orange-500 group-hover:text-orange-400",
+      href: "/roadmaps",
+      isCyan: false,
+    },
+    {
+      title: "DevOps & Cloud",
+      tagline: "Deploy, monitor and scale production systems.",
       icon: InfinityIcon,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       arrowColor: "text-cyan-400 group-hover:text-cyan-300",
-      href: "/labs",
+      href: "/roadmaps",
       isCyan: true,
     },
   ];
@@ -52,35 +61,35 @@ export default function LearningTracks() {
             Learning Tracks
           </span>
           <h2 className="text-3xl font-black text-foreground mt-1">
-            Four Pillars of DevJam
+            Five Pillars of DevJam
           </h2>
         </div>
         <Link
-          href="/labs"
+          href="/roadmaps"
           className="text-xs font-bold text-cyan-500 dark:text-cyan-400 hover:text-orange-500 flex items-center gap-1 transition-colors duration-200"
         >
           View all tracks <span className="text-[10px]">→</span>
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5 md:grid-cols-3">
         {tracks.map((track) => {
           const Icon = track.icon;
           return (
             <Link
               key={track.title}
               href={track.href}
-              className={`group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 ${
+              className={`group relative flex flex-col justify-between overflow-hidden rounded-xl p-5 ${
                 track.isCyan ? "premium-card premium-card-cyan" : "premium-card"
               }`}
             >
               <div>
                 {/* Icon wrapper */}
-                <div className={`mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border ${track.iconColor} shadow-inner`}>
-                  <Icon className="h-6 w-6" />
+                <div className={`mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border ${track.iconColor} shadow-inner`}>
+                  <Icon className="h-5.5 w-5.5" />
                 </div>
                 
-                <h3 className="text-lg font-bold text-foreground mb-2">
+                <h3 className="text-base font-bold text-foreground mb-2">
                   {track.title}
                 </h3>
                 

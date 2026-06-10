@@ -61,15 +61,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Explore Column */}
+          {/* Links Column */}
           <div>
             <h3 className="text-sm font-bold tracking-wider text-foreground uppercase mb-4">
-              Explore
+              Resources
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/labs" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
-                  Labs
+                <Link href="/projects" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
+                  Projects
                 </Link>
               </li>
               <li>
@@ -78,22 +78,17 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/articles" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
-                  Articles
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
-                  Projects
+                <Link href="/about" className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors duration-200">
+                  About
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Connect Column */}
+          {/* Community Column */}
           <div>
             <h3 className="text-sm font-bold tracking-wider text-foreground uppercase mb-4">
-              Connect
+              Community
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -114,26 +109,6 @@ export default function Footer() {
                   className="hover:text-foreground transition-colors duration-200"
                 >
                   LinkedIn
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.youtube.com/@DevJam-v5h"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors duration-200"
-                >
-                  YouTube
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://x.com/AVICKMUKH"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors duration-200"
-                >
-                  Twitter
                 </a>
               </li>
             </ul>

@@ -1,15 +1,17 @@
 import React from "react";
-import Navbar from "@/components/navbar";
-import Hero from "@/components/hero";
-import WhyDevJam from "@/components/why-devjam";
-import LearningTracks from "@/components/learning-tracks";
-import LearningRoadmap from "@/components/learning-roadmap";
-import InteractiveLabs from "@/components/interactive-labs";
-import FeaturedProjects from "@/components/featured-projects";
-import Articles from "@/components/articles";
-import GithubActivity from "@/components/github-activity";
-import CtaBanner from "@/components/cta-banner";
-import Footer from "@/components/footer";
+import Navbar from "../components/navbar";
+import Hero from "../components/hero";
+import WhyDevJam from "../components/why-devjam";
+import LearningTracks from "../components/learning-tracks";
+import FeaturedProjects from "../components/featured-projects";
+import LearningMethodology from "../components/methodology";
+import InteractiveLabs from "../components/interactive-labs";
+import FutureRoadmaps from "../components/future-roadmaps";
+import OpenSourceSection from "../components/open-source";
+import Articles from "../components/articles";
+import GithubActivity from "../components/github-activity";
+import CtaBanner from "../components/cta-banner";
+import Footer from "../components/footer";
 
 export default function Home() {
   return (
@@ -24,31 +26,37 @@ export default function Home() {
         {/* 1. Hero Section */}
         <Hero />
 
-        {/* 1b. Why DevJam (Value Proposition) */}
+        {/* 2. Vision Section */}
         <WhyDevJam />
 
-        {/* 2. Explore Learning Tracks (Four Pillars) */}
+        {/* 3. Pillars Section */}
         <LearningTracks />
 
-        {/* 2a. Curriculum Learning Roadmap Flow */}
-        <LearningRoadmap />
-
-        {/* 3. Interactive Labs (Live visualizers) */}
-        <InteractiveLabs />
-
-        {/* 3a. Open Source Featured Projects */}
+        {/* 4. Featured Projects Section */}
         <FeaturedProjects />
 
-        {/* 4. Articles and GitHub Activity Side-by-Side (Matches Mockup) */}
+        {/* 5. Learning Methodology Section */}
+        <LearningMethodology />
+
+        {/* Interactive Labs Section */}
+        <InteractiveLabs />
+
+        {/* 6. Future Roadmaps Section */}
+        <FutureRoadmaps />
+
+        {/* 7. Open Source Section */}
+        <OpenSourceSection />
+
+        {/* Latest Articles & GitHub Activity Side-by-Side */}
         <section className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Latest Articles - Left Column (5/12 width) */}
+            {/* Latest Articles */}
             <div className="lg:col-span-5 w-full">
               <Articles />
             </div>
             
-            {/* GitHub Activity Heatmap & Stats - Right Column (7/12 width) */}
+            {/* GitHub Activity Heatmap & Stats */}
             <div className="lg:col-span-7 w-full">
               <GithubActivity />
             </div>
@@ -56,7 +64,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Banner CTA */}
+        {/* Action Banner CTA */}
         <CtaBanner />
 
       </main>

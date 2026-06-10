@@ -15,11 +15,10 @@ export default function Navbar() {
 
   useEffect(() => {
     if (pathname === "/") setActiveTab("Home");
-    else if (pathname.startsWith("/labs")) setActiveTab("Labs");
     else if (pathname.startsWith("/roadmaps")) setActiveTab("Roadmaps");
-    else if (pathname.startsWith("/articles")) setActiveTab("Articles");
     else if (pathname.startsWith("/projects")) setActiveTab("Projects");
     else if (pathname.startsWith("/about")) setActiveTab("About");
+    else setActiveTab("");
   }, [pathname]);
 
 
@@ -41,11 +40,11 @@ export default function Navbar() {
       href: `/articles/${article.slug}`,
       desc: article.description,
     })),
-    { type: "Roadmap", title: "LLM Foundation Roadmap", href: "/roadmaps/#llm-foundation", desc: "Master vector space, tokens, embeddings, and context window" },
-    { type: "Roadmap", title: "AI Engineering Roadmap", href: "/roadmaps/#ai-engineer", desc: "From AI Foundations to Agent architectures" },
-    { type: "Roadmap", title: "Frontend Mastery Roadmap", href: "/roadmaps/#frontend-architect", desc: "From core DOM/React to performance engineering" },
-    { type: "Roadmap", title: "System Design Roadmap", href: "/roadmaps/#system-design", desc: "From DNS/Caching to distributed storage" },
-    { type: "Roadmap", title: "DevOps & CI/CD Roadmap", href: "/roadmaps/#devops-ci-cd", desc: "From Docker containers to multi-ring CD pipelines" },
+    { type: "Roadmap", title: "Frontend Architect", href: "/roadmaps/#frontend-architect", desc: "From browser fundamentals to scalable frontend systems" },
+    { type: "Roadmap", title: "System Design", href: "/roadmaps/#system-design", desc: "Learn how distributed systems are designed and scaled" },
+    { type: "Roadmap", title: "AI Engineer", href: "/roadmaps/#ai-engineer", desc: "Master LLMs, RAG, Agents and AI Systems" },
+    { type: "Roadmap", title: "DSA", href: "/roadmaps/#dsa", desc: "Prepare for coding interviews with structured problem-solving" },
+    { type: "Roadmap", title: "DevOps & Cloud", href: "/roadmaps/#devops-cloud", desc: "Deploy, monitor and scale production systems" },
   ];
 
   // Autofocus input when modal opens
@@ -85,11 +84,10 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Labs", href: "/labs" },
-    { name: "Roadmaps", href: "/roadmaps" },
-    { name: "Articles", href: "/articles" },
     { name: "Projects", href: "/projects" },
+    { name: "Roadmaps", href: "/roadmaps" },
     { name: "About", href: "/about" },
+    { name: "GitHub", href: "https://github.com/devJam2026", external: true },
   ];
 
   return (
@@ -115,19 +113,34 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-10 lg:gap-12">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`relative py-2 text-sm font-semibold transition-colors duration-200 ${activeTab === link.name ? "text-orange-500 dark:text-orange-400" : "text-text-muted hover:text-foreground"
-                  }`}
-              >
-                {link.name}
-                {activeTab === link.name && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-orange-500 shadow-md shadow-orange-500/50" />
-                )}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.external) {
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2 text-sm font-semibold transition-colors duration-200 text-text-muted hover:text-foreground"
+                  >
+                    {link.name}
+                  </a>
+                );
+              }
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative py-2 text-sm font-semibold transition-colors duration-200 ${activeTab === link.name ? "text-orange-500 dark:text-orange-400" : "text-text-muted hover:text-foreground"
+                    }`}
+                >
+                  {link.name}
+                  {activeTab === link.name && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-orange-500 shadow-md shadow-orange-500/50" />
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Action Buttons */}
@@ -153,13 +166,11 @@ export default function Navbar() {
               <GithubIcon className="h-5 w-5" />
             </a>
 
-
-
             <Link
-              href="/labs"
+              href="/projects"
               className="inline-flex items-center justify-center rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-600/25 hover:bg-orange-700 hover:shadow-orange-600/35 transition-all duration-200"
             >
-              Explore Labs
+              Explore Projects
               <span className="ml-1.5 transition-transform duration-200 hover:translate-x-0.5">→</span>
             </Link>
           </div>
@@ -190,21 +201,37 @@ export default function Navbar() {
       {/* Mobile Menu Panel */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-white/[0.04] bg-[#030712]/95 backdrop-blur-xl px-6 pt-4 pb-8 space-y-3 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => {
-                setMobileMenuOpen(false);
-              }}
-              className={`block px-3 py-2.5 rounded-lg text-base font-semibold transition-colors duration-200 ${activeTab === link.name
-                  ? "bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border-l-2 border-orange-500"
-                  : "text-text-muted hover:bg-card-bg hover:text-foreground"
-                }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            if (link.external) {
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2.5 rounded-lg text-base font-semibold text-text-muted hover:bg-card-bg hover:text-foreground transition-colors duration-200"
+                >
+                  {link.name}
+                </a>
+              );
+            }
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                }}
+                className={`block px-3 py-2.5 rounded-lg text-base font-semibold transition-colors duration-200 ${activeTab === link.name
+                    ? "bg-orange-55 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border-l-2 border-orange-500"
+                    : "text-text-muted hover:bg-card-bg hover:text-foreground"
+                  }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
           <div className="pt-4 border-t border-card-border flex items-center justify-between px-3">
             <a
               href="https://github.com/devJam2026"
@@ -215,11 +242,11 @@ export default function Navbar() {
               <GithubIcon className="h-5 w-5" />
             </a>
             <Link
-              href="/labs"
+              href="/projects"
               onClick={() => setMobileMenuOpen(false)}
               className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-600/25 hover:bg-orange-700 transition-colors duration-200"
             >
-              Explore Labs →
+              Explore Projects →
             </Link>
           </div>
         </div>

@@ -52,13 +52,13 @@ export default function Hero() {
           <div className="lg:col-span-6 flex flex-col gap-6 text-center lg:text-left items-center lg:items-start">
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] text-foreground mt-1">
-              Learn. <span className="text-orange-500">Build.</span>
+              Learn <span className="text-orange-500">Engineering</span>
               <br />
-              <span className="text-blue-500">Share.</span> <span className="text-cyan-400">Grow.</span>
+              by <span className="text-cyan-400">Building.</span>
             </h1>
             
-            <p className="text-sm sm:text-base text-text-muted leading-relaxed max-w-lg">
-              DevJam is an engineering lab for modern builders. Interactive tools, deep-dive architectural blueprints, real-world codebases, and structured roadmaps.
+            <p className="text-sm sm:text-base text-text-muted leading-relaxed max-w-lg font-medium">
+              Open-source platform for Frontend Architecture, System Design, AI Engineering, DSA and DevOps.
             </p>
 
             {/* Domains Grid */}
@@ -84,19 +84,21 @@ export default function Hero() {
             {/* Premium CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-4 mt-3 w-full sm:w-auto">
               <Link
-                href="/labs"
-                className="w-full sm:w-48 inline-flex items-center justify-center rounded-lg bg-orange-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:bg-orange-600 hover:shadow-orange-500/35 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+                href="/projects"
+                className="w-full sm:w-48 inline-flex items-center justify-center rounded-lg bg-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-600/20 hover:bg-orange-700 hover:shadow-orange-600/35 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
-                Explore Labs
+                Explore Projects
                 <span className="ml-1.5">→</span>
               </Link>
-              <Link
-                href="/projects"
+              <a
+                href="https://github.com/devJam2026"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-full sm:w-48 inline-flex items-center justify-center rounded-lg border border-card-border bg-card-bg/40 px-6 py-3.5 text-sm font-semibold text-foreground hover:border-cyan-500/30 hover:text-cyan-400 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
               >
-                View Projects
+                View GitHub
                 <GithubIcon className="ml-2 h-4 w-4" />
-              </Link>
+              </a>
             </div>
 
             {/* Social Links */}

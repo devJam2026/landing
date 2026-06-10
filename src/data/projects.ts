@@ -14,6 +14,9 @@ export interface Project {
   isCyan: boolean;
   hasDetails: boolean;
   isFeatured: boolean;
+  learningOutcome: string;
+  liveDemoUrl: string;
+  architectureUrl: string;
 }
 
 export const projects: Project[] = [
@@ -33,6 +36,9 @@ export const projects: Project[] = [
     isCyan: true,
     hasDetails: true,
     isFeatured: true,
+    learningOutcome: "Master subword tokenization, vocabulary mapping, character offset mapping, and token ID translation.",
+    liveDemoUrl: "/labs/tokenizer-visualizer",
+    architectureUrl: "/projects/tokenizer-visualizer-studio",
   },
   {
     name: "Hyperparameter Playground",
@@ -50,6 +56,9 @@ export const projects: Project[] = [
     isCyan: false,
     hasDetails: true,
     isFeatured: true,
+    learningOutcome: "Understand the visual impact of temperature, top-p, top-k, and frequency/presence penalties on LLM completions.",
+    liveDemoUrl: "/projects/hyperparameter-playground",
+    architectureUrl: "/projects/hyperparameter-playground",
   },
   {
     name: "Context Window Dashboard",
@@ -67,6 +76,9 @@ export const projects: Project[] = [
     isCyan: true,
     hasDetails: true,
     isFeatured: true,
+    learningOutcome: "Inspect token budget allocation, model memory constraints, dynamic chat history truncation, and system prompt overhead.",
+    liveDemoUrl: "/projects/context-window-dashboard",
+    architectureUrl: "/projects/context-window-dashboard",
   },
   {
     name: "Mini Attention Notebook",
@@ -84,6 +96,9 @@ export const projects: Project[] = [
     isCyan: false,
     hasDetails: true,
     isFeatured: true,
+    learningOutcome: "Compute QKV matrix projections, dot-product attention scores, and causal masking values from mathematical formulas.",
+    liveDemoUrl: "/projects/mini-attention-notebook",
+    architectureUrl: "/projects/mini-attention-notebook",
   },
   {
     name: "DevJam Hub Portal",
@@ -101,6 +116,9 @@ export const projects: Project[] = [
     isCyan: true,
     hasDetails: false,
     isFeatured: false,
+    learningOutcome: "Learn Next.js Static Export, tailored CSS token architectures, and responsive glassmorphic layouts.",
+    liveDemoUrl: "/",
+    architectureUrl: "/",
   },
   {
     name: "Distributed Rate Limiter",
@@ -118,6 +136,9 @@ export const projects: Project[] = [
     isCyan: false,
     hasDetails: false,
     isFeatured: false,
+    learningOutcome: "Architect a production-ready rate-limiting microservice using Redis and Token Bucket algorithms.",
+    liveDemoUrl: "#",
+    architectureUrl: "#",
   },
   {
     name: "Automated Canary Pipeline",
@@ -135,5 +156,8 @@ export const projects: Project[] = [
     isCyan: true,
     hasDetails: false,
     isFeatured: false,
+    learningOutcome: "Implement advanced containerized CI/CD test actions and multi-ring canary release patterns.",
+    liveDemoUrl: "#",
+    architectureUrl: "#",
   },
 ];

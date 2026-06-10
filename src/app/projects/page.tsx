@@ -7,7 +7,7 @@ import Footer from "@/components/footer";
 import PageHero from "@/components/page-hero";
 import Card from "@/components/card";
 import { GithubIcon } from "@/components/brand-icons";
-import { FolderGit, ExternalLink, Award, CheckCircle, Clock, Search } from "lucide-react";
+import { Award, ExternalLink, GitBranch, Search, Star, GitFork } from "lucide-react";
 import { projects } from "../../data/projects";
 
 export default function ProjectsPage() {
@@ -21,10 +21,16 @@ export default function ProjectsPage() {
     pillar: p.pillar,
     description: p.description,
     concept: p.concept,
-    github: p.githubUrl,
-    live: p.projectUrl,
+    githubUrl: p.githubUrl,
+    liveDemoUrl: p.liveDemoUrl,
+    architectureUrl: p.architectureUrl,
     isCyan: p.isCyan,
-    hasDetails: p.hasDetails
+    hasDetails: p.hasDetails,
+    learningOutcome: p.learningOutcome,
+    language: p.language,
+    langColor: p.langColor,
+    stars: p.stars,
+    forks: p.forks
   }));
 
   const filteredProjects = allProjects.filter((project) => {
@@ -107,29 +113,37 @@ export default function ProjectsPage() {
                           <GithubIcon className="h-5 w-5" />
                         </div>
                         <span className={`text-[9px] uppercase font-bold tracking-widest px-2 py-0.5 rounded border flex items-center gap-1 ${badgeColors}`}>
-                          {isProgress ? <Clock className="h-3 w-3" /> : <CheckCircle className="h-3 w-3" />}
                           {project.status}
                         </span>
                       </div>
 
                       <h3 className="text-xl font-bold text-foreground mb-3">
-                        {project.hasDetails ? (
-                          <Link href={`/projects/${project.slug}`} className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors">
-                            {project.name}
-                          </Link>
-                        ) : (
-                          project.name
-                        )}
+                        <Link href={project.architectureUrl} className="hover:text-orange-500 dark:hover:text-cyan-400 transition-colors">
+                          {project.name}
+                        </Link>
                       </h3>
-                      <p className="text-xs text-text-muted leading-relaxed mb-6">
+                      <p className="text-xs text-text-muted leading-relaxed mb-4">
                         {project.description}
                       </p>
 
+                      {/* Learning Outcome Box */}
+                      <div className="bg-[#050811]/60 border border-card-border/50 rounded-lg p-3.5 mb-4 hover:border-card-border transition-colors">
+                        <div className={`flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider mb-1.5 ${
+                          project.isCyan ? "text-cyan-400" : "text-orange-500"
+                        }`}>
+                          <Award className="h-3.5 w-3.5" />
+                          Learning Outcome
+                        </div>
+                        <p className="text-[11px] text-foreground/80 leading-relaxed">
+                          {project.learningOutcome}
+                        </p>
+                      </div>
+
                       {/* Concept block */}
                       <div className="bg-[#050811]/40 border border-card-border/50 rounded-lg p-3.5 mb-6">
-                        <div className="flex items-center gap-1.5 text-[9px] font-bold text-orange-500 uppercase tracking-wider mb-1.5">
+                        <div className="flex items-center gap-1.5 text-[9px] font-bold text-text-muted uppercase tracking-wider mb-1.5">
                           <Award className="h-3.5 w-3.5" />
-                          Learning Concept
+                          Core Concept
                         </div>
                         <p className="text-[10px] text-text-muted leading-relaxed font-mono">
                           {project.concept}
@@ -137,48 +151,62 @@ export default function ProjectsPage() {
                       </div>
                     </div>
 
-                    {/* Links footer */}
-                    <div className="flex items-center justify-between border-t border-card-border/60 pt-4 mt-auto gap-4">
-                      <div className="flex items-center gap-3">
+                    {/* Action buttons */}
+                    <div className="flex flex-wrap items-center justify-between gap-4 border-t border-card-border/60 pt-4 mt-auto">
+                      <div className="flex items-center gap-4 text-xs font-semibold text-text-muted">
                         <a
-                          href={project.github}
+                          href={project.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-text-muted hover:text-foreground transition-colors"
+                          className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                           title="GitHub Repository"
                         >
-                          <FolderGit className="h-4.5 w-4.5" />
+                          <GithubIcon className="h-3.5 w-3.5" />
+                          <span>GitHub</span>
                         </a>
-                        {project.live && project.live !== "#" && (
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-text-muted hover:text-foreground transition-colors"
+                        {project.liveDemoUrl && project.liveDemoUrl !== "#" && (
+                          <Link
+                            href={project.liveDemoUrl}
+                            className="flex items-center gap-1.5 hover:text-foreground transition-colors"
                             title="Live Demo"
                           >
-                            <ExternalLink className="h-4.5 w-4.5" />
-                          </a>
+                            <ExternalLink className="h-3.5 w-3.5" />
+                            <span>Live Demo</span>
+                          </Link>
                         )}
                       </div>
-                      {project.hasDetails ? (
-                        <Link
-                          href={`/projects/${project.slug}`}
-                          className={`text-xs font-extrabold uppercase tracking-wider flex items-center gap-1 transition-colors cursor-pointer ${
-                            project.isCyan
-                              ? "text-cyan-400 hover:text-cyan-300"
-                              : "text-orange-500 hover:text-orange-400"
-                          }`}
-                        >
-                          View Details
-                          <span className="text-[10px]">→</span>
-                        </Link>
-                      ) : (
-                        <span className="text-[9px] font-bold text-text-muted/65 uppercase tracking-wider">
-                          Docs Pending
-                        </span>
-                      )}
+                      
+                      <Link
+                        href={project.architectureUrl}
+                        className={`inline-flex items-center gap-1.5 text-[11px] uppercase font-bold tracking-wider rounded border px-3 py-1.5 transition-all duration-200 cursor-pointer ${
+                          project.isCyan
+                            ? "text-cyan-400 border-cyan-500/25 bg-cyan-400/5 hover:bg-cyan-400/10 hover:border-cyan-400/40"
+                            : "text-orange-500 border-orange-500/25 bg-orange-500/5 hover:bg-orange-500/10 hover:border-orange-500/40"
+                        }`}
+                      >
+                        <GitBranch className="h-3 w-3" />
+                        Architecture
+                      </Link>
                     </div>
+
+                    {/* Stats Footer (Stars, Forks, Language) */}
+                    <div className="flex items-center gap-4 mt-4 text-[10px] font-mono text-text-muted/70">
+                      <span className="flex items-center gap-1">
+                        <span className={`h-2 w-2 rounded-full ${project.langColor}`} />
+                        {project.language}
+                      </span>
+                      
+                      <span className="flex items-center gap-0.5">
+                        <Star className="h-3 w-3 fill-current text-yellow-500/70" />
+                        {project.stars}
+                      </span>
+
+                      <span className="flex items-center gap-0.5">
+                        <GitFork className="h-3 w-3" />
+                        {project.forks}
+                      </span>
+                    </div>
+
                   </Card>
                 );
               })}
