@@ -29,7 +29,7 @@ export default function CtaBanner() {
           
           <Link
             href="/labs"
-            className="w-full lg:w-auto inline-flex items-center justify-center rounded-lg bg-orange-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/30 hover:bg-orange-600 hover:shadow-orange-500/40 hover:-translate-y-0.5 transition-all duration-200 shrink-0 cursor-pointer"
+            className="w-full lg:w-auto inline-flex items-center justify-center rounded-lg bg-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-600/30 hover:bg-orange-700 hover:shadow-orange-600/40 hover:-translate-y-0.5 transition-all duration-200 shrink-0 cursor-pointer"
           >
             Explore DevJam Labs
             <span className="ml-2">→</span>

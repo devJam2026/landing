@@ -4,54 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { Star, GitFork, ArrowUpRight } from "lucide-react";
 import { GithubIcon } from "./brand-icons";
+import { projects } from "../data/projects";
 
 export default function FeaturedProjects() {
-  const projects = [
-    {
-      name: "Tokenizer Visualizer",
-      description: "Interactive visual tool to examine text segmentation, byte-pair tokenization, and ID offsets across leading LLM architectures.",
-      stars: 384,
-      forks: 42,
-      language: "TypeScript",
-      langColor: "bg-blue-500",
-      githubUrl: "https://github.com/devJam2026/tokenizer-visualizer",
-      projectUrl: "/projects/tokenizer-visualizer-studio",
-      isCyan: true,
-    },
-    {
-      name: "Hyperparameter Playground",
-      description: "Interactive browser laboratory for visualizing weights, loss curves, learning rates, and optimizer dynamics in real time.",
-      stars: 512,
-      forks: 58,
-      language: "React",
-      langColor: "bg-sky-400",
-      githubUrl: "https://github.com/devJam2026/hyperparameter-playground",
-      projectUrl: "/projects/hyperparameter-playground",
-      isCyan: false,
-    },
-    {
-      name: "Context Window Dashboard",
-      description: "Diagnostic analyzer demonstrating prompt truncation, token compression, needle-in-a-haystack retrieval, and system message weights.",
-      stars: 219,
-      forks: 18,
-      language: "Next.js",
-      langColor: "bg-slate-400",
-      githubUrl: "https://github.com/devJam2026/context-window-dashboard",
-      projectUrl: "/projects/context-window-dashboard",
-      isCyan: true,
-    },
-    {
-      name: "Attention Notebook",
-      description: "Interactive educational notebook demonstrating mathematical foundations of Self-Attention, Multi-Head Query-Key matrices, and masking.",
-      stars: 846,
-      forks: 94,
-      language: "Python",
-      langColor: "bg-yellow-500",
-      githubUrl: "https://github.com/devJam2026/attention-notebook",
-      projectUrl: "/projects/mini-attention-notebook",
-      isCyan: false,
-    },
-  ];
+  const featuredProjects = projects.filter((project) => project.isFeatured);
 
   return (
     <section id="projects" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20">
@@ -78,7 +34,7 @@ export default function FeaturedProjects() {
 
       {/* Grid of Projects */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full">
-        {projects.map((project) => {
+        {featuredProjects.map((project) => {
           return (
             <div
               key={project.name}

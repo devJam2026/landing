@@ -23,7 +23,7 @@ export default function CtaButton({
 
   const variantClasses =
     variant === "primary"
-      ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20 hover:bg-orange-600 hover:shadow-orange-500/35 hover:-translate-y-0.5"
+      ? "bg-orange-600 text-white shadow-lg shadow-orange-600/20 hover:bg-orange-700 hover:shadow-orange-600/35 hover:-translate-y-0.5"
       : "border border-card-border bg-card-bg/40 text-foreground hover:border-cyan-500/30 hover:text-cyan-400 hover:-translate-y-0.5";
 
   if (href.startsWith("http") || href.startsWith("mailto") || href.startsWith("#")) {

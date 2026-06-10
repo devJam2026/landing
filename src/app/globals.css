@@ -34,17 +34,6 @@
 }
 
 :root {
-  /* Default Light Mode CSS Variables */
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --card-bg: rgba(255, 255, 255, 0.8);
-  --card-border: rgba(0, 0, 0, 0.08);
-  --text-muted: #475569;
-  --input-bg: rgba(0, 0, 0, 0.02);
-  --input-border: rgba(0, 0, 0, 0.08);
-}
-
-:root.dark {
   /* Dark Mode CSS Variables */
   --background: #030712;
   --foreground: #f3f4f6;

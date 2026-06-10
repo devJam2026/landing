@@ -8,53 +8,13 @@ import PageHero from "@/components/page-hero";
 import InteractiveLabs from "@/components/interactive-labs";
 import Card from "@/components/card";
 import { FolderGit, Activity, CheckCircle, Clock, Search } from "lucide-react";
+import { labs } from "../../data/labs";
 
 export default function LabsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPillar, setSelectedPillar] = useState("All");
 
-  const allLabs = [
-    {
-      name: "Tokenizer Visualizer",
-      slug: "tokenizer-visualizer",
-      status: "Active",
-      pillar: "AI Engineering",
-      goal: "Understand how BPE (Byte Pair Encoding) converts text into token IDs, visual offsets, and context window percentages for LLM ingestion.",
-      tech: ["TypeScript", "React 19", "Tailwind CSS"],
-      github: "https://github.com/devJam2026/tokenizer-visualizer-studio",
-      isCyan: false,
-    },
-    {
-      name: "React Rendering Visualizer",
-      slug: "react-rendering-visualizer",
-      status: "Active",
-      pillar: "Frontend Mastery",
-      goal: "Visualize standard React component rendering flow, state synchronization, memoized nodes, and virtual DOM tree reconciliation.",
-      tech: ["React 19", "TypeScript", "Framer Motion"],
-      github: "https://github.com/devJam2026/landing",
-      isCyan: true,
-    },
-    {
-      name: "System Design Simulator",
-      slug: "system-design-simulator",
-      status: "In Progress",
-      pillar: "System Design",
-      goal: "Simulate distributed client request flow, database replication lag, CDN caching, and rate limiting actions under heavy traffic load.",
-      tech: ["TypeScript", "React", "Canvas API"],
-      github: "https://github.com/devJam2026",
-      isCyan: false,
-    },
-    {
-      name: "CI/CD Pipeline Visualizer",
-      slug: "cicd-pipeline-visualizer",
-      status: "Active",
-      pillar: "DevOps & CI/CD",
-      goal: "Visualize continuous integration steps, including environment setup, dependencies caching, lint checks, unit tests, and production CD deployment flow.",
-      tech: ["GitHub Actions", "Docker", "YAML"],
-      github: "https://github.com/devJam2026/landing",
-      isCyan: true,
-    },
-  ];
+  const allLabs = labs;
 
   const filteredLabs = allLabs.filter((lab) => {
     const matchesPillar = selectedPillar === "All" || lab.pillar === selectedPillar;

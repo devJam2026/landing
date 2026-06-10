@@ -1,0 +1,139 @@
+export interface Project {
+  name: string;
+  slug: string;
+  status: "Active" | "Completed" | "In Progress";
+  pillar: string;
+  description: string;
+  concept: string;
+  stars: number;
+  forks: number;
+  language: string;
+  langColor: string;
+  githubUrl: string;
+  projectUrl: string;
+  isCyan: boolean;
+  hasDetails: boolean;
+  isFeatured: boolean;
+}
+
+export const projects: Project[] = [
+  {
+    name: "Tokenizer Visualizer Studio",
+    slug: "tokenizer-visualizer-studio",
+    status: "Active",
+    pillar: "AI Engineering",
+    description: "Interactive workspace for visualizing BPE (Byte Pair Encoding) tokenization, vocabulary mappings, and character offsets.",
+    concept: "Subword Tokenization & Character Offset Mapping",
+    stars: 384,
+    forks: 42,
+    language: "TypeScript",
+    langColor: "bg-blue-500",
+    githubUrl: "https://github.com/devJam2026/tokenizer-visualizer-studio",
+    projectUrl: "/projects/tokenizer-visualizer-studio",
+    isCyan: true,
+    hasDetails: true,
+    isFeatured: true,
+  },
+  {
+    name: "Hyperparameter Playground",
+    slug: "hyperparameter-playground",
+    status: "Completed",
+    pillar: "AI Engineering",
+    description: "Interactive settings playground to experiment with Neural Network parameters like temperature, top-p, and penalties.",
+    concept: "Temperature, Softmax Projections & Sampling Mechanics",
+    stars: 512,
+    forks: 58,
+    language: "React",
+    langColor: "bg-sky-400",
+    githubUrl: "https://github.com/devJam2026/hyperparameter-playground",
+    projectUrl: "/projects/hyperparameter-playground",
+    isCyan: false,
+    hasDetails: true,
+    isFeatured: true,
+  },
+  {
+    name: "Context Window Dashboard",
+    slug: "context-window-dashboard",
+    status: "In Progress",
+    pillar: "AI Engineering",
+    description: "Diagnostic diagnostics utility to inspect token budget usage, chat history expansion, and memory truncation suggestions.",
+    concept: "Context Window Token Budgeting & RAG Trimming",
+    stars: 219,
+    forks: 18,
+    language: "Next.js",
+    langColor: "bg-slate-400",
+    githubUrl: "https://github.com/devJam2026/context-window-diagnostics",
+    projectUrl: "/projects/context-window-dashboard",
+    isCyan: true,
+    hasDetails: true,
+    isFeatured: true,
+  },
+  {
+    name: "Mini Attention Notebook",
+    slug: "mini-attention-notebook",
+    status: "Active",
+    pillar: "AI Engineering",
+    description: "A Python-based interactive visual guide to attention matrices, QKV projection layers, causal masking weights, and head dimensions.",
+    concept: "Dot Product Self-Attention Calculations",
+    stars: 846,
+    forks: 94,
+    language: "Python",
+    langColor: "bg-yellow-500",
+    githubUrl: "https://github.com/devJam2026/mini-attention-notebook",
+    projectUrl: "/projects/mini-attention-notebook",
+    isCyan: false,
+    hasDetails: true,
+    isFeatured: true,
+  },
+  {
+    name: "DevJam Hub Portal",
+    slug: "devjam-hub-portal",
+    status: "Active",
+    pillar: "Frontend Mastery",
+    description: "The premium static website representing the DevJam engineering lab, optimized for fast loading and glassmorphic layouts.",
+    concept: "Next.js Static Export & Tailored CSS Tokens System",
+    stars: 104,
+    forks: 12,
+    language: "TypeScript",
+    langColor: "bg-blue-500",
+    githubUrl: "https://github.com/devJam2026/landing",
+    projectUrl: "/",
+    isCyan: true,
+    hasDetails: false,
+    isFeatured: false,
+  },
+  {
+    name: "Distributed Rate Limiter",
+    slug: "distributed-rate-limiter",
+    status: "Completed",
+    pillar: "System Design",
+    description: "Fault-tolerant rate-limiting microservice architecture using Redis Token Bucket and sliding window logs.",
+    concept: "Redis Cache Clusters & Token Bucket Algorithms",
+    stars: 92,
+    forks: 8,
+    language: "Go",
+    langColor: "bg-cyan-500",
+    githubUrl: "https://github.com/devJam2026",
+    projectUrl: "#",
+    isCyan: false,
+    hasDetails: false,
+    isFeatured: false,
+  },
+  {
+    name: "Automated Canary Pipeline",
+    slug: "automated-canary-pipeline",
+    status: "Active",
+    pillar: "DevOps & CI/CD",
+    description: "Multi-ring deployment orchestrations using virtual containers and warning-free automated compiler test workflows.",
+    concept: "GitHub Actions Workflows & Docker Multi-Stage Deploys",
+    stars: 64,
+    forks: 6,
+    language: "Shell",
+    langColor: "bg-emerald-500",
+    githubUrl: "https://github.com/devJam2026",
+    projectUrl: "#",
+    isCyan: true,
+    hasDetails: false,
+    isFeatured: false,
+  },
+];

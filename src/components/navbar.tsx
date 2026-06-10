@@ -3,8 +3,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Sun, Moon, Search } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { GithubIcon } from "./brand-icons";
+import { labs } from "../data/labs";
+import { articles } from "../data/articles";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,7 +21,7 @@ export default function Navbar() {
     else if (pathname.startsWith("/projects")) setActiveTab("Projects");
     else if (pathname.startsWith("/about")) setActiveTab("About");
   }, [pathname]);
-  const [isDark, setIsDark] = useState(false);
+
 
   // --- Global Search State ---
   const [searchOpen, setSearchOpen] = useState(false);
@@ -27,14 +29,18 @@ export default function Navbar() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const searchItems = [
-    { type: "Lab", title: "Tokenizer Visualizer", href: "/labs/tokenizer-visualizer", desc: "Visualize how text is tokenized across LLMs" },
-    { type: "Lab", title: "React Rendering Visualizer", href: "/labs/react-rendering-visualizer", desc: "Understand component rendering & tree reconciliation" },
-    { type: "Lab", title: "System Design Simulator", href: "/labs/system-design-simulator", desc: "Simulate load balancing & database queries" },
-    { type: "Lab", title: "CI/CD Pipeline Visualizer", href: "/labs/cicd-pipeline-visualizer", desc: "Build & visualize build-test-deploy automation" },
-    { type: "Article", title: "What is Tokenization?", href: "/articles/#llm-basics", desc: "Breaking down tokens, vocabulary, and embeddings" },
-    { type: "Article", title: "How Attention Works?", href: "/articles/#transformers", desc: "A visual guide to attention mechanism in transformers" },
-    { type: "Article", title: "Micro Frontends Architecture", href: "/articles/#frontend-architecture", desc: "Design, build, and scale micro frontends the right way" },
-    { type: "Article", title: "Rate Limiter Deep Dive", href: "/articles/#system-design", desc: "Designing rate limiters scaling to millions of requests" },
+    ...labs.map((lab) => ({
+      type: "Lab",
+      title: lab.name,
+      href: `/labs/${lab.slug}`,
+      desc: lab.goal,
+    })),
+    ...articles.map((article) => ({
+      type: "Article",
+      title: article.title,
+      href: `/articles/${article.slug}`,
+      desc: article.description,
+    })),
     { type: "Roadmap", title: "LLM Foundation Roadmap", href: "/roadmaps/#llm-foundation", desc: "Master vector space, tokens, embeddings, and context window" },
     { type: "Roadmap", title: "AI Engineering Roadmap", href: "/roadmaps/#ai-engineer", desc: "From AI Foundations to Agent architectures" },
     { type: "Roadmap", title: "Frontend Mastery Roadmap", href: "/roadmaps/#frontend-architect", desc: "From core DOM/React to performance engineering" },
@@ -72,32 +78,10 @@ export default function Navbar() {
       item.type.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-  // Initialize theme client-side after mounting to avoid hydration mismatch
+  // Ensure HTML element always has dark mode class
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-
-    // Default to dark mode if not explicitly set to light previously
-    const initialDark = storedTheme ? storedTheme === "dark" : true;
-
-    setIsDark(initialDark);
-    if (initialDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.add("dark");
   }, []);
-
-  const toggleTheme = () => {
-    const newDark = !isDark;
-    setIsDark(newDark);
-    if (newDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -169,23 +153,11 @@ export default function Navbar() {
               <GithubIcon className="h-5 w-5" />
             </a>
 
-            {/* Smooth Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-text-muted hover:text-foreground rounded-lg border border-card-border hover:bg-card-bg transition-all duration-200 cursor-pointer"
-              aria-label="Toggle theme"
-              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            >
-              {isDark ? (
-                <Sun className="h-4 w-4 text-amber-500" />
-              ) : (
-                <Moon className="h-4 w-4 text-cyan-400" />
-              )}
-            </button>
+
 
             <Link
               href="/labs"
-              className="inline-flex items-center justify-center rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-500/25 hover:bg-orange-600 hover:shadow-orange-500/35 transition-all duration-200"
+              className="inline-flex items-center justify-center rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-orange-600/25 hover:bg-orange-700 hover:shadow-orange-600/35 transition-all duration-200"
             >
               Explore Labs
               <span className="ml-1.5 transition-transform duration-200 hover:translate-x-0.5">→</span>
@@ -202,22 +174,12 @@ export default function Navbar() {
             >
               <Search className="h-4 w-4" />
             </button>
-            {/* Theme Toggle in Mobile Bar */}
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-text-muted hover:text-foreground rounded-lg border border-card-border transition-colors duration-200"
-              aria-label="Toggle theme"
-            >
-              {isDark ? (
-                <Sun className="h-4 w-4 text-amber-500" />
-              ) : (
-                <Moon className="h-4 w-4 text-cyan-400" />
-              )}
-            </button>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="inline-flex items-center justify-center p-2 text-text-muted hover:text-foreground focus:outline-none"
-              aria-expanded="false"
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -255,7 +217,7 @@ export default function Navbar() {
             <Link
               href="/labs"
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-500/25"
+              className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-orange-600/25 hover:bg-orange-700 transition-colors duration-200"
             >
               Explore Labs →
             </Link>
@@ -273,7 +235,12 @@ export default function Navbar() {
           />
 
           {/* Modal box */}
-          <div className="relative w-full max-w-lg overflow-hidden rounded-xl border border-card-border bg-[#0b0f19]/90 dark:bg-gray-950/90 backdrop-blur-xl p-5 shadow-2xl transition-all flex flex-col gap-4 animate-in fade-in zoom-in-95 duration-200">
+          <div 
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search content"
+            className="relative w-full max-w-lg overflow-hidden rounded-xl border border-card-border bg-[#0b0f19]/90 dark:bg-gray-950/90 backdrop-blur-xl p-5 shadow-2xl transition-all flex flex-col gap-4 animate-in fade-in zoom-in-95 duration-200"
+          >
             {/* Input Header */}
             <div className="flex items-center gap-3 border-b border-card-border pb-3">
               <Search className="h-5 w-5 text-text-muted" />
@@ -281,6 +248,7 @@ export default function Navbar() {
                 ref={searchInputRef}
                 type="text"
                 placeholder="Search labs, roadmaps, articles..."
+                aria-label="Search query"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1 bg-transparent text-sm text-foreground placeholder-text-muted focus:outline-none border-none"

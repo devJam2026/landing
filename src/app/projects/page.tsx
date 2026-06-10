@@ -8,97 +8,24 @@ import PageHero from "@/components/page-hero";
 import Card from "@/components/card";
 import { GithubIcon } from "@/components/brand-icons";
 import { FolderGit, ExternalLink, Award, CheckCircle, Clock, Search } from "lucide-react";
+import { projects } from "../../data/projects";
 
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPillar, setSelectedPillar] = useState("All");
 
-  const allProjects = [
-    {
-      name: "Tokenizer Visualizer Studio",
-      slug: "tokenizer-visualizer-studio",
-      status: "Active",
-      pillar: "AI Engineering",
-      description: "Interactive workspace for visualizing BPE (Byte Pair Encoding) tokenization, vocabulary mappings, and character offsets.",
-      concept: "Subword Tokenization & Character Offset Mapping",
-      github: "https://github.com/devJam2026/tokenizer-visualizer-studio",
-      live: "/labs/tokenizer-visualizer",
-      isCyan: false,
-      hasDetails: true,
-    },
-    {
-      name: "Hyperparameter Playground",
-      slug: "hyperparameter-playground",
-      status: "Completed",
-      pillar: "AI Engineering",
-      description: "Interactive Settings Playground to experiment with Neural Network parameters like temperature, top-p, and penalties.",
-      concept: "Temperature, Softmax Projections & Sampling Mechanics",
-      github: "https://github.com/devJam2026/hyperparameter-playground",
-      live: "https://hyperparameter-playground-live.vercel.app",
-      isCyan: true,
-      hasDetails: true,
-    },
-    {
-      name: "Context Window Dashboard",
-      slug: "context-window-dashboard",
-      status: "In Progress",
-      pillar: "AI Engineering",
-      description: "Diagnostic diagnostics utility to inspect token budget usage, chat history expansion, and memory truncation suggestions.",
-      concept: "Context Window Token Budgeting & RAG Trimming",
-      github: "https://github.com/devJam2026/context-window-diagnostics",
-      live: "#",
-      isCyan: false,
-      hasDetails: true,
-    },
-    {
-      name: "Mini Attention Notebook",
-      slug: "mini-attention-notebook",
-      status: "Active",
-      pillar: "AI Engineering",
-      description: "A Python-based interactive visual guide to attention matrices, QKV projection layers, causal masking weights, and head dimensions.",
-      concept: "Dot Product Self-Attention Calculations",
-      github: "https://github.com/devJam2026/mini-attention-notebook",
-      live: "#",
-      isCyan: true,
-      hasDetails: true,
-    },
-    {
-      name: "DevJam Hub Portal",
-      slug: "devjam-hub-portal",
-      status: "Active",
-      pillar: "Frontend Mastery",
-      description: "The premium static website representing the DevJam engineering lab, optimized for fast loading and glassmorphic layouts.",
-      concept: "Next.js Static Export & Tailored CSS Tokens System",
-      github: "https://github.com/devJam2026/landing",
-      live: "/",
-      isCyan: true,
-      hasDetails: false,
-    },
-    {
-      name: "Distributed Rate Limiter",
-      slug: "distributed-rate-limiter",
-      status: "Completed",
-      pillar: "System Design",
-      description: "Fault-tolerant rate-limiting microservice architecture using Redis Token Bucket and sliding window logs.",
-      concept: "Redis Cache Clusters & Token Bucket Algorithms",
-      github: "https://github.com/devJam2026",
-      live: "#",
-      isCyan: false,
-      hasDetails: false,
-    },
-    {
-      name: "Automated Canary Pipeline",
-      slug: "automated-canary-pipeline",
-      status: "Active",
-      pillar: "DevOps & CI/CD",
-      description: "Multi-ring deployment orchestrations using virtual containers and warning-free automated compiler test workflows.",
-      concept: "GitHub Actions Workflows & Docker Multi-Stage Deploys",
-      github: "https://github.com/devJam2026",
-      live: "#",
-      isCyan: true,
-      hasDetails: false,
-    },
-  ];
+  const allProjects = projects.map(p => ({
+    name: p.name,
+    slug: p.slug,
+    status: p.status,
+    pillar: p.pillar,
+    description: p.description,
+    concept: p.concept,
+    github: p.githubUrl,
+    live: p.projectUrl,
+    isCyan: p.isCyan,
+    hasDetails: p.hasDetails
+  }));
 
   const filteredProjects = allProjects.filter((project) => {
     const matchesPillar = selectedPillar === "All" || project.pillar === selectedPillar;

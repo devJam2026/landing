@@ -154,12 +154,13 @@ export default function Footer() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
+              aria-label="Email Address"
               required
               className="w-full sm:w-64 rounded-lg border border-input-border bg-input-bg px-4 py-2.5 text-sm text-foreground placeholder-gray-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
             />
             <button
               type="submit"
-              className="w-full sm:w-auto rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/20 hover:bg-orange-600 transition-colors duration-200 shrink-0 cursor-pointer"
+              className="w-full sm:w-auto rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-600/20 hover:bg-orange-700 transition-colors duration-200 shrink-0 cursor-pointer"
             >
               {subscribed ? "Subscribed!" : "Subscribe"}
             </button>
