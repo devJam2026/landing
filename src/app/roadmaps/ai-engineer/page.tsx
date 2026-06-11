@@ -37,7 +37,7 @@ export default function AiEngineerRoadmapPage() {
           <PageHero
             kicker="Learning Path Diagram"
             title="AI Engineer Roadmap"
-            description="A step-by-step SDE-2 progression path taking you from tokenizers and hyperparameters to autonomous agents, model gateways, and containerized evaluators."
+            description="A step-by-step engineering progression path taking you from tokenizers and hyperparameters to autonomous agents, model gateways, and containerized evaluators."
           />
 
           {/* Visual flow block */}
@@ -161,7 +161,7 @@ export default function AiEngineerRoadmapPage() {
                   <div className="border-t border-card-border/40 pt-3 flex justify-between items-center text-[10px] font-mono">
                     <span className="text-text-muted">Modules: {track.modules.length}</span>
                     <Link
-                      href={`/ai-engineer/tracks/${track.slug}`}
+                      href={`/ai-engineer/${track.slug}`}
                       className="text-cyan-400 hover:text-cyan-300 font-bold"
                     >
                       View Details

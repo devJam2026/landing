@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/navbar";
@@ -10,37 +12,31 @@ import { aiTracks } from "@/data/ai/tracks";
 import { aiModules } from "@/data/ai/modules";
 import { aiSubmodules } from "@/data/ai/submodules";
 import { aiProjects } from "@/data/ai/projects";
-import { ArrowLeft, Compass, ShieldCheck, Cpu, Code, HelpCircle } from "lucide-react";
+import { ArrowLeft, Compass, ShieldCheck, Cpu, Code, HelpCircle, ChevronDown, ChevronUp, BookOpenText } from "lucide-react";
 
-interface SubmodulePageProps {
-  params: Promise<{
-    "track-slug": string;
-    "module-slug": string;
-    "submodule-slug": string;
-  }>;
+interface SubmoduleDetailClientProps {
+  trackSlug: string;
+  moduleSlug: string;
+  submoduleSlug: string;
 }
 
-export async function generateStaticParams() {
-  const params: { "track-slug": string; "module-slug": string; "submodule-slug": string }[] = [];
-  Object.values(aiSubmodules).forEach((submodule) => {
-    params.push({
-      "track-slug": submodule.trackSlug,
-      "module-slug": submodule.moduleSlug,
-      "submodule-slug": submodule.slug,
-    });
-  });
-  return params;
-}
-
-export default async function AiEngineerSubmoduleDetailPage({ params }: SubmodulePageProps) {
-  const resolvedParams = await params;
-  const trackSlug = resolvedParams["track-slug"];
-  const moduleSlug = resolvedParams["module-slug"];
-  const submoduleSlug = resolvedParams["submodule-slug"];
-
+export default function SubmoduleDetailClient({
+  trackSlug,
+  moduleSlug,
+  submoduleSlug,
+}: SubmoduleDetailClientProps) {
   const track = aiTracks.find((t) => t.slug === trackSlug);
   const aiModule = aiModules[moduleSlug];
   const submodule = aiSubmodules[submoduleSlug];
+
+  const [expandedQuestions, setExpandedQuestions] = useState<Record<number, boolean>>({});
+
+  const toggleQuestion = (idx: number) => {
+    setExpandedQuestions((prev) => ({
+      ...prev,
+      [idx]: !prev[idx],
+    }));
+  };
 
   if (
     !track ||
@@ -71,7 +67,7 @@ export default async function AiEngineerSubmoduleDetailPage({ params }: Submodul
           {/* Breadcrumb */}
           <div className="flex items-center justify-between">
             <Link
-              href={`/ai-engineer/tracks/${track.slug}/${aiModule.slug}`}
+              href={`/ai-engineer/${track.slug}/${aiModule.slug}`}
               className="inline-flex items-center gap-2 text-xs text-text-muted hover:text-foreground transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -81,7 +77,7 @@ export default async function AiEngineerSubmoduleDetailPage({ params }: Submodul
           </div>
 
           <PageHero
-            kicker="AI Lesson"
+            kicker="AI Lesson & Submodule"
             title={submodule.title}
             description={submodule.description}
           />
@@ -99,7 +95,20 @@ export default async function AiEngineerSubmoduleDetailPage({ params }: Submodul
               </p>
             </div>
 
-            {/* 2. What you will learn */}
+            {/* 2. Detailed Technical Explanation (if present) */}
+            {submodule.detailedExplanation && (
+              <div className="flex flex-col gap-2">
+                <h3 className="text-xs font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2 border-b border-card-border/40 pb-2">
+                  <BookOpenText className="h-4 w-4" />
+                  Deep-Dive Explanation
+                </h3>
+                <div className="border border-card-border bg-[#030712]/50 p-4 rounded-xl text-xs text-text-muted leading-relaxed font-sans">
+                  {submodule.detailedExplanation}
+                </div>
+              </div>
+            )}
+
+            {/* 3. What you will learn */}
             <div className="flex flex-col gap-2">
               <h3 className="text-xs font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2 border-b border-card-border/40 pb-2">
                 <ShieldCheck className="h-4 w-4" />
@@ -115,7 +124,7 @@ export default async function AiEngineerSubmoduleDetailPage({ params }: Submodul
               </ul>
             </div>
 
-            {/* 3. Concepts Covered */}
+            {/* 4. Concepts Covered */}
             <div className="flex flex-col gap-2">
               <h3 className="text-xs font-bold text-orange-500 uppercase tracking-widest flex items-center gap-2 border-b border-card-border/40 pb-2">
                 <Cpu className="h-4 w-4" />
@@ -185,28 +194,69 @@ export default async function AiEngineerSubmoduleDetailPage({ params }: Submodul
               </div>
             )}
 
-            {/* 4. Interview Value */}
-            <div className="flex flex-col gap-2">
-              <h3 className="text-xs font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2 border-b border-card-border/40 pb-2">
-                <HelpCircle className="h-4 w-4" />
-                Technical Interview Value
-              </h3>
-              <ul className="flex flex-col gap-2.5 pl-1">
-                {submodule.interviewValue.map((val, idx) => (
-                  <li key={idx} className="flex gap-2 text-xs text-text-muted leading-relaxed">
-                    <span className="text-orange-500 font-bold shrink-0">?</span>
-                    <span>{val}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {/* 5. Interactive Interview Q&A Section */}
+            {submodule.interviewQuestions && submodule.interviewQuestions.length > 0 ? (
+              <div className="flex flex-col gap-4 border-t border-card-border/40 pt-6">
+                <h3 className="text-xs font-bold text-orange-500 uppercase tracking-widest flex items-center gap-2 border-b border-card-border/40 pb-2">
+                  <HelpCircle className="h-4 w-4" />
+                  Technical Interview Defense Q&A
+                </h3>
+                <div className="flex flex-col gap-3">
+                  {submodule.interviewQuestions.map((item, idx) => {
+                    const isOpen = !!expandedQuestions[idx];
+                    return (
+                      <div
+                        key={idx}
+                        className="rounded-xl border border-card-border/60 bg-[#030712]/45 overflow-hidden transition-all duration-200"
+                      >
+                        <button
+                          onClick={() => toggleQuestion(idx)}
+                          className="w-full flex items-center justify-between gap-4 p-4 text-left hover:bg-orange-500/5 transition-colors cursor-pointer"
+                        >
+                          <div className="flex items-start gap-3">
+                            <span className="text-xs font-bold text-orange-500 font-mono mt-0.5">Q{idx + 1}.</span>
+                            <span className="text-xs font-bold text-foreground leading-relaxed">{item.question}</span>
+                          </div>
+                          {isOpen ? (
+                            <ChevronUp className="h-4 w-4 text-orange-500 shrink-0" />
+                          ) : (
+                            <ChevronDown className="h-4 w-4 text-text-muted shrink-0" />
+                          )}
+                        </button>
+                        
+                        {isOpen && (
+                          <div className="p-4 border-t border-card-border/40 bg-[#040813]/60 text-xs text-text-muted leading-relaxed font-sans transition-all">
+                            {item.answer}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <h3 className="text-xs font-bold text-cyan-400 uppercase tracking-widest flex items-center gap-2 border-b border-card-border/40 pb-2">
+                  <HelpCircle className="h-4 w-4" />
+                  Technical Interview Value
+                </h3>
+                <ul className="flex flex-col gap-2.5 pl-1">
+                  {submodule.interviewValue.map((val, idx) => (
+                    <li key={idx} className="flex gap-2 text-xs text-text-muted leading-relaxed">
+                      <span className="text-orange-500 font-bold shrink-0">?</span>
+                      <span>{val}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
           </div>
 
           {/* Nav back button */}
           <div className="mt-4">
             <Link
-              href={`/ai-engineer/tracks/${track.slug}/${aiModule.slug}`}
+              href={`/ai-engineer/${track.slug}/${aiModule.slug}`}
               className="inline-flex items-center gap-2 rounded-xl border border-card-border bg-[#050811]/80 hover:bg-[#070b16]/75 px-5 py-3 text-xs font-bold text-foreground transition-all cursor-pointer"
             >
               <ArrowLeft className="h-4 w-4 text-orange-500" />

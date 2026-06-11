@@ -131,7 +131,7 @@ export default function AiEngineerLandingPage() {
                       <div className="border-t border-card-border/40 pt-3 flex justify-between items-center text-[10px] font-mono">
                         <span className="text-text-muted">Projects: {track.plannedProjects.length}</span>
                         <Link
-                          href={`/ai-engineer/tracks/${track.slug}`}
+                          href={`/ai-engineer/${track.slug}`}
                           className="text-cyan-400 hover:text-cyan-300 font-bold inline-flex items-center gap-1"
                         >
                           View Track

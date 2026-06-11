@@ -445,4 +445,209 @@ CMD ["npm", "start"]`,
       },
     ],
   },
+  {
+    slug: "mastering-two-pointers",
+    title: "Mastering Two Pointers",
+    description: "Learn how to optimize linear search intervals and matching bounds from O(N^2) to O(N) using inward or different speed pointers.",
+    date: "Jun 11, 2026",
+    readTime: "8 min read",
+    category: "DSA",
+    iconName: "BookOpen",
+    isCyan: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "The Two Pointers pattern is one of the most efficient techniques to process sorted arrays or lists. By maintaining two index variables that traverse the collection concurrently, we can eliminate nested loops and perform checks in linear time.",
+      },
+      {
+        type: "heading",
+        text: "Inward-Moving Pointers (Sorted Arrays)",
+      },
+      {
+        type: "paragraph",
+        text: "When an array is sorted, we can initialize one pointer at the start (0) and another at the end (len - 1). Depending on the sum or conditions, we increment the left pointer or decrement the right pointer to narrow search bounds.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `function twoSumSorted(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+    
+    while (left < right) {
+        const currentSum = nums[left] + nums[right];
+        if (currentSum === target) {
+            return [left + 1, right + 1]; // 1-based indexing
+        } else if (currentSum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    return [];
+}`,
+      },
+      {
+        type: "heading",
+        text: "Fast & Slow Pointers (Linked Lists)",
+      },
+      {
+        type: "paragraph",
+        text: "In cyclic structures or linked lists, we can move one pointer twice as fast as the other (Fast = 2x, Slow = 1x). If a cycle exists, the fast pointer will eventually catch up and meet the slow pointer.",
+      },
+    ],
+  },
+  {
+    slug: "mastering-binary-search",
+    title: "Mastering Binary Search",
+    description: "Go beyond basic search; learn to apply binary search on answer spaces and rotated intervals in O(log N) runtime.",
+    date: "Jun 11, 2026",
+    readTime: "9 min read",
+    category: "DSA",
+    iconName: "Terminal",
+    isCyan: true,
+    content: [
+      {
+        type: "paragraph",
+        text: "Binary Search is a divide-and-conquer strategy that finds the position of a target value within a sorted collection. By dividing the search interval in half on each step, we achieve logarithmic O(log N) time complexity.",
+      },
+      {
+        type: "heading",
+        text: "Search on Answer Space (Optimization Problems)",
+      },
+      {
+        type: "paragraph",
+        text: "Binary search can be applied to non-array inputs where the answer space is monotonic (i.e., if x is possible, all values > x are also possible). Examples include finding the minimum speed required to eat bananas or the minimum capacity to ship cargo.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `function shipWithinDays(weights, days) {
+    let left = Math.max(...weights);
+    let right = weights.reduce((a, b) => a + b, 0);
+    
+    while (left < right) {
+        let mid = Math.floor((left + right) / 2);
+        if (canShip(weights, days, mid)) {
+            right = mid; // Try smaller capacity
+        } else {
+            left = mid + 1; // Increase capacity
+        }
+    }
+    return left;
+}`,
+      },
+      {
+        type: "heading",
+        text: "Common Boundaries Mistakes",
+      },
+      {
+        type: "list",
+        items: [
+          "Avoid integer overflow when calculating midpoint: use left + Math.floor((right - left) / 2).",
+          "Ensure loop terminates: be careful with while (left <= right) vs while (left < right).",
+          "Verify bounds shift: always update pointers with mid + 1 or mid - 1 to prevent infinite loops.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "mastering-heaps",
+    title: "Mastering Heaps & Priority Queues",
+    description: "Understand binary heap structures, dynamic streams, and how to extract min/max items in O(log K) time.",
+    date: "Jun 12, 2026",
+    readTime: "8 min read",
+    category: "DSA",
+    iconName: "Layers",
+    isCyan: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "Heaps (or Priority Queues) are specialized tree-based data structures that satisfy the heap property: in a min-heap, the parent key is always smaller than or equal to child keys. This allows fetching the minimum element in O(1) time.",
+      },
+      {
+        type: "heading",
+        text: "Tracking Top-K Frequent Elements",
+      },
+      {
+        type: "paragraph",
+        text: "When dealing with data streams where we continually push items and need to retrieve the top-K largest or most frequent, a min-heap of size K is highly optimal. By keeping only K elements in the heap, we perform insertions in O(log K) rather than sorting the entire list.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `// Simulating heap push and pop for top K elements
+class MinHeap {
+    constructor() { this.data = []; }
+    push(val) {
+        this.data.push(val);
+        this.upHeap(this.data.length - 1);
+    }
+    pop() {
+        const min = this.data[0];
+        const end = this.data.pop();
+        if (this.data.length > 0) {
+            this.data[0] = end;
+            this.downHeap(0);
+        }
+        return min;
+    }
+}`,
+      },
+    ],
+  },
+  {
+    slug: "mastering-dynamic-programming",
+    title: "Mastering Dynamic Programming",
+    description: "Learn to build recurrence relations, design top-down memoization, and write bottom-up tabulation solutions.",
+    date: "Jun 12, 2026",
+    readTime: "11 min read",
+    category: "DSA",
+    iconName: "Cpu",
+    isCyan: true,
+    content: [
+      {
+        type: "paragraph",
+        text: "Dynamic Programming (DP) is an algorithmic paradigm that solves complex problems by breaking them down into simpler subproblems. It is applicable when subproblems overlap recursively, allowing us to cache results and avoid redundant work.",
+      },
+      {
+        type: "heading",
+        text: "Top-Down (Memoization) vs Bottom-Up (Tabulation)",
+      },
+      {
+        type: "paragraph",
+        text: "Top-Down DP starts with the main problem and recursively breaks it down, storing solved subproblem states in a dictionary or array (memo). Bottom-Up DP starts from the base cases and iteratively fills up a state table (tabulation).",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `// Coin Change: Bottom-Up Tabulation O(N * amount)
+function coinChange(coins, amount) {
+    let dp = new Array(amount + 1).fill(Infinity);
+    dp[0] = 0;
+    
+    for (let i = 1; i <= amount; i++) {
+        for (let coin of coins) {
+            if (i - coin >= 0) {
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+            }
+        }
+    }
+    return dp[amount] === Infinity ? -1 : dp[amount];
+}`,
+      },
+      {
+        type: "heading",
+        text: "The 3 Steps to Solve Any DP Problem",
+      },
+      {
+        type: "list",
+        items: [
+          "Define the state: What do the DP table indices represent? (e.g., dp[i] is the minimum coins to make amount i).",
+          "Formulate the recurrence relation: How does the current state relate to previous states? (e.g., dp[i] = min(dp[i - coin] + 1)).",
+          "Identify base cases: What are the simplest states that require no calculation? (e.g., dp[0] = 0).",
+        ],
+      },
+    ],
+  },
 ];

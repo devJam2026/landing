@@ -127,7 +127,7 @@ export default function DsaDashboardPage() {
                     {masteryPercent}%
                   </div>
                   <div className="flex flex-col gap-0.5">
-                    <span className="text-xs font-bold text-foreground">SDE-2 Competency Level</span>
+                    <span className="text-xs font-bold text-foreground">DSA Competency Level</span>
                     <span className="text-[10px] text-text-muted">
                       Articles Read: {articlesReadCount}/{totalArticles} • Playgrounds: {playgroundsDoneCount}/{totalPlaygrounds}
                     </span>

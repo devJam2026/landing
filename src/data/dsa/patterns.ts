@@ -5,11 +5,13 @@ export interface DsaPattern {
   indicators: string[];
   reasoning: string;
   leetcodeProblems: string[];
+  slug?: string;
 }
 
 export const dsaPatterns: DsaPattern[] = [
   {
     name: "Sliding Window",
+    slug: "mastering-sliding-windows",
     description: "Maintains a sub-segment window over linear items (arrays/strings) to process contiguous values efficiently.",
     triggers: [
       "Find longest/shortest subarray satisfying a sum or size criteria",
@@ -30,6 +32,7 @@ export const dsaPatterns: DsaPattern[] = [
   },
   {
     name: "Two Pointers",
+    slug: "mastering-two-pointers",
     description: "Uses two pointer variables moving inward or at different speeds to solve matching bounds.",
     triggers: [
       "Find two numbers summing up to a target in a sorted collection",
@@ -50,6 +53,7 @@ export const dsaPatterns: DsaPattern[] = [
   },
   {
     name: "Binary Search",
+    slug: "mastering-binary-search",
     description: "Divides sorted search bounds in half on each step, reducing logarithmic checks.",
     triggers: [
       "Find element in a sorted collection",
@@ -70,6 +74,7 @@ export const dsaPatterns: DsaPattern[] = [
   },
   {
     name: "Heap / Priority Queue",
+    slug: "mastering-heaps",
     description: "Keeps elements ordered in a heap tree to fetch the minimum or maximum instantly in O(1) time.",
     triggers: [
       "Find the top k frequent or largest items in a stream",
@@ -90,6 +95,7 @@ export const dsaPatterns: DsaPattern[] = [
   },
   {
     name: "Graph Traversals (BFS / DFS)",
+    slug: "graph-traversals-visualized",
     description: "Flood fills node nodes layer-by-layer (BFS queue) or traverses deep paths recursively (DFS stack).",
     triggers: [
       "Find shortest path in an unweighted grid or network",
@@ -110,6 +116,7 @@ export const dsaPatterns: DsaPattern[] = [
   },
   {
     name: "Dynamic Programming",
+    slug: "mastering-dynamic-programming",
     description: "Stores calculations of smaller subproblems in tables to resolve duplicates.",
     triggers: [
       "Maximize profit or minimize cost based on recursive choices",

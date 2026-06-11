@@ -13,6 +13,8 @@ export type AISubmodule = {
   conceptsCovered: string[];
   projectMapping: string[];
   interviewValue: string[];
+  detailedExplanation?: string;
+  interviewQuestions?: { question: string; answer: string; }[];
 };
 
 export const aiSubmodules: Record<string, AISubmodule> = {
@@ -36,6 +38,17 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     interviewValue: [
       "Explain why raw emojis or spelling variations can inflate token counts",
       "Describe how out-of-vocabulary terms are resolved in tokenizers"
+    ],
+    detailedExplanation: "Tokenization translates unstructured text into a sequence of discrete integers (tokens) corresponding to indices in the model's embedding matrix. LLMs do not read characters directly. Instead, they operate on these numerical IDs. Character-based splits result in long sequences that exhaust context windows, while word-based splits suffer from infinite vocabulary growth (Out-Of-Vocabulary elements). Subword tokenization strikes an optimal balance by breaking rare words into common root fragments.",
+    interviewQuestions: [
+      {
+        question: "Why do emojis or non-English text consume significantly more tokens?",
+        answer: "Tokenizers are typically pre-trained on corpora heavily weighted toward English text. Emojis and non-English scripts (like Devanagari or Cyrillic) are often underrepresented in the vocabulary, forcing the tokenizer to split single characters or words into multiple byte-level tokens, inflating the sequence size."
+      },
+      {
+        question: "How do tokenizers handle completely unknown characters?",
+        answer: "Modern subword tokenizers fallback to byte-level representations. Characters not present in the vocabulary are converted to their raw UTF-8 bytes (such as byte tokens <0x4E>), ensuring the tokenizer never encounters a hard Out-Of-Vocabulary (OOV) crash."
+      }
     ]
   },
   "tokenization-algorithms": {
@@ -56,6 +69,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Explain the OOV (Out of Vocabulary) bottleneck in word-based tokenizers"
+    ],
+    detailedExplanation: "Older NLP systems used word-level tokenization, which suffered from high sparsity (the vocabulary could grow to millions of words and still fail to recognize plurals or misspelling variations). Character tokenization solves sparsity but splits text into tiny steps, making it difficult for self-attention layers to model long-range dependencies. Modern subword algorithms (BPE, WordPiece, Unigram) merge frequent character sequences, creating dynamic vocabularies of 30,000 to 256,000 entries that handle any word.",
+    interviewQuestions: [
+      {
+        question: "Compare BPE, WordPiece, and Unigram tokenization algorithms.",
+        answer: "BPE (Byte Pair Encoding) is a bottom-up method that merges the most frequent pairs of bytes/characters. WordPiece is similar but selects merges that maximize the likelihood of the training data according to a language model. Unigram starts with a large vocabulary and iteratively prunes characters that contribute least to the training corpus likelihood."
+      }
     ]
   },
   "bpe-wordpiece": {
@@ -76,6 +96,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Explain the merge logic of the Byte Pair Encoding (BPE) algorithm"
+    ],
+    detailedExplanation: "Byte Pair Encoding (BPE) begins with a vocabulary of base characters/bytes. It scans the training corpus, counts all adjacent token pairs, and merges the most frequent pair (e.g., 't' and 'h' become 'th'). This process repeats for a fixed number of merge iterations until the target vocabulary size is reached. BPE is deterministic and operates strictly on frequency statistics, making it highly efficient.",
+    interviewQuestions: [
+      {
+        question: "How does the BPE tokenizer decode integer tokens back to strings?",
+        answer: "Decoding is straightforward: the tokenizer maps each integer ID back to its byte/character sequence in the vocabulary table, concatenates them, and converts the resulting byte array back to a UTF-8 string."
+      }
     ]
   },
   "token-inflation-costs": {
@@ -96,6 +123,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Detail how token inflation affects pricing and context windows in international applications"
+    ],
+    detailedExplanation: "Because vocabularies are optimized for English, non-English words are split into multiple smaller tokens. A single word in Spanish or Japanese might take 3 to 5 tokens, whereas the same concept takes 1 token in English. This creates a billing inflation and reduces the effective context window size for international users. Understanding token-to-word ratios is critical for estimating operational costs at scale.",
+    interviewQuestions: [
+      {
+        question: "How would you optimize an international translation application against token inflation costs?",
+        answer: "You can use a custom tokenizer trained specifically on the target languages (like Llama-3's expanded 128k vocabulary which reduces non-English token inflation by 15-20%), or compress inputs using semantic mapping before sending them to the LLM."
+      }
     ]
   },
   "tokenization-interview": {
@@ -104,7 +138,7 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     trackSlug: "foundation",
     moduleSlug: "tokenization",
     title: "Tokenization in Interviews",
-    description: "How to answer core tokenizer engineering questions in SDE loops.",
+    description: "How to answer core tokenizer engineering questions in interview loops.",
     status: "placeholder",
     whatYouWillLearn: [
       "Answering common tokenizer questions",
@@ -116,6 +150,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Defend the choice of a 32k vs 128k vocabulary size to a senior panel"
+    ],
+    detailedExplanation: "Interview questions surrounding tokenization probe your understanding of the interface between text and model weight parameters. Designing vocabularies involves a hard trade-off: larger vocabularies (e.g. 128,000 tokens) represent text more compactly (fewer tokens per word) but enlarge the embedding matrix weights, consuming more GPU memory. Smaller vocabularies conserve model parameter space but inflate the context window length.",
+    interviewQuestions: [
+      {
+        question: "Explain the space-compute trade-off of changing the tokenizer vocabulary size.",
+        answer: "A larger vocabulary size decreases the sequence length (fewer tokens to represent a prompt), reducing the quadratic attention computational cost. However, it requires a larger embedding layer (Vocabulary Size x Hidden Dimension) which increases the model's parameter size and memory footprint."
+      }
     ]
   },
 
@@ -138,6 +179,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["context-window-diagnostics"],
     interviewValue: [
       "Explain why prompt context complexity scales quadratically with sequence length in standard attention layers"
+    ],
+    detailedExplanation: "The context window is the maximum sequence length (input + output tokens) that a model can process in a single inference step. In standard transformer architectures, the self-attention layer computes relationship values between every pair of tokens. This results in quadratic O(N^2) time and space complexity, meaning that doubling the sequence length quadruples the GPU memory and processing steps required.",
+    interviewQuestions: [
+      {
+        question: "Explain the 'Lost in the Middle' phenomenon in long context windows.",
+        answer: "Studies show that LLMs are much better at retrieving information placed at the absolute beginning or end of a long prompt context. Information buried in the middle of a 32k or 128k token window is often neglected because the attention mechanism distributes its weights too thinly across the sequence."
+      }
     ]
   },
   "context-budget-management": {
@@ -158,6 +206,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["context-window-diagnostics"],
     interviewValue: [
       "Propose a memory architecture that prevents chat session context window exhaustion in heavy enterprise applications"
+    ],
+    detailedExplanation: "Managing token budgets requires dynamically tracking the length of system prompts, user queries, retrieved RAG context, and active conversation history. If the combined token length approaches the model's limit, the application must apply compression, truncation, or history-trimming policies. This prevents context exhaustion API errors and maintains low latency.",
+    interviewQuestions: [
+      {
+        question: "How do you calculate and reserve space for output tokens in a strict budget plan?",
+        answer: "We count the input tokens using a local tokenizer library (like tiktoken) before calling the API. If the limit is C and we want to reserve O tokens for the model's answer, we ensure the input tokens never exceed C - O, dynamically trimming the chat history if needed."
+      }
     ]
   },
   "prompt-trimming-strategies": {
@@ -178,6 +233,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["context-window-diagnostics"],
     interviewValue: [
       "Compare sliding window truncation vs recursive summarization memory in conversational search agents"
+    ],
+    detailedExplanation: "To prevent history from exhausting the context window, several strategies can be employed. Sliding Window Truncation discards the oldest messages when the token count exceeds a threshold. Recursive Summarization uses a smaller LLM in the background to summarize older turns into a compact summary paragraph, which is appended to the system prompt, preserving history themes in few tokens.",
+    interviewQuestions: [
+      {
+        question: "What are the trade-offs of using sliding windows vs summarization memory?",
+        answer: "Sliding windows are cheap and preserve exact message details but completely forget older topics. Summarization memory preserves the general context of older conversations but incurs background API latency/costs and can introduce hallucinated summary states."
+      }
     ]
   },
   "context-interview": {
@@ -198,6 +260,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["context-window-diagnostics"],
     interviewValue: [
       "Propose strategies to maintain high retrieval accuracy when injecting 100k+ tokens into a context window"
+    ],
+    detailedExplanation: "Interviewers want to see how you design production setups that remain robust under heavy user interactions. When discussing context windows, emphasize practical limits (lost-in-the-middle, cost constraints) rather than just stating the theoretical limits (e.g., 200k tokens). Explain how you combine local embedding lookups with dynamic prompt builders to structure inputs.",
+    interviewQuestions: [
+      {
+        question: "How do you evaluate if a model is successfully retrieving information from a 100k token window?",
+        answer: "We perform a 'Needle in a Haystack' evaluation: we insert a specific fact (the needle) at varying depths (from 0% to 100%) in a large body of random text (the haystack) and query the model to retrieve it. This generates a recall heatmap identifying depth vulnerabilities."
+      }
     ]
   },
 
@@ -220,6 +289,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["hyperparameter-playground"],
     interviewValue: [
       "Explain how frequency penalty checks occur during the next-token selection cycle"
+    ],
+    detailedExplanation: "Hyperparameters control the token selection process at the model's output layer. While the model's weights remain fixed, adjusting hyperparameters like Temperature, Top-p, and penalties modifies the probability distribution of potential next tokens, shifting the output from highly deterministic to highly creative.",
+    interviewQuestions: [
+      {
+        question: "What is the difference between Frequency Penalty and Presence Penalty?",
+        answer: "Frequency Penalty penalizes tokens based on how many times they have already appeared in the output, preventing word loops. Presence Penalty penalizes a token if it has appeared at least once, encouraging the model to introduce new topics/words."
+      }
     ]
   },
   "softmax-sampling-mechanics": {
@@ -240,6 +316,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["hyperparameter-playground"],
     interviewValue: [
       "Derive the formula for Temperature scaling inside Softmax, explaining why lower temperatures yield flatter, repetitive predictions"
+    ],
+    detailedExplanation: "The model outputs raw values called logits for every token in the vocabulary. The Softmax function converts these logits into a probability distribution summing to 1. Temperature (T) scales the logits: Logits = Logits / T. When T is low (e.g. 0.1), the differences between logits are amplified, concentrating the probability on the absolute top candidate. When T is high, the distribution flattens, giving lower-ranked tokens a higher chance of selection.",
+    interviewQuestions: [
+      {
+        question: "Explain why Temperature cannot be set to 0 mathematically, and how APIs implement it.",
+        answer: "If T = 0, division by zero occurs (Logits / 0). To implement Temperature = 0, APIs bypass Softmax sampling altogether and perform 'greedy decoding', selecting the token with the highest raw logit value."
+      }
     ]
   },
   "deterministic-generation": {
@@ -260,6 +343,13 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     projectMapping: ["hyperparameter-playground"],
     interviewValue: [
       "Propose configurations to secure maximum determinism when parsing complex data schemas from unstructured logs"
+    ],
+    detailedExplanation: "In enterprise workloads, obtaining reliable structured data (like JSON) requires high determinism. This is achieved by setting Temperature to 0, using Top-p = 1, and using guided decoding. Conversely, creative tasks require high entropy (higher Temperature, active penalties) to prevent repetitive clichés and encourage diverse vocabulary splits.",
+    interviewQuestions: [
+      {
+        question: "Why can an LLM respond with different outputs even at Temperature = 0 on cloud endpoints?",
+        answer: "Modern cloud APIs route queries to large clusters of GPUs executing calculations in parallel. Minor hardware timing differences or out-of-order execution in floating-point operations can cause rounding differences (non-associative float addition: (A + B) + C !== A + (B + C)). This creates tiny logit shifts that can change the chosen token at critical selection points."
+      }
     ]
   }
 };

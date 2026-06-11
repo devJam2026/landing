@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface Step {
   id: string;
@@ -8,88 +9,228 @@ interface Step {
   status: string;
   desc: string;
   progress: string;
+  slug: string;
 }
 
 const aiSteps: Step[] = [
   {
-    id: "ai-foundations",
-    title: "AI Foundations",
-    status: "Completed",
-    desc: "Mathematical foundations, vectors, matrices, basic backpropagation, and neural networks representation.",
+    id: "foundation",
+    title: "1. Foundation",
+    status: "Active",
+    desc: "Learn core prompt engineering, tokenization, context constraints, structured schemas, embedding lookups, and local models evaluations.",
     progress: "100%",
+    slug: "foundation",
+  },
+  {
+    id: "neural-networks",
+    title: "2. Neural Nets",
+    status: "Planned",
+    desc: "Deconstruct deep learning layers, weights, biases, backpropagation, and multi-layer perceptrons from scratch.",
+    progress: "0%",
+    slug: "neural-networks",
   },
   {
     id: "transformers",
-    title: "Transformers",
-    status: "Completed",
-    desc: "Understanding self-attention layers, Query-Key-Value projections, multi-head attention, and causal masking.",
-    progress: "100%",
+    title: "3. Transformers",
+    status: "Planned",
+    desc: "Deep dive into Attention Is All You Need. Study multi-head attention, decoder blocks, and normalizations.",
+    progress: "0%",
+    slug: "transformers",
+  },
+  {
+    id: "embeddings-vector-db",
+    title: "4. Embeddings & DB",
+    status: "Planned",
+    desc: "Master chunking strategies, embedding generation, index types (HNSW, IVF), and hybrid query strategies.",
+    progress: "0%",
+    slug: "embeddings-vector-db",
   },
   {
     id: "rag",
-    title: "RAG Systems",
-    status: "Active",
-    desc: "Document chunking, vector database embeddings, semantic search, prompt context expansion, and reranking pipelines.",
-    progress: "80%",
+    title: "5. RAG Pipelines",
+    status: "Planned",
+    desc: "Design advanced document ingestion, reranking models, metadata filtering, and hallucination evaluations.",
+    progress: "0%",
+    slug: "rag",
   },
   {
     id: "agents",
-    title: "AI Agents",
+    title: "6. Agent Loops",
     status: "Planned",
-    desc: "ReAct execution loops, autonomous planning, function/tool registries, and client-side tool execution.",
+    desc: "Master the ReAct loop, tool registries, agent planning models, memory management, and structured execution loops.",
     progress: "0%",
+    slug: "agents",
   },
   {
-    id: "multi-agent",
-    title: "Multi-Agent",
+    id: "mcp-ecosystem",
+    title: "7. MCP / Tools",
     status: "Planned",
-    desc: "Hierarchical agent networks, task delegation, custom communication channels, and centralized state monitoring.",
+    desc: "Deconstruct the Model Context Protocol. Build client-server integrations and enforce security boundaries.",
     progress: "0%",
+    slug: "mcp-ecosystem",
   },
   {
-    id: "production-ai",
-    title: "Production AI",
+    id: "multi-agent-systems",
+    title: "8. Multi-Agent",
     status: "Planned",
-    desc: "Optimizing token latencies, model quantization (GGUF/AWQ), semantic caches, and security guardrails.",
+    desc: "Orchestrate role-based agent collaborations, supervisor patterns, and human-in-the-loop approvals.",
     progress: "0%",
+    slug: "multi-agent-systems",
+  },
+  {
+    id: "ai-system-design",
+    title: "9. AI Sys Design",
+    status: "Planned",
+    desc: "Scale AI topologies. Design caching layers, routing gates, costs observability, and low-latency fallbacks.",
+    progress: "0%",
+    slug: "ai-system-design",
+  },
+  {
+    id: "production-deploy",
+    title: "10. Production AI",
+    status: "Planned",
+    desc: "Run models at scale. Master streaming APIs, token bucket rate limits, guardrail checks, and CI/CD eval loops.",
+    progress: "0%",
+    slug: "production-deploy",
+  },
+  {
+    id: "master-capstones",
+    title: "11. Capstones",
+    status: "Planned",
+    desc: "Synthesize all learnings into enterprise-grade portfolio platforms with full architectural and execution specs.",
+    progress: "0%",
+    slug: "master-capstones",
   },
 ];
 
 const dsaSteps: Step[] = [
   {
-    id: "big-o",
-    title: "Big-O Visualizer",
-    status: "Active",
-    desc: "Animate time and space complexity growth scales O(1), O(log n), O(n), O(n log n), O(n^2), and O(2^n) with slider controls and step math.",
-    progress: "20%",
+    id: "complexity-analysis",
+    title: "1. Complexity",
+    status: "Completed",
+    desc: "Master Big O, Big Theta, and Big Omega notation scales. Benchmark execution steps and analyze time-space tradeoffs.",
+    progress: "100%",
+    slug: "complexity-analysis",
   },
   {
-    id: "array",
-    title: "Array Playground",
-    status: "Planned",
-    desc: "Step through and animate array manipulations, two-pointers, prefix sums, and sliding window boundaries.",
-    progress: "0%",
+    id: "arrays",
+    title: "2. Arrays",
+    status: "Completed",
+    desc: "Explore linear structures, traversals, prefix sums, sliding windows, and shrinking pointer boundaries.",
+    progress: "100%",
+    slug: "arrays",
   },
   {
-    id: "tree",
-    title: "Tree Visualizer",
-    status: "Planned",
-    desc: "Animate DFS traversals (inorder, preorder, postorder) and BFS level order scanning step-by-step on SVG trees.",
-    progress: "0%",
+    id: "strings",
+    title: "3. Strings",
+    status: "Completed",
+    desc: "Master string manipulation, pattern matching, sliding windows, hashing lookup keys, and character frequency arrays.",
+    progress: "100%",
+    slug: "strings",
   },
   {
-    id: "graph",
-    title: "Graph Playground",
-    status: "Planned",
-    desc: "Visualize grid-based searches representing island counts, adjacency expansions, and pathfinding tracking.",
-    progress: "0%",
+    id: "linked-lists",
+    title: "4. Linked Lists",
+    status: "Completed",
+    desc: "Deconstruct node chains, pointer directions, list reversals, merge operations, and Floyd cycle detection.",
+    progress: "100%",
+    slug: "linked-lists",
   },
   {
-    id: "dp",
-    title: "DP Visualizer",
-    status: "Planned",
-    desc: "Compare recursive memoization trees vs. tabulated multi-dimensional grids to calculate subproblems overlap.",
-    progress: "0%",
+    id: "stack",
+    title: "5. Stack",
+    status: "Completed",
+    desc: "Master Last-In-First-Out operations, recursion stacks, monotonic sequences, and nested validations.",
+    progress: "100%",
+    slug: "stack",
+  },
+  {
+    id: "queue",
+    title: "6. Queue",
+    status: "Completed",
+    desc: "Explore First-In-First-Out loops, circular memory frames, double-ended queues, and priority heaps.",
+    progress: "100%",
+    slug: "queue",
+  },
+  {
+    id: "hash-tables",
+    title: "7. Hash Tables",
+    status: "Completed",
+    desc: "Understand hashing maps, collision resolutions (chaining vs. open addressing), and constant-time search gates.",
+    progress: "100%",
+    slug: "hash-tables",
+  },
+  {
+    id: "trees",
+    title: "8. Trees",
+    status: "Completed",
+    desc: "Deconstruct hierarchic node traversals (DFS/BFS), binary search constraints, balancing, and prefix Tries.",
+    progress: "100%",
+    slug: "trees",
+  },
+  {
+    id: "heap",
+    title: "9. Heap",
+    status: "Completed",
+    desc: "Optimize continuous min/max extractions using array-based binary heaps and bubble heapify steps.",
+    progress: "100%",
+    slug: "heap",
+  },
+  {
+    id: "graphs",
+    title: "10. Graphs",
+    status: "Completed",
+    desc: "Traverse custom coordinate vertices, relax weighted edges, compute shortest paths, and sort DAG cycles.",
+    progress: "100%",
+    slug: "graphs",
+  },
+  {
+    id: "backtracking",
+    title: "11. Backtrack",
+    status: "Completed",
+    desc: "Search recursive decision trees, prune failing paths, and solve permutation grid puzzles.",
+    progress: "100%",
+    slug: "backtracking",
+  },
+  {
+    id: "dynamic-programming",
+    title: "12. Dyn Prog",
+    status: "Completed",
+    desc: "Identify overlapping subproblems, store computations in tables (memoization vs tabulation), and solve Knapsacks.",
+    progress: "100%",
+    slug: "dynamic-programming",
+  },
+  {
+    id: "trie",
+    title: "13. Trie",
+    status: "Completed",
+    desc: "Build efficient prefix trees for character retrieval. Optimize dictionary searches, autocompletes, and prefix lookups.",
+    progress: "100%",
+    slug: "trie",
+  },
+  {
+    id: "binary-search",
+    title: "14. Bin Search",
+    status: "Completed",
+    desc: "Divide search spaces in half logarithmically. Master search-space reductions and binary searching on answer thresholds.",
+    progress: "100%",
+    slug: "binary-search",
+  },
+  {
+    id: "greedy",
+    title: "15. Greedy",
+    status: "Completed",
+    desc: "Make locally optimal choices at each step. Evaluate Jump Games, merge overlapping intervals, and study counterexamples.",
+    progress: "100%",
+    slug: "greedy",
+  },
+  {
+    id: "bit-manipulation",
+    title: "16. Bit Manip",
+    status: "Completed",
+    desc: "Interact directly with binary data in registers. Master AND, OR, XOR, shifts, and efficient bitmask logic.",
+    progress: "100%",
+    slug: "bit-manipulation",
   },
 ];
 
@@ -97,14 +238,13 @@ export default function LearningRoadmap() {
   const [activeTrack, setActiveTrack] = useState<"ai" | "dsa">("ai");
 
   const steps = activeTrack === "ai" ? aiSteps : dsaSteps;
-  const [activeStep, setActiveStep] = useState<Step>(aiSteps[2]); // Default to RAG
+  const [activeStep, setActiveStep] = useState<Step>(aiSteps[0]);
 
-  // Switch default active step when track changes
   useEffect(() => {
     if (activeTrack === "ai") {
-      setActiveStep(aiSteps[2]); // RAG
+      setActiveStep(aiSteps[0]);
     } else {
-      setActiveStep(dsaSteps[0]); // Big-O
+      setActiveStep(dsaSteps[0]);
     }
   }, [activeTrack]);
 
@@ -169,66 +309,68 @@ export default function LearningRoadmap() {
         {/* Left Column - Visual Horizontal/Vertical Timeline (8/12 width) */}
         <div className="lg:col-span-8 w-full">
           {/* Timeline Wrapper */}
-          <div className="premium-card premium-card-cyan rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 overflow-x-auto w-full relative">
-            
-            {/* Ambient Background connecting pipe for desktop */}
-            <div className="absolute top-1/2 left-8 right-8 h-0.5 bg-card-border/60 -translate-y-1/2 hidden md:block -z-10" />
-
-            {steps.map((step, idx) => {
-              const isSelected = activeStep.id === step.id;
+          <div className="premium-card premium-card-cyan rounded-2xl p-6 md:p-8 overflow-x-auto w-full relative">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 md:gap-4 min-w-max relative py-4">
               
-              return (
-                <React.Fragment key={step.id}>
-                  {/* Step Node Circle */}
-                  <button
-                    onClick={() => setActiveStep(step)}
-                    className={`flex flex-col items-center gap-2 relative z-10 focus:outline-none cursor-pointer min-w-[110px] transition-all duration-300 ${
-                      isSelected ? "scale-105" : "hover:scale-102"
-                    }`}
-                  >
-                    {/* Node circle */}
-                    <div
-                      className={`h-12 w-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-                        isSelected
-                          ? "bg-orange-500 border-orange-400 text-white shadow-lg shadow-orange-500/35 scale-110"
-                          : step.status === "Completed"
-                          ? "bg-emerald-500/10 border-emerald-500 text-emerald-500"
-                          : step.status === "Active"
-                          ? "bg-orange-500/10 border-orange-500 text-orange-500"
-                          : "bg-background border-card-border text-text-muted"
+              {/* Ambient Background connecting pipe for desktop */}
+              <div className="absolute top-[40px] left-8 right-8 h-0.5 bg-card-border/60 -translate-y-1/2 hidden md:block -z-10" />
+
+              {steps.map((step, idx) => {
+                const isSelected = activeStep.id === step.id;
+                
+                return (
+                  <React.Fragment key={step.id}>
+                    {/* Step Node Circle */}
+                    <button
+                      onClick={() => setActiveStep(step)}
+                      className={`flex flex-col items-center gap-2 relative z-10 focus:outline-none cursor-pointer min-w-[110px] transition-all duration-300 ${
+                        isSelected ? "scale-105" : "hover:scale-102"
                       }`}
                     >
-                      {step.status === "Completed" ? (
-                        <svg className="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      {/* Node circle */}
+                      <div
+                        className={`h-12 w-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                          isSelected
+                            ? "bg-orange-500 border-orange-400 text-white shadow-lg shadow-orange-500/35 scale-110"
+                            : step.status === "Completed"
+                            ? "bg-emerald-500/10 border-emerald-500 text-emerald-500"
+                            : step.status === "Active"
+                            ? "bg-orange-500/10 border-orange-500 text-orange-500"
+                            : "bg-background border-card-border text-text-muted"
+                        }`}
+                      >
+                        {step.status === "Completed" ? (
+                          <svg className="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        ) : (
+                          <span className="font-mono text-xs font-black">{idx + 1}</span>
+                        )}
+                      </div>
+
+                      {/* Node text */}
+                      <span
+                        className={`text-[10px] sm:text-xs font-bold text-center transition-colors duration-300 ${
+                          isSelected ? "text-foreground font-black" : "text-text-muted hover:text-foreground"
+                        }`}
+                      >
+                        {step.title}
+                      </span>
+                    </button>
+
+                    {/* Flow Arrow (Vertical for mobile) */}
+                    {idx < steps.length - 1 && (
+                      <div className="flex justify-center md:hidden my-1 text-card-border/80">
+                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                         </svg>
-                      ) : (
-                        <span className="font-mono text-xs font-black">{idx + 1}</span>
-                      )}
-                    </div>
+                      </div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
 
-                    {/* Node text */}
-                    <span
-                      className={`text-[10px] sm:text-xs font-bold text-center transition-colors duration-300 ${
-                        isSelected ? "text-foreground font-black" : "text-text-muted hover:text-foreground"
-                      }`}
-                    >
-                      {step.title}
-                    </span>
-                  </button>
-
-                  {/* Flow Arrow (Vertical for mobile) */}
-                  {idx < steps.length - 1 && (
-                    <div className="flex justify-center md:hidden my-1 text-card-border/80">
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                      </svg>
-                    </div>
-                  )}
-                </React.Fragment>
-              );
-            })}
-
+            </div>
           </div>
         </div>
 
@@ -271,6 +413,16 @@ export default function LearningRoadmap() {
                 <span>Planned Lab Module Development</span>
               </div>
             )}
+
+            {/* Link to details page */}
+            <div className="mt-4 pt-4 border-t border-card-border/60">
+              <Link
+                href={activeTrack === "ai" ? `/ai-engineer/${activeStep.slug}` : `/dsa/${activeStep.slug}`}
+                className="w-full inline-flex items-center justify-center rounded-lg bg-orange-600 hover:bg-orange-700 text-white px-4 py-2.5 text-xs font-bold transition-all shadow-md shadow-orange-600/15"
+              >
+                Go to Module Details →
+              </Link>
+            </div>
 
           </div>
         </div>

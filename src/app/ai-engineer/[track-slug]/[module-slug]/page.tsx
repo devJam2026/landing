@@ -60,7 +60,7 @@ export default async function AiEngineerModuleDetailPage({ params }: ModulePageP
           {/* Breadcrumb */}
           <div className="flex items-center justify-between">
             <Link
-              href={`/ai-engineer/tracks/${track.slug}`}
+              href={`/ai-engineer/${track.slug}`}
               className="inline-flex items-center gap-2 text-xs text-text-muted hover:text-foreground transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -90,7 +90,7 @@ export default async function AiEngineerModuleDetailPage({ params }: ModulePageP
                     {subModules.map((sm) => (
                       <Link
                         key={sm.slug}
-                        href={`/ai-engineer/tracks/${track.slug}/${aiModule.slug}/${sm.slug}`}
+                        href={`/ai-engineer/${track.slug}/${aiModule.slug}/${sm.slug}`}
                         className="p-4 rounded-xl border border-card-border bg-[#030712]/60 hover:border-orange-500/20 hover:shadow-md hover:shadow-orange-500/5 transition-all duration-200 flex justify-between items-center group cursor-pointer"
                       >
                         <div className="flex flex-col gap-1 max-w-[85%]">

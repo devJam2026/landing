@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import PageHero from "@/components/page-hero";
 import { ArrowLeft, BookOpen, Sparkles, HelpCircle, Code, ListFilter, AlertCircle, Compass } from "lucide-react";
 import { dsaConcepts } from "@/data/dsa/concepts";
+import { articles } from "@/data/articles";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -62,6 +63,21 @@ export default async function DsaConceptDetailPage({ params }: PageProps) {
       </div>
     );
   };
+
+  // Find articles related to this DSA concept
+  const conceptSlug = resolvedParams.slug;
+  const relatedArticles = articles.filter((art) => {
+    if (conceptSlug === "arrays" && (art.slug === "mastering-sliding-windows" || art.slug === "mastering-two-pointers")) return true;
+    if (conceptSlug === "strings" && (art.slug === "mastering-sliding-windows" || art.slug === "mastering-two-pointers")) return true;
+    if (conceptSlug === "linked-lists" && art.slug === "mastering-two-pointers") return true;
+    if (conceptSlug === "binary-search" && art.slug === "mastering-binary-search") return true;
+    if (conceptSlug === "heaps" && art.slug === "mastering-heaps") return true;
+    if (conceptSlug === "dp" && art.slug === "mastering-dynamic-programming") return true;
+    if (conceptSlug === "graphs" && art.slug === "graph-traversals-visualized") return true;
+    return art.category.toLowerCase() === conceptSlug.toLowerCase() ||
+      (conceptSlug === "complexity-analysis" && art.category === "DSA" && 
+       !["mastering-sliding-windows", "graph-traversals-visualized", "mastering-two-pointers", "mastering-binary-search", "mastering-heaps", "mastering-dynamic-programming"].includes(art.slug));
+  });
 
   return (
     <div className="relative min-h-screen bg-[#030712] overflow-x-hidden transition-colors duration-300">
@@ -210,6 +226,43 @@ export default async function DsaConceptDetailPage({ params }: PageProps) {
               </ul>
             </div>
 
+            {/* 8.5. Recommended Articles & Visual Guides */}
+            {relatedArticles.length > 0 && (
+              <div className="flex flex-col gap-3">
+                <h3 className="text-sm font-bold text-orange-500 uppercase tracking-wider flex items-center gap-2 border-b border-card-border/40 pb-2">
+                  <BookOpen className="h-4 w-4" />
+                  Recommended Articles & Visual Guides
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {relatedArticles.map((art) => (
+                    <Link
+                      key={art.slug}
+                      href={`/articles/${art.slug}`}
+                      className="p-4 rounded-xl border border-card-border bg-[#030712]/60 hover:border-orange-500/20 hover:shadow-md hover:shadow-orange-500/5 transition-all duration-200 flex flex-col justify-between group cursor-pointer"
+                    >
+                      <div>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-[9px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border border-cyan-500/20 text-cyan-400 bg-cyan-500/5">
+                            {art.category}
+                          </span>
+                          <span className="text-[10px] text-text-muted font-mono">{art.readTime}</span>
+                        </div>
+                        <h4 className="text-xs font-bold text-foreground mb-1 group-hover:text-orange-500 transition-colors">
+                          {art.title}
+                        </h4>
+                        <p className="text-[10px] text-text-muted leading-relaxed line-clamp-2">
+                          {art.description}
+                        </p>
+                      </div>
+                      <div className="text-[10px] text-orange-500 font-bold font-mono mt-3 text-right group-hover:translate-x-0.5 transition-transform">
+                        Read Article →
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* 9. Related Problems */}
             <div className="flex flex-col gap-3">
               <h3 className="text-sm font-bold text-orange-500 uppercase tracking-wider flex items-center gap-2 border-b border-card-border/40 pb-2">
@@ -260,13 +313,13 @@ export default async function DsaConceptDetailPage({ params }: PageProps) {
           {/* Quick buttons links */}
           <div className="flex justify-between items-center mt-4">
             <Link
-              href="/dsa/practice"
+              href={`/dsa/practice?topic=${resolvedParams.slug}`}
               className="inline-flex items-center gap-2 rounded-xl bg-orange-600 px-5 py-3 text-xs font-extrabold text-white hover:bg-orange-700 shadow-lg shadow-orange-600/25 transition-all cursor-pointer"
             >
               Explore Practice Terminal
             </Link>
             <Link
-              href="/dsa/patterns"
+              href={`/dsa/patterns?topic=${resolvedParams.slug}`}
               className="inline-flex items-center gap-2 rounded-xl border border-cyan-500/25 bg-cyan-400/5 hover:bg-cyan-400/10 px-5 py-3 text-xs font-extrabold text-cyan-400 transition-all cursor-pointer"
             >
               Run Diagnostic Engine

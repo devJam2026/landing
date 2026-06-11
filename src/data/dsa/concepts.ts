@@ -136,8 +136,8 @@ String (e.g. "DevJam"):
       "Confusing char codes with numeric indices."
     ],
     relatedProblems: [
-      { name: "Valid Anagram", difficulty: "Easy" },
-      { name: "Group Anagrams", difficulty: "Medium" }
+      { name: "Valid Anagram", difficulty: "Easy", link: "/dsa/practice/valid-anagram" },
+      { name: "Group Anagrams", difficulty: "Medium", link: "/dsa/practice/group-anagrams" }
     ],
     relatedTopics: [
       { name: "Arrays", slug: "arrays" },
@@ -175,8 +175,8 @@ Singly Linked List Node Chain:
       "Creating cyclic infinite loops during updates."
     ],
     relatedProblems: [
-      { name: "Reverse Linked List", difficulty: "Easy" },
-      { name: "Detect Cycle in Linked List", difficulty: "Medium" }
+      { name: "Reverse Linked List", difficulty: "Easy", link: "/dsa/practice/reverse-linked-list" },
+      { name: "Detect Cycle in Linked List", difficulty: "Medium", link: "/dsa/practice/linked-list-cycle" }
     ],
     relatedTopics: [
       { name: "Stack", slug: "stack" },
@@ -218,7 +218,7 @@ Stack Push/Pop Lifecycle:
     ],
     relatedProblems: [
       { name: "Valid Parentheses", difficulty: "Easy", link: "/dsa/practice/valid-parentheses" },
-      { name: "Daily Temperatures", difficulty: "Medium" }
+      { name: "Daily Temperatures", difficulty: "Medium", link: "/dsa/practice/daily-temperatures" }
     ],
     relatedTopics: [
       { name: "Linked Lists", slug: "linked-lists" },
@@ -256,7 +256,8 @@ Enqueue -> [ 30 ][ 20 ][ 10 ] -> Dequeue
       "Out-of-bounds pointer drift in array-based queues."
     ],
     relatedProblems: [
-      { name: "Sliding Window Maximum", difficulty: "Hard" }
+      { name: "Queue using Stacks", difficulty: "Easy", link: "/dsa/practice/queue-using-stacks" },
+      { name: "Sliding Window Maximum", difficulty: "Hard", link: "/dsa/practice/sliding-window-maximum" }
     ],
     relatedTopics: [
       { name: "Stack", slug: "stack" },
@@ -293,7 +294,8 @@ Key -> Hash Function -> Array Index -> Value
       "Assuming lookups are always guaranteed O(1) without considering collision chains."
     ],
     relatedProblems: [
-      { name: "Two Sum", difficulty: "Easy", link: "/dsa/practice/two-sum" }
+      { name: "Two Sum", difficulty: "Easy", link: "/dsa/practice/two-sum" },
+      { name: "Subarray Sum Equals K", difficulty: "Medium", link: "/dsa/practice/subarray-sum-equals-k" }
     ],
     relatedTopics: [
       { name: "Arrays", slug: "arrays" },
@@ -379,7 +381,7 @@ Tree:
       "Calling bubble-up/down on index offsets that do not match child formulas."
     ],
     relatedProblems: [
-      { name: "Kth Largest Element", difficulty: "Medium" }
+      { name: "Kth Largest Element", difficulty: "Medium", link: "/dsa/practice/kth-largest-element" }
     ],
     relatedTopics: [
       { name: "Queue", slug: "queue" },
@@ -461,7 +463,8 @@ Recursion Search Tree with Pruning:
       "Missing termination base cases, causing stack overflow errors."
     ],
     relatedProblems: [
-      { name: "Climbing Stairs", difficulty: "Easy", link: "/dsa/practice/climbing-stairs" }
+      { name: "Permutations", difficulty: "Medium", link: "/dsa/practice/permutations" },
+      { name: "Subsets", difficulty: "Medium", link: "/dsa/practice/subsets" }
     ],
     relatedTopics: [
       { name: "Dynamic Programming", slug: "dynamic-programming" },
@@ -546,7 +549,8 @@ Trie structure for keys ["cat", "cap", "do"]:
       "Allocating memory recursively without deleting unused branch nodes (memory leak)."
     ],
     relatedProblems: [
-      { name: "Implement Trie", difficulty: "Medium" }
+      { name: "Implement Trie", difficulty: "Medium", link: "/dsa/practice/implement-trie" },
+      { name: "Word Search II", difficulty: "Hard", link: "/dsa/practice/word-search-ii" }
     ],
     relatedTopics: [
       { name: "Trees", slug: "trees" },
@@ -584,8 +588,8 @@ Sorted Array Binary Search:
       "Off-by-one errors in loop boundaries (e.g. writing `left < right` instead of `left <= right`)."
     ],
     relatedProblems: [
-      { name: "Binary Search", difficulty: "Easy" },
-      { name: "Search in Rotated Sorted Array", difficulty: "Medium" }
+      { name: "Binary Search", difficulty: "Easy", link: "/dsa/practice/binary-search" },
+      { name: "Search in Rotated Sorted Array", difficulty: "Medium", link: "/dsa/practice/search-rotated-sorted" }
     ],
     relatedTopics: [
       { name: "Complexity Analysis", slug: "complexity-analysis" },
@@ -627,7 +631,8 @@ Greedy Local Choice vs Global Path:
       "Forgetting to verify counterexamples where greedy splits fail."
     ],
     relatedProblems: [
-      { name: "Jump Game", difficulty: "Medium" }
+      { name: "Jump Game", difficulty: "Medium", link: "/dsa/practice/jump-game" },
+      { name: "Merge Intervals", difficulty: "Medium", link: "/dsa/practice/merge-intervals" }
     ],
     relatedTopics: [
       { name: "Complexity Analysis", slug: "complexity-analysis" },
@@ -667,7 +672,8 @@ XOR: 0 1 1 0 (6) (Different bits yield 1, same bits yield 0)
       "Off-by-one errors when shifting bits beyond bit limits."
     ],
     relatedProblems: [
-      { name: "Single Number", difficulty: "Easy" }
+      { name: "Single Number", difficulty: "Easy", link: "/dsa/practice/single-number" },
+      { name: "Missing Number", difficulty: "Easy", link: "/dsa/practice/missing-number" }
     ],
     relatedTopics: [
       { name: "Complexity Analysis", slug: "complexity-analysis" },

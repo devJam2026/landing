@@ -1,13 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/page-hero";
-import { HelpCircle, Sparkles, AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react";
+import { HelpCircle, Sparkles, AlertCircle, ArrowRight, CheckCircle2, ArrowLeft } from "lucide-react";
 import { dsaPatterns } from "../../../data/dsa/patterns";
 
-export default function PatternEnginePage() {
+function PatternEngineContent() {
+  const searchParams = useSearchParams();
+  const topicParam = searchParams.get("topic");
+
   // Question options states
   const [isSorted, setIsSorted] = useState<boolean | null>(null);
   const [isContiguous, setIsContiguous] = useState<boolean | null>(null);
@@ -25,15 +30,23 @@ export default function PatternEnginePage() {
     setIsConnectedGrid(null);
   };
 
-  // Basic classification engine rules
+  // Keep questionnaire interactive; reset inputs when focus changes to allow manual toggling
+  useEffect(() => {
+    handleReset();
+  }, [topicParam]);
+
+  // Classification engine rules
   const getRecommendedPattern = () => {
     if (isContiguous === true) {
       return dsaPatterns.find((p) => p.name === "Sliding Window");
     }
-    if (isSorted === true && isContiguous === false) {
-      return dsaPatterns.find((p) => p.name === "Two Pointers") || dsaPatterns.find((p) => p.name === "Binary Search");
+    if (isSorted === true) {
+      if (isTopKMinMax === false && isRecursiveOptimal === false) {
+        return dsaPatterns.find((p) => p.name === "Binary Search") || dsaPatterns.find((p) => p.name === "Two Pointers");
+      }
+      return dsaPatterns.find((p) => p.name === "Two Pointers");
     }
-    if (isUnweightedShortest === true) {
+    if (isUnweightedShortest === true || isConnectedGrid === true) {
       return dsaPatterns.find((p) => p.name === "Graph Traversals (BFS / DFS)");
     }
     if (isRecursiveOptimal === true) {
@@ -42,13 +55,12 @@ export default function PatternEnginePage() {
     if (isTopKMinMax === true) {
       return dsaPatterns.find((p) => p.name === "Heap / Priority Queue");
     }
-    if (isConnectedGrid === true) {
-      return dsaPatterns.find((p) => p.name === "Graph Traversals (BFS / DFS)");
+
+    // Fallbacks
+    if (isSorted === false && isContiguous === false && isRecursiveOptimal === false) {
+      return dsaPatterns.find((p) => p.name === "Two Pointers");
     }
 
-    // Default fallbacks based on specific configurations
-    if (isSorted === true) return dsaPatterns.find((p) => p.name === "Binary Search");
-    
     return null;
   };
 
@@ -65,11 +77,44 @@ export default function PatternEnginePage() {
         <div className="absolute inset-0 grid-bg opacity-30 dark:opacity-20 -z-20" />
 
         <section className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 w-full">
+          
+          {/* Breadcrumb / Back button */}
+          <div className="flex items-center justify-between mb-4">
+            <Link
+              href="/dsa"
+              className="inline-flex items-center gap-2 text-xs text-text-muted hover:text-foreground transition-colors font-bold"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to DSA Dashboard
+            </Link>
+            <span className="text-[10px] font-mono font-bold text-orange-500 bg-orange-500/10 px-2.5 py-0.5 rounded border border-orange-500/20 uppercase tracking-wider">
+              Diagnostics Engine
+            </span>
+          </div>
+
           <PageHero
             kicker="DSA Diagnostics"
             title="Pattern Recognition Engine"
             description="Deconstruct problems, identify key algorithmic triggers, and instantly isolate the optimal DSA strategy instead of memorizing solutions."
           />
+
+          {/* Active Diagnostics Focus Banner */}
+          {topicParam && (
+            <div className="mb-6 flex items-center justify-between bg-cyan-500/10 border border-cyan-500/30 rounded-xl px-4 py-3 text-xs text-cyan-400">
+              <div className="flex items-center gap-2">
+                <span className="font-bold">Diagnostic Focus:</span>
+                <span className="capitalize font-mono font-bold bg-[#030712] border border-cyan-500/25 px-2 py-0.5 rounded text-[10px]">
+                  {topicParam} Attributes
+                </span>
+              </div>
+              <Link
+                href="/dsa/patterns"
+                className="font-bold hover:text-cyan-300 hover:underline"
+              >
+                Clear Focus ×
+              </Link>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full mb-12">
             {/* Left Column: Questionnaire Diagnostic Panel (7/12 width) */}
@@ -230,7 +275,7 @@ export default function PatternEnginePage() {
             </div>
 
             {/* Right Column: Classification Outputs (5/12 width) */}
-            <div className="lg:col-span-5 flex flex-col gap-6 w-full">
+            <div className="lg:col-span-5 flex flex-col gap-6 w-full animate-in fade-in duration-200">
               {recommended ? (
                 <div className="premium-card premium-card-cyan rounded-2xl p-6 md:p-8 flex flex-col gap-5 border-cyan-500/20 shadow-xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                   <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-cyan-500/5 blur-2xl -z-10" />
@@ -274,7 +319,7 @@ export default function PatternEnginePage() {
                   </div>
 
                   {/* LeetCode problems */}
-                  <div className="border-t border-card-border/60 pt-4 mt-auto">
+                  <div className="border-t border-card-border/60 pt-4">
                     <h4 className="text-[10px] uppercase font-bold text-cyan-400 tracking-wider mb-2">
                       Target Practice Problems
                     </h4>
@@ -287,6 +332,18 @@ export default function PatternEnginePage() {
                       ))}
                     </ul>
                   </div>
+
+                  {/* Read Article Button */}
+                  {recommended.slug && (
+                    <div className="border-t border-card-border/60 pt-4 mt-2">
+                      <Link
+                        href={`/articles/${recommended.slug}`}
+                        className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs font-bold text-cyan-400 hover:bg-cyan-500/20 transition-all cursor-pointer"
+                      >
+                        Read Mastering {recommended.name} Article →
+                      </Link>
+                    </div>
+                  )}
 
                 </div>
               ) : (
@@ -306,5 +363,17 @@ export default function PatternEnginePage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function PatternEnginePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-[#030712] text-text-muted flex items-center justify-center text-xs">
+        Loading Diagnostics Engine...
+      </div>
+    }>
+      <PatternEngineContent />
+    </Suspense>
   );
 }
