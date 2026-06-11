@@ -17,6 +17,7 @@ export default function Navbar() {
     if (pathname === "/") setActiveTab("Home");
     else if (pathname.startsWith("/roadmaps")) setActiveTab("Roadmaps");
     else if (pathname.startsWith("/projects")) setActiveTab("Projects");
+    else if (pathname.startsWith("/articles")) setActiveTab("Articles");
     else if (pathname.startsWith("/about")) setActiveTab("About");
     else setActiveTab("");
   }, [pathname]);
@@ -86,6 +87,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
     { name: "Roadmaps", href: "/roadmaps" },
+    { name: "Articles", href: "/articles" },
     { name: "About", href: "/about" },
     { name: "GitHub", href: "https://github.com/devJam2026", external: true },
   ];
