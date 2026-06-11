@@ -19,7 +19,8 @@ export default function RoadmapsPage() {
       icon: Layers,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
-      status: "Soon",
+      link: "/roadmaps/frontend-architect",
+      status: "In Progress",
     },
     {
       name: "System Design",
@@ -29,7 +30,8 @@ export default function RoadmapsPage() {
       icon: Compass,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       isCyan: false,
-      status: "Soon",
+      link: "/roadmaps/system-design",
+      status: "In Progress",
     },
     {
       name: "AI Engineer",
@@ -109,8 +111,13 @@ export default function RoadmapsPage() {
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                             Active
                           </span>
-                        ) : (
+                        ) : roadmap.status === "In Progress" ? (
                           <span className="text-[8px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-amber-500 bg-amber-500/5 border-amber-500/15 flex items-center gap-1 shrink-0">
+                            <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+                            In Progress
+                          </span>
+                        ) : (
+                          <span className="text-[8px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-gray-500 bg-gray-500/5 border-gray-500/15 flex items-center gap-1 shrink-0">
                             <Clock className="h-2.5 w-2.5 animate-pulse" />
                             Soon
                           </span>

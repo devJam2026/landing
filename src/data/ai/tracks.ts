@@ -21,30 +21,43 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "foundation",
     slug: "foundation",
-    title: "Track 1: Foundation Track",
+    title: "Module 1: LLM Foundation",
     order: 1,
-    description: "Learn core prompt engineering, tokenization, context constraints, structured schemas, embedding lookups, and local models evaluations.",
-    status: "in-progress", // The track contains some completed projects, others in progress
-    modules: ["tokenization", "context-engineering", "sampling-generation", "prompt-engineering", "structured-output", "production-llm-processing", "embeddings", "vector-databases", "self-attention", "transformers", "llm-evaluation"],
+    description: "Learn how Large Language Models work from the ground up: tokens, context windows, hyperparameters, prompts, structured outputs, embeddings, semantic search, evaluation, and attention mechanics.",
+    status: "in-progress",
+    modules: [
+      "tokenization",
+      "context-engineering",
+      "sampling-generation",
+      "prompt-engineering",
+      "structured-output",
+      "production-llm-processing",
+      "embeddings",
+      "vector-databases",
+      "self-attention",
+      "transformers",
+      "llm-evaluation"
+    ],
     plannedProjects: [
       "tokenizer-visualizer-studio",
       "context-window-diagnostics",
       "hyperparameter-playground",
+      "prompt-engineering-lab",
       "ai-scam-detector",
       "structured-output-validator",
       "product-review-insight-generator",
       "resume-jd-matcher",
       "semantic-product-search",
-      "mini-attention-notebook",
-      "mini-transformer-block-explainer",
-      "llm-evaluation-lab"
+      "llm-evaluation-lab",
+      "mini-attention-notebook"
     ],
     learningOutcomes: [
       "Master prompt engineering design methodologies",
       "Deconstruct subword tokenizers and BPE algorithms",
       "Manage token budgets and context window limits",
       "Enforce JSON schemas and type-safe structured outputs",
-      "Generate embeddings and perform vector search lookups"
+      "Generate embeddings and perform vector search lookups",
+      "Run evaluation tests using golden sets and LLM-as-a-judge patterns"
     ],
     interviewValue: [
       "Explain time-space costs of tokenizer inflation",
@@ -55,12 +68,20 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "neural-networks",
     slug: "neural-networks",
-    title: "Track 2: Neural Network Foundations",
+    title: "Module 2: Neural Network Foundations",
     order: 2,
-    description: "Deconstruct deep learning layers, weights, biases, backpropagation, and multi-layer perceptrons from scratch.",
+    description: "Deconstruct deep learning layers, weights, biases, backpropagation, and activation/loss functions from scratch.",
     status: "coming-soon",
     modules: ["neuron-layers", "weights-biases", "activation-functions", "loss-functions", "optimizers", "backpropagation", "embedding-layers"],
-    plannedProjects: ["neural-network-playground", "activation-visualizer", "backprop-debugger"],
+    plannedProjects: [
+      "neural-network-from-scratch-lab",
+      "backpropagation-visualizer",
+      "optimizer-playground",
+      "activation-function-lab",
+      "loss-function-explorer",
+      "mini-mnist-classifier",
+      "training-debugger-lab"
+    ],
     learningOutcomes: [
       "Implement forward pass matrices from scratch",
       "Compute partial derivatives for backpropagation",
@@ -72,14 +93,48 @@ export const aiTracks: AICurriculumTrack[] = [
     ]
   },
   {
+    id: "sequence-models",
+    slug: "sequence-models",
+    title: "Module 3: Sequence Models",
+    order: 3,
+    description: "Understand recurrent memory architectures, LSTMs, and gated structures preceding modern attention.",
+    status: "coming-soon",
+    modules: ["rnn-fundamentals", "lstm-gates", "gru-simplified", "seq2seq-translator", "seq-classification"],
+    plannedProjects: [
+      "rnn-memory-visualizer",
+      "character-prediction-rnn",
+      "lstm-gate-explorer",
+      "gru-simplified-lab",
+      "encoder-decoder-translator",
+      "sequence-classification-lab"
+    ],
+    learningOutcomes: [
+      "Build character prediction models using recurrent cells",
+      "Trace gradient paths inside LSTM gating circuits",
+      "Understand sequence-to-sequence translation architectures"
+    ],
+    interviewValue: [
+      "Explain the vanishing gradient problem in vanilla RNNs vs LSTMs",
+      "Compare seq2seq sequence decoding speed tradeoffs with parallel inputs"
+    ]
+  },
+  {
     id: "transformers",
     slug: "transformers",
-    title: "Track 3: Transformer Architecture",
-    order: 3,
-    description: "Deep dive into Attention Is All You Need. Study multi-head attention, decoder blocks, and normalizations.",
+    title: "Module 4: Transformer Architecture",
+    order: 4,
+    description: "Deep dive into Attention Is All You Need. Study positional encoding, multi-head attention, and decoder layers.",
     status: "coming-soon",
     modules: ["why-transformers", "encoder-decoder", "self-attention-math", "multi-head-attention", "positional-encoding", "feed-forward", "layer-norm"],
-    plannedProjects: ["transformer-block-visualizer", "positional-encoding-explorer"],
+    plannedProjects: [
+      "positional-encoding-visualizer",
+      "self-attention-matrix-explorer",
+      "multi-head-attention-lab",
+      "feed-forward-block-lab",
+      "layernorm-residual-lab",
+      "mini-transformer-block-explainer",
+      "mini-gpt-decoder-scratch"
+    ],
     learningOutcomes: [
       "Compute scaled dot-product attention manually",
       "Implement sine/cosine positional embedding matrices",
@@ -93,12 +148,19 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "embeddings-vector-db",
     slug: "embeddings-vector-db",
-    title: "Track 4: Embeddings and Vector Databases",
-    order: 4,
-    description: "Master chunking strategies, embedding generation, index types (HNSW, IVF), and hybrid query strategies.",
+    title: "Module 5: Embeddings and Vector Databases",
+    order: 5,
+    description: "Master vector representation spacing, similarity indexing algorithms, and hybrid metadata keyword searches.",
     status: "coming-soon",
     modules: ["embeddings-theory", "similarity-metrics", "indexing-strategies", "chunking-strategies", "hybrid-search-ranking"],
-    plannedProjects: ["embedding-space-explorer", "vector-search-sandbox"],
+    plannedProjects: [
+      "embedding-space-explorer",
+      "cosine-similarity-lab",
+      "semantic-search-engine",
+      "product-similarity-engine",
+      "vector-db-playground",
+      "hybrid-search-lab"
+    ],
     learningOutcomes: [
       "Compare cosine, dot product, and Euclidean distance vector metrics",
       "Implement semantic and parent-child chunking parsers",
@@ -112,12 +174,19 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "rag",
     slug: "rag",
-    title: "Track 5: RAG (Retrieval-Augmented Generation)",
-    order: 5,
-    description: "Design advanced document ingestion, reranking models, metadata filtering, and hallucination evaluations.",
+    title: "Module 6: RAG Engineering",
+    order: 6,
+    description: "Build robust retrieval-augmented pipelines integrating document loaders, rerankers, and retrieval evaluations.",
     status: "coming-soon",
     modules: ["rag-overview", "document-loaders", "query-rewriting", "reranking-cross-encoders", "rag-evaluation"],
-    plannedProjects: ["pdf-rag-assistant", "advanced-rag-dashboard"],
+    plannedProjects: [
+      "pdf-rag-qa-app",
+      "chunking-strategy-lab",
+      "advanced-rag-playground",
+      "citation-based-rag-app",
+      "seo-content-rag-assistant",
+      "rag-evaluation-lab"
+    ],
     learningOutcomes: [
       "Reduce hallucinations by optimizing prompt retrieval context",
       "Integrate cross-encoder rerankers to improve search recall",
@@ -129,14 +198,47 @@ export const aiTracks: AICurriculumTrack[] = [
     ]
   },
   {
+    id: "structured-ai-apps",
+    slug: "structured-ai-apps",
+    title: "Module 7: Structured AI Applications",
+    order: 7,
+    description: "Build predictable business workflows enforcing structured JSON schema extractions and intents routing.",
+    status: "coming-soon",
+    modules: ["json-schema-reliability", "form-extraction-api", "intent-classification-routing", "document-parsers"],
+    plannedProjects: [
+      "structured-output-validator-app",
+      "ai-form-extraction-app",
+      "invoice-document-parser",
+      "customer-support-classifier",
+      "product-review-insight-generator-app",
+      "ai-report-generator"
+    ],
+    learningOutcomes: [
+      "Enforce JSON output schemas on language models",
+      "Construct parsers extracting entities from unstructured text documents",
+      "Implement routing classification logic based on intent scores"
+    ],
+    interviewValue: [
+      "Propose retry and validation models for parsing complex data formats",
+      "Compare prompt intent classifiers efficiency against fine-tuned classification heads"
+    ]
+  },
+  {
     id: "agents",
     slug: "agents",
-    title: "Track 6: Agents",
-    order: 6,
-    description: "Master the ReAct loop, tool registries, agent planning models, memory management, and structured execution loops.",
+    title: "Module 8: Agentic AI",
+    order: 8,
+    description: "Design autonomous loops combining function call registrations, multi-step planners, and reflection cycles.",
     status: "coming-soon",
     modules: ["what-is-agent", "agent-planning", "tool-calling-mechanics", "agent-memory-schemas", "react-pattern-implementation"],
-    plannedProjects: ["research-agent-studio", "agent-memory-lab"],
+    plannedProjects: [
+      "tool-calling-agent",
+      "planner-agent-lab",
+      "reflection-agent-lab",
+      "langgraph-workflow-agent",
+      "memory-agent-lab",
+      "research-assistant-agent"
+    ],
     learningOutcomes: [
       "Construct robust agent loop engines with exception backoffs",
       "Map system functions to JSON schemas for reliable LLM tool calls",
@@ -150,12 +252,19 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "mcp-ecosystem",
     slug: "mcp-ecosystem",
-    title: "Track 7: MCP and Tool Ecosystem",
-    order: 7,
-    description: "Deconstruct the Model Context Protocol. Build client-server integrations and enforce security boundaries.",
+    title: "Module 9: MCP and Tool Ecosystem",
+    order: 9,
+    description: "Establish Model Context Protocol clients, host secure custom servers, and define execution sandboxes.",
     status: "coming-soon",
     modules: ["mcp-introduction", "mcp-client-architecture", "mcp-server-development", "tool-registries", "security-boundaries"],
-    plannedProjects: ["mcp-file-explorer", "mcp-github-assistant"],
+    plannedProjects: [
+      "mcp-server-starter",
+      "local-filesystem-mcp-tool",
+      "mcp-github-assistant-tool",
+      "database-mcp-tool",
+      "calendar-email-tool-agent",
+      "devjam-mcp-tool-hub"
+    ],
     learningOutcomes: [
       "Build custom MCP server integrations communicating via JSON-RPC",
       "Safeguard database write parameters using schema verification filters",
@@ -169,12 +278,19 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "multi-agent-systems",
     slug: "multi-agent-systems",
-    title: "Track 8: Multi-Agent Systems",
-    order: 8,
-    description: "Orchestrate role-based agent collaborations, supervisor patterns, and human-in-the-loop approvals.",
+    title: "Module 10: Multi-Agent Systems",
+    order: 10,
+    description: "Orchestrate supervisor hierarchies, agent conversations protocols, and human-in-the-loop validation gates.",
     status: "coming-soon",
     modules: ["multi-agent-collaboration", "role-definition", "supervisor-executor-pattern", "agent-to-agent-protocols", "human-in-the-loop"],
-    plannedProjects: ["multi-agent-research-team", "agent-ops-supervisor"],
+    plannedProjects: [
+      "crewai-role-based-team",
+      "autogen-conversation-lab",
+      "multi-agent-code-reviewer",
+      "supervisor-agent-pattern",
+      "human-in-the-loop-agent-system",
+      "ai-product-team-simulator"
+    ],
     learningOutcomes: [
       "Build supervisor graphs allocating sub-tasks to specialized agents",
       "Enforce human approval gates on destructive database updates",
@@ -188,12 +304,20 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "ai-system-design",
     slug: "ai-system-design",
-    title: "Track 9: AI System Design",
-    order: 9,
-    description: "Scale AI topologies. Design caching layers, routing gates, costs observability, and low-latency fallbacks.",
+    title: "Module 11: AI System Design",
+    order: 11,
+    description: "Scale model routing hubs. Integrate semantic caches, prompt registries, cost limits, and latency fallbacks.",
     status: "coming-soon",
     modules: ["observability-tracing", "llm-caching-layer", "model-routing-gateways", "cost-limit-throttles", "latency-fallbacks"],
-    plannedProjects: ["ai-observability-gateway", "llm-cost-monitor"],
+    plannedProjects: [
+      "llm-gateway-service",
+      "prompt-registry-system",
+      "ai-cost-monitoring-dashboard",
+      "ai-observability-platform",
+      "model-router-lab",
+      "ai-rate-limiter",
+      "ai-safety-guardrail-service"
+    ],
     learningOutcomes: [
       "Integrate OpenInference tracers capturing nested agent steps",
       "Build semantic caches reducing repeat API query costs by 80%",
@@ -207,12 +331,20 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "production-deploy",
     slug: "production-deploy",
-    title: "Track 10: Deployment and Production AI",
-    order: 10,
-    description: "Run models at scale. Master streaming APIs, token bucket rate limits, guardrail checks, and CI/CD eval loops.",
+    title: "Module 12: Deployment and Production AI",
+    order: 12,
+    description: "Run models in production. Master Server-Sent Events streams, inputs guardrails, and automated evaluation pipelines.",
     status: "coming-soon",
     modules: ["streaming-api-design", "token-bucket-rate-limiting", "guardrails-filtering", "cicd-eval-pipelines", "monitoring-drift"],
-    plannedProjects: ["guardrails-playground", "model-router-service"],
+    plannedProjects: [
+      "production-ai-app-template",
+      "dockerized-ai-service",
+      "cicd-for-ai-apps",
+      "evaluation-pipeline-in-ci",
+      "streaming-llm-response-app",
+      "background-job-ai-worker",
+      "production-deployment-dashboard"
+    ],
     learningOutcomes: [
       "Implement Server-Sent Events (SSE) streaming model completions",
       "Add input/output guardrail checks filtering toxic or sensitive terms",
@@ -226,12 +358,18 @@ export const aiTracks: AICurriculumTrack[] = [
   {
     id: "master-capstones",
     slug: "master-capstones",
-    title: "Track 11: Master Capstones",
-    order: 11,
+    title: "Master Capstones",
+    order: 13,
     description: "Synthesize all learnings into enterprise-grade portfolio platforms with full architectural and execution specs.",
     status: "coming-soon",
     modules: ["capstone-architecting", "data-ingestion-scaling", "workflow-eval-loops", "production-deployment"],
-    plannedProjects: ["ai-learning-assistant", "enterprise-knowledge-copilot"],
+    plannedProjects: [
+      "ai-healthcare-management-system",
+      "ai-ecommerce-intelligence-platform",
+      "ai-interview-preparation-platform",
+      "ai-devops-code-review-assistant",
+      "devjam-ai-learning-assistant"
+    ],
     learningOutcomes: [
       "Architect a multi-agent platform resolving real-world business demands",
       "Document system architecture, data topologies, and evaluations",

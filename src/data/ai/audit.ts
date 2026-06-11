@@ -23,18 +23,18 @@ export const aiAuditReport: AIAuditReport = {
   fakeGithubLinks: 0,
   fakeDemoLinks: 0,
   fakeLabLinks: 0,
-  completedProjectsVerifiedCount: 4, // P1 (Active), P2 (In Progress), P3 (Completed), P9 (Active)
-  projectsComingSoonCount: 7, // Other 7 foundation projects + capstones
+  completedProjectsVerifiedCount: 4, // P1 (Active), P2 (In Progress), P3 (Complete), P11 (Active)
+  projectsComingSoonCount: 77, // Other 7 foundation projects + other modules planned + capstones
   overallImplementationStatus: "In Progress",
   knownGaps: [
-    "P4: AI Scam Detector (GitHub: Coming Soon)",
-    "P5: Structured Output Validator (GitHub: Coming Soon)",
-    "P6: Product Review Insight Generator (GitHub: Coming Soon)",
-    "P7: Resume/JD Matcher (GitHub: Coming Soon)",
-    "P8: Semantic Product Search (GitHub: Coming Soon)",
-    "P10: Mini Transformer Block Explainer (GitHub: Coming Soon)",
-    "P11: LLM Evaluation Lab (GitHub: Coming Soon)",
-    "Submodules under Modules 4, 5, 6, 7, 8, 10, 11 are currently mapped to polished curriculum placeholders."
+    "P4: Prompt Engineering Lab (GitHub: Coming Soon)",
+    "P5: AI Scam Detector (GitHub: Coming Soon)",
+    "P6: Structured Output Validator (GitHub: Coming Soon)",
+    "P7: Product Review Insight Generator (GitHub: Coming Soon)",
+    "P8: Resume / JD Matcher (GitHub: Coming Soon)",
+    "P9: Semantic Product Search (GitHub: Coming Soon)",
+    "P10: LLM Evaluation Lab (GitHub: Coming Soon)",
+    "Submodules under Modules 2 to 12 are currently mapped as coming-soon syllabus placeholders."
   ],
   recommendedNextSteps: [
     "1. Develop the code logic for the upcoming prompt classification and schema enforcement projects.",

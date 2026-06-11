@@ -15,6 +15,10 @@ export default function AiEngineerLandingPage() {
     (p) => p.evidence?.repoExists && p.evidence?.demoExists
   );
 
+  // Filter learning modules (1 to 12) and separate Capstones
+  const learningModules = aiTracks.filter((track) => track.slug !== "master-capstones");
+  const capstoneTrack = aiTracks.find((track) => track.slug === "master-capstones");
+
   return (
     <div className="relative min-h-screen bg-[#030712] overflow-x-hidden transition-colors duration-300">
       <Navbar />
@@ -102,7 +106,7 @@ export default function AiEngineerLandingPage() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {aiTracks.map((track) => (
+                  {learningModules.map((track) => (
                     <div
                       key={track.slug}
                       className="p-5 rounded-xl border border-card-border bg-[#050811]/45 hover:border-card-border/80 transition-all duration-200 flex flex-col gap-3 group"
@@ -141,6 +145,52 @@ export default function AiEngineerLandingPage() {
                     </div>
                   ))}
                 </div>
+
+                {/* Master Capstones Separator Section */}
+                {capstoneTrack && (
+                  <div className="border-t border-card-border/40 pt-6 mt-2 flex flex-col gap-4">
+                    <h3 className="text-sm font-bold tracking-wider text-orange-500 uppercase flex items-center gap-2">
+                      <Award className="h-4 w-4" />
+                      {capstoneTrack.title}
+                    </h3>
+                    <div
+                      className="p-5 rounded-xl border border-card-border bg-[#050811]/45 hover:border-card-border/80 transition-all duration-200 flex flex-col gap-3 group"
+                    >
+                      <div className="flex justify-between items-center flex-wrap gap-2">
+                        <h4 className="text-xs font-extrabold text-foreground">Final Portfolio Projects</h4>
+                        <AIStatusBadge status={capstoneTrack.status} />
+                      </div>
+                      
+                      <p className="text-[11px] text-text-muted leading-relaxed">
+                        {capstoneTrack.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5 mt-1">
+                        {capstoneTrack.learningOutcomes.slice(0, 2).map((outcome, idx) => (
+                          <span
+                            key={idx}
+                            className="inline-flex items-center gap-1 rounded bg-[#030712] border border-card-border/40 px-2 py-0.5 text-[9px] font-sans text-text-muted"
+                          >
+                            <ShieldCheck className="h-3 w-3 text-cyan-400 shrink-0" />
+                            {outcome}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="border-t border-card-border/40 pt-3 flex justify-between items-center text-[10px] font-mono">
+                        <span className="text-text-muted">Projects: {capstoneTrack.plannedProjects.length}</span>
+                        <Link
+                          href={`/ai-engineer/${capstoneTrack.slug}`}
+                          className="text-cyan-400 hover:text-cyan-300 font-bold inline-flex items-center gap-1"
+                        >
+                          View Capstones
+                          <ChevronRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
               </div>
             </div>
 
