@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/page-hero";
@@ -18,6 +19,7 @@ export default function RoadmapsPage() {
       icon: Layers,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
+      status: "Soon",
     },
     {
       name: "System Design",
@@ -27,6 +29,7 @@ export default function RoadmapsPage() {
       icon: Compass,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       isCyan: false,
+      status: "Soon",
     },
     {
       name: "AI Engineer",
@@ -36,6 +39,8 @@ export default function RoadmapsPage() {
       icon: Cpu,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
+      link: "/roadmaps/ai-engineer",
+      status: "Active",
     },
     {
       name: "DSA",
@@ -45,6 +50,8 @@ export default function RoadmapsPage() {
       icon: BookOpen,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       isCyan: false,
+      link: "/dsa",
+      status: "Active",
     },
     {
       name: "DevOps & Cloud",
@@ -54,6 +61,7 @@ export default function RoadmapsPage() {
       icon: Terminal,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
+      status: "Soon",
     },
   ];
 
@@ -78,8 +86,12 @@ export default function RoadmapsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full mb-16">
             {roadmaps.map((roadmap) => {
               const Icon = roadmap.icon;
-              return (
-                <Card key={roadmap.name} isCyan={roadmap.isCyan} id={roadmap.name.toLowerCase().replace(/[\s/]+/g, "-")}>
+              const cardContent = (
+                <Card
+                  isCyan={roadmap.isCyan}
+                  id={roadmap.name.toLowerCase().replace(/[\s/]+/g, "-")}
+                  className={`h-full ${roadmap.link ? "cursor-pointer hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-950/10 transition-all duration-300 hover:scale-[1.01]" : ""}`}
+                >
                   <div className="flex flex-col h-full justify-between">
                     <div>
                       {/* Header */}
@@ -92,10 +104,17 @@ export default function RoadmapsPage() {
                             {roadmap.name}
                           </h3>
                         </div>
-                        <span className="text-[8px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-amber-500 bg-amber-500/5 border-amber-500/15 flex items-center gap-1 shrink-0">
-                          <Clock className="h-2.5 w-2.5 animate-pulse" />
-                          Soon
-                        </span>
+                        {roadmap.status === "Active" ? (
+                          <span className="text-[8px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-emerald-400 bg-emerald-400/5 border-emerald-400/15 flex items-center gap-1 shrink-0">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                            Active
+                          </span>
+                        ) : (
+                          <span className="text-[8px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-amber-500 bg-amber-500/5 border-amber-500/15 flex items-center gap-1 shrink-0">
+                            <Clock className="h-2.5 w-2.5 animate-pulse" />
+                            Soon
+                          </span>
+                        )}
                       </div>
 
                       <p className="text-[11px] text-text-muted leading-relaxed mb-4">
@@ -130,6 +149,16 @@ export default function RoadmapsPage() {
                     </div>
                   </div>
                 </Card>
+              );
+
+              return roadmap.link ? (
+                <Link href={roadmap.link} key={roadmap.name} className="h-full">
+                  {cardContent}
+                </Link>
+              ) : (
+                <div key={roadmap.name} className="h-full">
+                  {cardContent}
+                </div>
               );
             })}
           </div>

@@ -30,7 +30,7 @@ export default function LearningTracks() {
       icon: Brain,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       arrowColor: "text-cyan-400 group-hover:text-cyan-300",
-      href: "/roadmaps",
+      href: "/ai-engineer",
       isCyan: true,
     },
     {
@@ -39,7 +39,7 @@ export default function LearningTracks() {
       icon: Binary,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       arrowColor: "text-orange-500 group-hover:text-orange-400",
-      href: "/roadmaps",
+      href: "/dsa",
       isCyan: false,
     },
     {

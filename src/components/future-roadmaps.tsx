@@ -33,8 +33,8 @@ export default function FutureRoadmaps() {
       icon: Cpu,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
-      status: "Soon",
-      href: "/roadmaps",
+      status: "Active",
+      href: "/roadmaps/ai-engineer",
     },
     {
       name: "DSA",

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { CheckCircle2, Circle, ArrowDown } from "lucide-react";
 
 interface Step {
   id: string;
@@ -200,7 +199,9 @@ export default function LearningRoadmap() {
                       }`}
                     >
                       {step.status === "Completed" ? (
-                        <CheckCircle2 className="h-5 w-5 fill-current text-white" />
+                        <svg className="h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
                       ) : (
                         <span className="font-mono text-xs font-black">{idx + 1}</span>
                       )}
@@ -219,7 +220,9 @@ export default function LearningRoadmap() {
                   {/* Flow Arrow (Vertical for mobile) */}
                   {idx < steps.length - 1 && (
                     <div className="flex justify-center md:hidden my-1 text-card-border/80">
-                      <ArrowDown className="h-4 w-4" />
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                      </svg>
                     </div>
                   )}
                 </React.Fragment>
@@ -264,7 +267,7 @@ export default function LearningRoadmap() {
 
             {activeStep?.status === "Planned" && (
               <div className="flex items-center gap-2 border-t border-card-border/60 pt-4 mt-auto text-[10px] font-bold text-text-muted/80">
-                <Circle className="h-3 w-3 text-text-muted/50" />
+                <div className="h-2 w-2 rounded-full border border-text-muted/50" />
                 <span>Planned Lab Module Development</span>
               </div>
             )}

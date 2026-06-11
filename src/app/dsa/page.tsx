@@ -5,7 +5,7 @@ import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/page-hero";
-import { Award, LayoutGrid, CheckCircle2, Circle, TrendingUp, Sparkles } from "lucide-react";
+import { Award, LayoutGrid, CheckCircle2, TrendingUp, Sparkles } from "lucide-react";
 import { dsaPillars } from "../../data/dsa/pillars";
 
 export default function DsaDashboardPage() {
@@ -163,7 +163,7 @@ export default function DsaDashboardPage() {
                         {isChecked ? (
                           <CheckCircle2 className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         ) : (
-                          <Circle className="h-4.5 w-4.5 text-text-muted/60 shrink-0" />
+                          <span className="h-4 w-4 rounded-full border border-text-muted/40 shrink-0" />
                         )}
                         <span className={isChecked ? "line-through opacity-60" : ""}>{name}</span>
                       </button>
@@ -184,7 +184,7 @@ export default function DsaDashboardPage() {
                         {isChecked ? (
                           <CheckCircle2 className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         ) : (
-                          <Circle className="h-4.5 w-4.5 text-text-muted/60 shrink-0" />
+                          <span className="h-4 w-4 rounded-full border border-text-muted/40 shrink-0" />
                         )}
                         <span className={isChecked ? "line-through opacity-60" : ""}>{name}</span>
                       </button>
@@ -205,7 +205,7 @@ export default function DsaDashboardPage() {
                         {isChecked ? (
                           <CheckCircle2 className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         ) : (
-                          <Circle className="h-4.5 w-4.5 text-text-muted/60 shrink-0" />
+                          <span className="h-4 w-4 rounded-full border border-text-muted/40 shrink-0" />
                         )}
                         <span className={isChecked ? "line-through opacity-60" : ""}>{name}</span>
                       </button>
@@ -226,7 +226,7 @@ export default function DsaDashboardPage() {
                         {isChecked ? (
                           <CheckCircle2 className="h-4.5 w-4.5 text-orange-500 shrink-0" />
                         ) : (
-                          <Circle className="h-4.5 w-4.5 text-text-muted/60 shrink-0" />
+                          <span className="h-4 w-4 rounded-full border border-text-muted/40 shrink-0" />
                         )}
                         <span className={isChecked ? "line-through opacity-60" : ""}>{name}</span>
                       </button>

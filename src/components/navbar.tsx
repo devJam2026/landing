@@ -44,7 +44,7 @@ export default function Navbar() {
     })),
     { type: "Roadmap", title: "Frontend Architect", href: "/roadmaps/#frontend-architect", desc: "From browser fundamentals to scalable frontend systems" },
     { type: "Roadmap", title: "System Design", href: "/roadmaps/#system-design", desc: "Learn how distributed systems are designed and scaled" },
-    { type: "Roadmap", title: "AI Engineer", href: "/roadmaps/#ai-engineer", desc: "Master LLMs, RAG, Agents and AI Systems" },
+    { type: "Roadmap", title: "AI Engineer", href: "/roadmaps/ai-engineer", desc: "Master LLMs, RAG, Agents and AI Systems" },
     { type: "Roadmap", title: "DSA", href: "/roadmaps/#dsa", desc: "Prepare for coding interviews with structured problem-solving" },
     { type: "Roadmap", title: "DevOps & Cloud", href: "/roadmaps/#devops-cloud", desc: "Deploy, monitor and scale production systems" },
     { type: "Tool", title: "DSA Pattern Recognition Engine", href: "/dsa/patterns", desc: "Identify key algorithmic triggers and classify LeetCode questions" },
