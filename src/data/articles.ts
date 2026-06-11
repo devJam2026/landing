@@ -365,4 +365,84 @@ CMD ["npm", "start"]`,
       },
     ],
   },
+  {
+    slug: "mastering-sliding-windows",
+    title: "Mastering Sliding Windows",
+    description: "Optimize sub-array searches and substring boundaries from O(N^2) to O(N) complexity with moving boundary pointers.",
+    date: "Jun 08, 2026",
+    readTime: "8 min read",
+    category: "DSA",
+    iconName: "Layers",
+    isCyan: false,
+    content: [
+      {
+        type: "paragraph",
+        text: "The sliding window pattern is used to reduce nested loops ($O(N^2)$) to a single pass ($O(N)$) when processing contiguous sequences of arrays or strings. The window is defined by two boundaries: a left pointer and a right pointer.",
+      },
+      {
+        type: "heading",
+        text: "Fixed vs Variable Sliding Window",
+      },
+      {
+        type: "paragraph",
+        text: "In a fixed window, the difference between the right and left pointers is constant. In a variable window, the boundaries expand or shrink based on constraints, such as unique character limits.",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `function minSubArrayLen(target, nums) {
+    let minLength = Infinity;
+    let left = 0;
+    let sum = 0;
+    
+    for (let right = 0; right < nums.length; right++) {
+        sum += nums[right];
+        
+        while (sum >= target) {
+            minLength = Math.min(minLength, right - left + 1);
+            sum -= nums[left];
+            left++;
+        }
+    }
+    return minLength === Infinity ? 0 : minLength;
+}`,
+      },
+    ],
+  },
+  {
+    slug: "graph-traversals-visualized",
+    title: "Graph Traversals Visualized",
+    description: "Deconstruct node processing orders in BFS and DFS grids with visual coordinate mapping.",
+    date: "Jun 10, 2026",
+    readTime: "9 min read",
+    category: "DSA",
+    iconName: "Globe",
+    isCyan: true,
+    content: [
+      {
+        type: "paragraph",
+        text: "Depth First Search (DFS) and Breadth First Search (BFS) are the fundamental algorithms used to traverse trees and graphs. In a grid layout, DFS uses a recursion stack to deep-dive into paths, while BFS uses a queue to expand outward layer-by-layer.",
+      },
+      {
+        type: "heading",
+        text: "DFS Grid Code Structure",
+      },
+      {
+        type: "code",
+        language: "python",
+        code: `def dfs(grid, r, c, visited):
+    if r < 0 or r >= len(grid) or c < 0 or c >= len(grid[0]):
+        return
+    if grid[r][c] == 0 or (r, c) in visited:
+        return
+        
+    visited.add((r, c))
+    # Traverse neighbors (Up, Down, Left, Right)
+    dfs(grid, r-1, c, visited)
+    dfs(grid, r+1, c, visited)
+    dfs(grid, r, c-1, visited)
+    dfs(grid, r, c+1, visited)`,
+      },
+    ],
+  },
 ];

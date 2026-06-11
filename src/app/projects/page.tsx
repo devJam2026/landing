@@ -59,6 +59,16 @@ export default function ProjectsPage() {
             description="Explore our public repositories. Standardized layouts, clean code structures, and comprehensive documentation to jumpstart your building process."
           />
 
+          {/* Difference explanation banner */}
+          <div className="mb-8 p-4.5 rounded-xl border border-cyan-500/10 bg-cyan-500/5 backdrop-blur-md text-xs text-text-muted leading-relaxed">
+            💡 <strong className="text-cyan-400 font-extrabold uppercase tracking-wider mr-1.5">Projects vs. Labs:</strong> 
+            Open Source Projects are complete GitHub code repositories with system architecture blueprints and outcomes. 
+            To experiment with visual, parameter-driven interactive simulations directly in your browser, check out the 
+            <Link href="/labs" className="text-orange-500 hover:text-orange-400 font-bold ml-1 hover:underline">
+              Interactive Labs →
+            </Link>
+          </div>
+
           {/* Search bar & Pillar filters */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-8 w-full">
             <div className="relative w-full md:max-w-md">
@@ -73,7 +83,7 @@ export default function ProjectsPage() {
             </div>
             {/* Tab selectors */}
             <div className="flex flex-wrap gap-2 w-full md:w-auto">
-              {["All", "AI Engineering", "Frontend Mastery", "System Design", "DevOps & CI/CD"].map((pillar) => (
+              {["All", "AI Engineering", "Frontend Mastery", "System Design", "DevOps & CI/CD", "DSA"].map((pillar) => (
                 <button
                   key={pillar}
                   onClick={() => setSelectedPillar(pillar)}

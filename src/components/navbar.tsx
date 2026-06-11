@@ -15,8 +15,9 @@ export default function Navbar() {
 
   useEffect(() => {
     if (pathname === "/") setActiveTab("Home");
-    else if (pathname.startsWith("/roadmaps")) setActiveTab("Roadmaps");
+    else if (pathname.startsWith("/labs")) setActiveTab("Labs");
     else if (pathname.startsWith("/projects")) setActiveTab("Projects");
+    else if (pathname.startsWith("/roadmaps")) setActiveTab("Roadmaps");
     else if (pathname.startsWith("/articles")) setActiveTab("Articles");
     else if (pathname.startsWith("/about")) setActiveTab("About");
     else setActiveTab("");
@@ -46,6 +47,7 @@ export default function Navbar() {
     { type: "Roadmap", title: "AI Engineer", href: "/roadmaps/#ai-engineer", desc: "Master LLMs, RAG, Agents and AI Systems" },
     { type: "Roadmap", title: "DSA", href: "/roadmaps/#dsa", desc: "Prepare for coding interviews with structured problem-solving" },
     { type: "Roadmap", title: "DevOps & Cloud", href: "/roadmaps/#devops-cloud", desc: "Deploy, monitor and scale production systems" },
+    { type: "Tool", title: "DSA Pattern Recognition Engine", href: "/dsa/patterns", desc: "Identify key algorithmic triggers and classify LeetCode questions" },
   ];
 
   // Autofocus input when modal opens
@@ -86,6 +88,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Projects", href: "/projects" },
+    { name: "Labs", href: "/labs" },
     { name: "Roadmaps", href: "/roadmaps" },
     { name: "Articles", href: "/articles" },
     { name: "About", href: "/about" },

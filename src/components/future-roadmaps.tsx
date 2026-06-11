@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Compass, BookOpen, Layers, Cpu, Terminal, Clock } from "lucide-react";
+import Link from "next/link";
+import { Compass, BookOpen, Layers, Cpu, Terminal, Clock, Sparkles } from "lucide-react";
 
 export default function FutureRoadmaps() {
   const roadmaps = [
@@ -12,6 +13,8 @@ export default function FutureRoadmaps() {
       icon: Layers,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
+      status: "Soon",
+      href: "/roadmaps",
     },
     {
       name: "System Design",
@@ -20,6 +23,8 @@ export default function FutureRoadmaps() {
       icon: Compass,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       isCyan: false,
+      status: "Soon",
+      href: "/roadmaps",
     },
     {
       name: "AI Engineer",
@@ -28,6 +33,8 @@ export default function FutureRoadmaps() {
       icon: Cpu,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
+      status: "Soon",
+      href: "/roadmaps",
     },
     {
       name: "DSA",
@@ -36,6 +43,8 @@ export default function FutureRoadmaps() {
       icon: BookOpen,
       iconColor: "text-orange-500 bg-orange-500/10 border-orange-500/20",
       isCyan: false,
+      status: "Active",
+      href: "/dsa",
     },
     {
       name: "DevOps & Cloud",
@@ -44,6 +53,8 @@ export default function FutureRoadmaps() {
       icon: Terminal,
       iconColor: "text-cyan-400 bg-cyan-400/10 border-cyan-400/20",
       isCyan: true,
+      status: "Soon",
+      href: "/roadmaps",
     },
   ];
 
@@ -69,6 +80,8 @@ export default function FutureRoadmaps() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
         {roadmaps.map((roadmap) => {
           const Icon = roadmap.icon;
+          const isActive = roadmap.status === "Active";
+
           return (
             <div
               key={roadmap.name}
@@ -84,10 +97,17 @@ export default function FutureRoadmaps() {
                   </div>
                   
                   {/* Status Badge */}
-                  <span className="text-[8px] sm:text-[9px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-amber-500 bg-amber-500/5 border-amber-500/15 flex items-center gap-1">
-                    <Clock className="h-2.5 w-2.5" />
-                    Soon
-                  </span>
+                  {isActive ? (
+                    <span className="text-[8px] sm:text-[9px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-cyan-400 bg-cyan-400/5 border-cyan-500/15 flex items-center gap-1">
+                      <Sparkles className="h-2.5 w-2.5 animate-pulse" />
+                      Active
+                    </span>
+                  ) : (
+                    <span className="text-[8px] sm:text-[9px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border text-amber-500 bg-amber-500/5 border-amber-500/15 flex items-center gap-1">
+                      <Clock className="h-2.5 w-2.5" />
+                      Soon
+                    </span>
+                  )}
                 </div>
 
                 <h3 className="text-sm sm:text-base font-extrabold text-foreground mb-2">
@@ -115,8 +135,19 @@ export default function FutureRoadmaps() {
               </div>
 
               {/* Card Footer */}
-              <div className="border-t border-card-border/60 pt-3.5 mt-4 text-[9px] font-bold text-text-muted/65 uppercase tracking-wider">
-                Roadmap Preview
+              <div className="border-t border-card-border/60 pt-3.5 mt-4 flex justify-between items-center">
+                <span className="text-[9px] font-bold text-text-muted/65 uppercase tracking-wider">
+                  {isActive ? "Active Syllabus" : "Roadmap Preview"}
+                </span>
+                <Link
+                  href={roadmap.href}
+                  className={`text-[9px] font-extrabold transition-colors uppercase tracking-wider flex items-center gap-0.5 ${
+                    isActive ? "text-cyan-400 hover:text-cyan-300" : "text-text-muted/60 hover:text-foreground"
+                  }`}
+                >
+                  {isActive ? "Open" : "View"}
+                  <span className="text-[8px]">→</span>
+                </Link>
               </div>
             </div>
           );

@@ -1,55 +1,113 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CheckCircle2, Circle, ArrowDown } from "lucide-react";
 
-export default function LearningRoadmap() {
-  const steps = [
-    {
-      id: "ai-foundations",
-      title: "AI Foundations",
-      status: "Completed",
-      desc: "Mathematical foundations, vectors, matrices, basic backpropagation, and neural networks representation.",
-      progress: "100%",
-    },
-    {
-      id: "transformers",
-      title: "Transformers",
-      status: "Completed",
-      desc: "Understanding self-attention layers, Query-Key-Value projections, multi-head attention, and causal masking.",
-      progress: "100%",
-    },
-    {
-      id: "rag",
-      title: "RAG Systems",
-      status: "Active",
-      desc: "Document chunking, vector database embeddings, semantic search, prompt context expansion, and reranking pipelines.",
-      progress: "80%",
-    },
-    {
-      id: "agents",
-      title: "AI Agents",
-      status: "Planned",
-      desc: "ReAct execution loops, autonomous planning, function/tool registries, and client-side tool execution.",
-      progress: "0%",
-    },
-    {
-      id: "multi-agent",
-      title: "Multi-Agent",
-      status: "Planned",
-      desc: "Hierarchical agent networks, task delegation, custom communication channels, and centralized state monitoring.",
-      progress: "0%",
-    },
-    {
-      id: "production-ai",
-      title: "Production AI",
-      status: "Planned",
-      desc: "Optimizing token latencies, model quantization (GGUF/AWQ), semantic caches, and security guardrails.",
-      progress: "0%",
-    },
-  ];
+interface Step {
+  id: string;
+  title: string;
+  status: string;
+  desc: string;
+  progress: string;
+}
 
-  const [activeStep, setActiveStep] = useState(steps[2]); // Default to RAG
+const aiSteps: Step[] = [
+  {
+    id: "ai-foundations",
+    title: "AI Foundations",
+    status: "Completed",
+    desc: "Mathematical foundations, vectors, matrices, basic backpropagation, and neural networks representation.",
+    progress: "100%",
+  },
+  {
+    id: "transformers",
+    title: "Transformers",
+    status: "Completed",
+    desc: "Understanding self-attention layers, Query-Key-Value projections, multi-head attention, and causal masking.",
+    progress: "100%",
+  },
+  {
+    id: "rag",
+    title: "RAG Systems",
+    status: "Active",
+    desc: "Document chunking, vector database embeddings, semantic search, prompt context expansion, and reranking pipelines.",
+    progress: "80%",
+  },
+  {
+    id: "agents",
+    title: "AI Agents",
+    status: "Planned",
+    desc: "ReAct execution loops, autonomous planning, function/tool registries, and client-side tool execution.",
+    progress: "0%",
+  },
+  {
+    id: "multi-agent",
+    title: "Multi-Agent",
+    status: "Planned",
+    desc: "Hierarchical agent networks, task delegation, custom communication channels, and centralized state monitoring.",
+    progress: "0%",
+  },
+  {
+    id: "production-ai",
+    title: "Production AI",
+    status: "Planned",
+    desc: "Optimizing token latencies, model quantization (GGUF/AWQ), semantic caches, and security guardrails.",
+    progress: "0%",
+  },
+];
+
+const dsaSteps: Step[] = [
+  {
+    id: "big-o",
+    title: "Big-O Visualizer",
+    status: "Active",
+    desc: "Animate time and space complexity growth scales O(1), O(log n), O(n), O(n log n), O(n^2), and O(2^n) with slider controls and step math.",
+    progress: "20%",
+  },
+  {
+    id: "array",
+    title: "Array Playground",
+    status: "Planned",
+    desc: "Step through and animate array manipulations, two-pointers, prefix sums, and sliding window boundaries.",
+    progress: "0%",
+  },
+  {
+    id: "tree",
+    title: "Tree Visualizer",
+    status: "Planned",
+    desc: "Animate DFS traversals (inorder, preorder, postorder) and BFS level order scanning step-by-step on SVG trees.",
+    progress: "0%",
+  },
+  {
+    id: "graph",
+    title: "Graph Playground",
+    status: "Planned",
+    desc: "Visualize grid-based searches representing island counts, adjacency expansions, and pathfinding tracking.",
+    progress: "0%",
+  },
+  {
+    id: "dp",
+    title: "DP Visualizer",
+    status: "Planned",
+    desc: "Compare recursive memoization trees vs. tabulated multi-dimensional grids to calculate subproblems overlap.",
+    progress: "0%",
+  },
+];
+
+export default function LearningRoadmap() {
+  const [activeTrack, setActiveTrack] = useState<"ai" | "dsa">("ai");
+
+  const steps = activeTrack === "ai" ? aiSteps : dsaSteps;
+  const [activeStep, setActiveStep] = useState<Step>(aiSteps[2]); // Default to RAG
+
+  // Switch default active step when track changes
+  useEffect(() => {
+    if (activeTrack === "ai") {
+      setActiveStep(aiSteps[2]); // RAG
+    } else {
+      setActiveStep(dsaSteps[0]); // Big-O
+    }
+  }, [activeTrack]);
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -66,15 +124,42 @@ export default function LearningRoadmap() {
     <section id="roadmap" className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12 py-4 md:py-7 scroll-mt-20 w-full">
       
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-2">
-        <div>
-          <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
-            Curriculum
-          </span>
-          <h2 className="text-3xl font-black text-foreground mt-1">
-            Learning Roadmap
-          </h2>
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-card-border pb-4 gap-4">
+        <div className="flex flex-col md:flex-row md:items-center gap-6">
+          <div>
+            <span className="text-xs font-bold tracking-widest text-orange-500 uppercase">
+              Curriculum
+            </span>
+            <h2 className="text-3xl font-black text-foreground mt-1">
+              Syllabus Timeline
+            </h2>
+          </div>
+          
+          {/* Active Track Selector Toggle */}
+          <div className="flex bg-[#060a13] border border-card-border p-1 rounded-lg">
+            <button
+              onClick={() => setActiveTrack("ai")}
+              className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                activeTrack === "ai"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-600/20"
+                  : "text-text-muted hover:text-foreground"
+              }`}
+            >
+              AI Engineering
+            </button>
+            <button
+              onClick={() => setActiveTrack("dsa")}
+              className={`px-3 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                activeTrack === "dsa"
+                  ? "bg-orange-600 text-white shadow-md shadow-orange-600/20"
+                  : "text-text-muted hover:text-foreground"
+              }`}
+            >
+              DSA Foundations
+            </button>
+          </div>
         </div>
+
         <span className="text-xs text-text-muted font-bold font-mono">
           Click nodes to view syllabus details
         </span>
@@ -123,7 +208,7 @@ export default function LearningRoadmap() {
 
                     {/* Node text */}
                     <span
-                      className={`text-[10px] sm:text-xs font-bold transition-colors duration-300 ${
+                      className={`text-[10px] sm:text-xs font-bold text-center transition-colors duration-300 ${
                         isSelected ? "text-foreground font-black" : "text-text-muted hover:text-foreground"
                       }`}
                     >
@@ -131,7 +216,7 @@ export default function LearningRoadmap() {
                     </span>
                   </button>
 
-                  {/* Flow Arrow (Vertical for mobile, none/hidden on desktop due to background pipe) */}
+                  {/* Flow Arrow (Vertical for mobile) */}
                   {idx < steps.length - 1 && (
                     <div className="flex justify-center md:hidden my-1 text-card-border/80">
                       <ArrowDown className="h-4 w-4" />
@@ -150,34 +235,34 @@ export default function LearningRoadmap() {
             
             <div className="flex items-center justify-between border-b border-card-border pb-3.5">
               <span className="text-[10px] font-extrabold uppercase tracking-widest text-text-muted/80">Syllabus Details</span>
-              <span className={`text-[9px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border ${getStatusBadge(activeStep.status)}`}>
-                {activeStep.status}
+              <span className={`text-[9px] uppercase font-mono font-bold tracking-wider px-2 py-0.5 rounded border ${getStatusBadge(activeStep?.status || "Planned")}`}>
+                {activeStep?.status || "Planned"}
               </span>
             </div>
 
             <div className="flex flex-col gap-1">
-              <h3 className="text-lg font-bold text-foreground">{activeStep.title}</h3>
+              <h3 className="text-lg font-bold text-foreground">{activeStep?.title || ""}</h3>
               <p className="text-xs text-text-muted leading-relaxed mt-1">
-                {activeStep.desc}
+                {activeStep?.desc || ""}
               </p>
             </div>
 
-            {activeStep.status !== "Planned" && (
+            {activeStep?.status !== "Planned" && activeStep?.progress !== "0%" && (
               <div className="flex flex-col gap-2 border-t border-card-border/60 pt-4 mt-auto">
                 <div className="flex justify-between items-center text-[10px] font-mono font-bold text-text-muted">
                   <span>Track Completion Progress</span>
-                  <span>{activeStep.progress}</span>
+                  <span>{activeStep?.progress || "0%"}</span>
                 </div>
                 <div className="h-1.5 w-full bg-input-bg rounded-full overflow-hidden">
                   <div
                     className="h-full bg-orange-500 rounded-full transition-all duration-500"
-                    style={{ width: activeStep.progress }}
+                    style={{ width: activeStep?.progress || "0%" }}
                   />
                 </div>
               </div>
             )}
 
-            {activeStep.status === "Planned" && (
+            {activeStep?.status === "Planned" && (
               <div className="flex items-center gap-2 border-t border-card-border/60 pt-4 mt-auto text-[10px] font-bold text-text-muted/80">
                 <Circle className="h-3 w-3 text-text-muted/50" />
                 <span>Planned Lab Module Development</span>

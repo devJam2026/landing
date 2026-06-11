@@ -22,7 +22,7 @@ export default function ArticlesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const categories = ["All", "LLM Basics", "Transformers", "RAG", "Frontend Architecture", "System Design", "DevOps"];
+  const categories = ["All", "LLM Basics", "Transformers", "RAG", "Frontend Architecture", "System Design", "DevOps", "DSA"];
 
   const filteredArticles = articles.filter((art) => {
     const matchesCategory = selectedCategory === "All" || art.category === selectedCategory;

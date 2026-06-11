@@ -42,6 +42,16 @@ export default function LabsPage() {
             description="Explore software engineering concepts visually. Tweak parameters, execute modules, and reconcile state in real time."
           />
 
+          {/* Difference explanation banner */}
+          <div className="mb-8 p-4.5 rounded-xl border border-cyan-500/10 bg-cyan-500/5 backdrop-blur-md text-xs text-text-muted leading-relaxed">
+            💡 <strong className="text-cyan-400 font-extrabold uppercase tracking-wider mr-1.5">Labs vs. Projects:</strong> 
+            Interactive Labs are parameter-driven visual sandboxes that run entirely in the browser to demonstrate concepts dynamically. 
+            To explore complete, production-ready codebases with build scripts, architectural blueprints, and GitHub metrics, check out the 
+            <Link href="/projects" className="text-orange-500 hover:text-orange-400 font-bold ml-1 hover:underline">
+              Projects directory →
+            </Link>
+          </div>
+
           {/* Search bar & Pillar filters */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-8 w-full">
             <div className="relative w-full md:max-w-md">
@@ -56,7 +66,7 @@ export default function LabsPage() {
             </div>
             {/* Tab selectors */}
             <div className="flex flex-wrap gap-2 w-full md:w-auto">
-              {["All", "AI Engineering", "Frontend Mastery", "System Design", "DevOps & CI/CD"].map((pillar) => (
+              {["All", "AI Engineering", "Frontend Mastery", "System Design", "DevOps & CI/CD", "DSA"].map((pillar) => (
                 <button
                   key={pillar}
                   onClick={() => setSelectedPillar(pillar)}
