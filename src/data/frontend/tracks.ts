@@ -2,286 +2,472 @@ export type FrontendContentStatus =
   | "complete"
   | "in-progress"
   | "placeholder"
-  | "coming-soon";
+  | "coming-soon"
+  | "available";
 
 export type FrontendCurriculumTrack = {
   id: string;
-  slug: string;
-  title: string;
   order: number;
+  groupId: string;
+  title: string;
+  slug: string;
   description: string;
   status: FrontendContentStatus;
-  modules: string[];
-  plannedProjects: string[];
-  learningOutcomes: string[];
-  interviewValue: string[];
+  projectCount: number;
+  outcomes: string[];
+  submodules: string[];
+  difficulty: "beginner" | "intermediate" | "advanced" | "architect";
+  estimatedHours: number;
+  interviewRelevance: "low" | "medium" | "high" | "critical";
+  prerequisites?: string[];
+  caseStudyCount?: number;
 };
 
 export const frontendTracks: FrontendCurriculumTrack[] = [
+  // Group A
   {
-    id: "foundation",
-    slug: "foundation",
-    title: "Track 1: Frontend Foundation",
+    id: "track-1",
     order: 1,
-    description: "Master browser loading, network protocols, HTML layout engines, DOM/CSSOM tree formation, and the JavaScript execution event loop.",
-    status: "coming-soon",
-    modules: ["browser-loading", "network-http", "html-semantics", "css-layouts", "js-engine", "typescript-fundamentals", "rendering-pipeline"],
-    plannedProjects: ["browser-rendering-visualizer", "event-loop-playground", "typescript-type-safety-lab"],
-    learningOutcomes: [
-      "Explain document layouts paint and composite operations",
-      "Deconstruct macrotasks and microtasks queues ordering",
-      "Develop type-safe systems using TypeScript boundaries"
-    ],
-    interviewValue: [
-      "Defend reflow optimization patterns in complex lists layouts",
-      "Trace microtask executions inside rendering animation frames loops"
-    ]
+    groupId: "group-a",
+    title: "Web Platform Foundation",
+    slug: "web-platform-foundation",
+    description: "Master document semantics, layout engines, DOM/CSSOM construction, event loops task scheduling, and web browser caching foundations.",
+    status: "available",
+    projectCount: 2,
+    difficulty: "beginner",
+    estimatedHours: 40,
+    interviewRelevance: "high",
+    prerequisites: [],
+    outcomes: ["html-semantics-web", "css-layouts-web", "browser-rendering-flow"],
+    submodules: ["html-semantics-web", "css-layouts-web", "browser-rendering-flow"]
   },
   {
-    id: "react-engineering",
-    slug: "react-engineering",
-    title: "Track 2: React Engineering",
+    id: "track-2",
     order: 2,
-    description: "Deep dive into component lifecycle behaviors, state triggers, virtual DOM reconciliation, and performance hooks.",
-    status: "coming-soon",
-    modules: ["component-model", "hooks-behavior", "react-reconciliation", "rendering-lifecycle", "composition-error-boundaries"],
-    plannedProjects: ["react-rendering-playground", "hooks-behavior-lab", "component-composition-studio"],
-    learningOutcomes: [
-      "Detail React Fiber node states updates propagation",
-      "Eliminate expensive re-renders using useMemo and useCallback bounds",
-      "Safeguard crashes utilizing custom React error boundary components"
-    ],
-    interviewValue: [
-      "Explain standard Virtual DOM diffing algorithm time constraints",
-      "Defend composition models over props drilling anti-patterns"
-    ]
+    groupId: "group-a",
+    title: "Modern JavaScript & TypeScript",
+    slug: "modern-js-ts",
+    description: "Deconstruct closures, execution contexts, generic constraints, mapped utility types, and structural type narrowings.",
+    status: "available",
+    projectCount: 1,
+    difficulty: "intermediate",
+    estimatedHours: 35,
+    interviewRelevance: "critical",
+    prerequisites: ["web-platform-foundation"],
+    outcomes: ["es6-advanced-features", "typescript-safety-generics"],
+    submodules: ["es6-advanced-features", "typescript-safety-generics"]
   },
   {
-    id: "state-management",
-    slug: "state-management",
-    title: "Track 3: State Management & Server State",
+    id: "track-3",
     order: 3,
-    description: "Manage client applications cache, state synchronization databases, and optimistic transactions.",
+    groupId: "group-a",
+    title: "Component Engineering",
+    slug: "component-engineering",
+    description: "Design robust component interfaces, managed prop boundaries, slot compositions, and controlled component patterns.",
     status: "coming-soon",
-    modules: ["state-architectures", "context-vs-redux", "zustand-library", "server-state-query", "cache-policies"],
-    plannedProjects: ["state-management-comparison-lab", "query-cache-dashboard", "optimistic-ui-checkout"],
-    learningOutcomes: [
-      "Compare context stores against global mutable state hooks",
-      "Configure automatic stale cache refresh durations on server state fetches",
-      "Build fluid transactional checkout UI with rollback triggers"
-    ],
-    interviewValue: [
-      "Defend server cache state separation from client UI configurations",
-      "Propose strategies to prevent layout flickering during optimistic updates"
-    ]
+    projectCount: 0,
+    difficulty: "intermediate",
+    estimatedHours: 30,
+    interviewRelevance: "high",
+    prerequisites: ["web-platform-foundation"],
+    outcomes: ["props-composition-patterns"],
+    submodules: ["props-composition-patterns"]
   },
+
+  // Group B
   {
-    id: "performance",
-    slug: "performance",
-    title: "Track 4: Frontend Performance Engineering",
+    id: "track-4",
     order: 4,
-    description: "Measure, debug, and optimize real-world frontend performance using Core Web Vitals, bundle analysis, rendering profiling, and production monitoring.",
+    groupId: "group-b",
+    title: "React Engineering",
+    slug: "react-engineering",
+    description: "Deep dive virtual DOM diff reconciliation, fiber updates scheduling pipelines, hooks execution cycles, and rendering performance profiling.",
     status: "coming-soon",
-    modules: ["core-web-vitals", "bundle-optimizations", "loading-strategies", "performance-profiling"],
-    plannedProjects: ["core-web-vitals-dashboard", "bundle-analyzer-lab", "image-optimization-playground", "react-performance-profiler"],
-    learningOutcomes: [
-      "Debug INP bottlenecks using DevTools performance traces",
-      "Reduce bundle load thresholds through code splitting imports",
-      "Optimize layout stability (CLS) and content rendering speeds (LCP)"
-    ],
-    interviewValue: [
-      "Explain how script parsing blocking impacts browser main thread latency",
-      "Design dynamic asset loading systems targeting low-network environments"
-    ]
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 45,
+    interviewRelevance: "critical",
+    prerequisites: ["modern-js-ts", "component-engineering"],
+    outcomes: ["react-fiber-reconciler"],
+    submodules: ["react-fiber-reconciler"]
   },
   {
-    id: "design-systems",
-    slug: "design-systems",
-    title: "Track 5: Design Systems and Accessibility",
+    id: "track-5",
     order: 5,
-    description: "Design accessible theme tokens, robust UI components structures, and component isolation workspaces.",
+    groupId: "group-b",
+    title: "Next.js Engineering",
+    slug: "nextjs-engineering",
+    description: "Scale applications leveraging App Router routing layout hierarchies, Server Components, server actions, and HTML streams.",
     status: "coming-soon",
-    modules: ["design-tokens", "atomic-css", "wcag-accessibility", "interactive-aria", "storybook-testing"],
-    plannedProjects: ["design-system-studio", "accessible-components-lab", "theme-token-builder"],
-    learningOutcomes: [
-      "Generate theme variables using scalable tokens schemas",
-      "Enforce keyboard focus navigation boundaries inside modals overlays",
-      "Configure visual verification checks using Storybook pipelines"
-    ],
-    interviewValue: [
-      "Propose component abstraction hierarchies balancing API flexibility and consistency",
-      "Defend keyboard focus trap requirements under screen reader conditions"
-    ]
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 50,
+    interviewRelevance: "high",
+    prerequisites: ["react-engineering"],
+    outcomes: ["nextjs-app-router-rendering"],
+    submodules: ["nextjs-app-router-rendering"]
   },
   {
-    id: "architecture",
-    slug: "architecture",
-    title: "Track 6: Frontend Architecture",
+    id: "track-6",
     order: 6,
-    description: "Architect directory systems, domain modules boundaries, routing engines, and enterprise dashboard frameworks.",
+    groupId: "group-b",
+    title: "Node.js for Frontend Architects",
+    slug: "nodejs-for-frontend",
+    description: "Manage servers side execution, npm package scopes, dependency checks compilation pipelines, and BFF proxy middleware routes.",
     status: "coming-soon",
-    modules: ["folder-structures", "domain-driven-design", "routing-architecture", "form-engines", "configs-monorepos"],
-    plannedProjects: ["scalable-react-architecture", "enterprise-dashboard-framework", "form-engine-architecture-lab"],
-    learningOutcomes: [
-      "Architect decoupling structures between UI layers and business domains",
-      "Design dynamic config injection endpoints for multiple environments",
-      "Implement generic validation layers inside form schema compiler engines"
-    ],
-    interviewValue: [
-      "Structure multi-module monorepos preventing circular dependency flows",
-      "Defend dynamic runtime configuration loading vs build-time environment replacements"
-    ]
+    projectCount: 0,
+    difficulty: "intermediate",
+    estimatedHours: 25,
+    interviewRelevance: "medium",
+    prerequisites: ["modern-js-ts"],
+    outcomes: ["nodejs-runtime-execution"],
+    submodules: ["nodejs-runtime-execution"]
   },
   {
-    id: "micro-frontends",
-    slug: "micro-frontends",
-    title: "Track 7: Micro Frontends",
+    id: "track-7",
     order: 7,
-    description: "Scale large organizations frontend applications using Webpack/Rspack Module Federation, dynamic routers, and dependency shares.",
+    groupId: "group-b",
+    title: "Express / FastAPI Integration",
+    slug: "express-fastapi-integration",
+    description: "Build Node or Python API gateways validating schemas, formatting client payloads, and securing environments.",
     status: "coming-soon",
-    modules: ["mfe-fundamentals", "module-federation-core", "dependency-resolutions", "cross-mfe-communication", "mfe-deployment"],
-    plannedProjects: ["mfe-shell-host", "module-federation-remotes", "cross-mfe-communication-lab", "mfe-maturity-dashboard"],
-    learningOutcomes: [
-      "Expose remote UI modules dynamically at host runtime layers",
-      "Configure singleton shared dependencies inside federation bundlers",
-      "Build sandboxed communication loops passing decoupled events across applications"
-    ],
-    interviewValue: [
-      "Resolve version mismatch conflicts across remote runtime script loads",
-      "Design routing synchronization systems across independently deployed microfrontends"
-    ]
+    projectCount: 0,
+    difficulty: "intermediate",
+    estimatedHours: 30,
+    interviewRelevance: "medium",
+    prerequisites: ["nodejs-for-frontend"],
+    outcomes: ["express-fastapi-boundaries"],
+    submodules: ["express-fastapi-boundaries"]
   },
   {
-    id: "build-tooling",
-    slug: "build-tooling",
-    title: "Track 8: Build Systems and Tooling",
+    id: "track-8",
     order: 8,
-    description: "Optimize transpilers steps, tree-shaking indices, and monorepo compilation caches.",
+    groupId: "group-b",
+    title: "GraphQL for Frontend Systems",
+    slug: "graphql-for-frontend",
+    description: "Query graph models utilizing Apollo Client, resolving normalized caching schemas, fragments, and queries variables.",
     status: "coming-soon",
-    modules: ["npm-internals", "bundling-concepts", "webpack-vite-swc", "tree-shaking", "monorepo-build-tooling"],
-    plannedProjects: ["build-pipeline-visualizer", "bundler-comparison-lab", "barrel-file-analyzer", "monorepo-build-system-lab"],
-    learningOutcomes: [
-      "Diagnose circular imports and barrel file overheads",
-      "Write customized bundler configuration files minimizing asset counts",
-      "Implement remote compilation cache systems using Turborepo structures"
-    ],
-    interviewValue: [
-      "Detail the mechanics of dead code elimination (tree-shaking) inside ESM imports",
-      "Compare cold start latency profiles of rollup-based Vite vs webpack-based systems"
-    ]
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 30,
+    interviewRelevance: "high",
+    prerequisites: ["react-engineering"],
+    outcomes: ["graphql-schema-apollo-cache"],
+    submodules: ["graphql-schema-apollo-cache"]
   },
+
+  // Group C
   {
-    id: "testing",
-    slug: "testing",
-    title: "Track 9: Testing Strategy",
+    id: "track-9",
     order: 9,
-    description: "Design comprehensive testing pyramids matching unit checks, visual regressions, and end-to-end integration test runs.",
+    groupId: "group-c",
+    title: "State Management & Server State",
+    slug: "state-management-server-state",
+    description: "Separate transient UI state from query caches using Zustand and React Query, validating local transactions rollbacks.",
     status: "coming-soon",
-    modules: ["unit-integration-tests", "e2e-playwright", "mock-strategies", "visual-regression", "contract-testing-ui"],
-    plannedProjects: ["testing-pyramid-lab", "playwright-e2e-suite", "visual-regression-lab", "contract-testing-api"],
-    learningOutcomes: [
-      "Configure parallel end-to-end test execution pipelines in Playwright",
-      "Capture pixel-perfect snapshot assertions mapping regressions across browsers",
-      "Simulate server network configurations using Mock Service Worker (MSW)"
-    ],
-    interviewValue: [
-      "Propose strategies to eliminate flakiness inside asynchronous UI test suites",
-      "Compare mocking APIs payloads vs contract testing interfaces on frontend boundaries"
-    ]
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 40,
+    interviewRelevance: "critical",
+    prerequisites: ["react-engineering"],
+    outcomes: ["client-state-server-state-sync"],
+    submodules: ["client-state-server-state-sync"]
   },
   {
-    id: "rendering",
-    slug: "rendering",
-    title: "Track 10: SSR, Streaming, and Edge Rendering",
+    id: "track-10",
     order: 10,
-    description: "Build high-speed server rendered routes utilizing Next.js Server Components, hydration flows, and edge delivery caches.",
+    groupId: "group-c",
+    title: "API Design for Frontend Engineers",
+    slug: "api-design-for-frontend",
+    description: "Design pagination cursors, retry-backoff algorithms, standard JSON response errors, and schema contract testing.",
     status: "coming-soon",
-    modules: ["csr-ssr-ssg", "hydration-mechanics", "streaming-ssr-suspense", "react-server-components", "nextjs-routing", "edge-rendering-caching"],
-    plannedProjects: ["ssr-streaming-demo", "hydration-mismatch-debugger", "edge-rendered-page", "seo-content-platform"],
-    learningOutcomes: [
-      "Stream HTML chunks incrementally to client using Suspense boundaries",
-      "Debug hydration mismatch exceptions using browser DOM snapshots",
-      "Deploy localized edge functions compiling templates near user endpoints"
-    ],
-    interviewValue: [
-      "Explain the serialization boundary constraints inside React Server Components",
-      "Propose caching configurations balancing TTFB speeds against content updates latency"
-    ]
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 30,
+    interviewRelevance: "critical",
+    prerequisites: ["express-fastapi-integration"],
+    outcomes: ["api-design-resiliency-testing"],
+    submodules: ["api-design-resiliency-testing"]
   },
+
+  // Group D
   {
-    id: "security",
-    slug: "security",
-    title: "Track 11: Frontend Security",
+    id: "track-11",
     order: 11,
-    description: "Protect client-side applications from Cross-Site Scripting (XSS), token leaks, and injection boundaries.",
+    groupId: "group-d",
+    title: "Frontend Architecture Fundamentals",
+    slug: "frontend-architecture-fundamentals",
+    description: "Architect folders structures segregating presentations layouts, business logic domains, and API endpoints adapter layers.",
     status: "coming-soon",
-    modules: ["xss-mitigations", "csrf-cookie-controls", "csp-policies", "client-token-storage", "oauth-flows-security"],
-    plannedProjects: ["security-playground-sandbox", "secure-auth-flow-lab", "csp-violation-dashboard", "oauth-login-simulation"],
-    learningOutcomes: [
-      "Configure Content Security Policy (CSP) headers restricting script execution sources",
-      "Enforce Secure, HttpOnly, SameSite cookies on authorization operations",
-      "Implement secure OAuth Authorization Code Flow with PKCE"
-    ],
-    interviewValue: [
-      "Analyze safety trade-offs of storing tokens in LocalStorage vs HttpOnly cookies",
-      "Propose mitigations preventing script injections inside dynamically rendered HTML frames"
-    ]
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 35,
+    interviewRelevance: "critical",
+    prerequisites: ["react-engineering"],
+    outcomes: ["clean-architecture-frontend-layers"],
+    submodules: ["clean-architecture-frontend-layers"]
   },
   {
-    id: "observability",
-    slug: "observability",
-    title: "Track 12: Frontend Observability & Production Operations",
+    id: "track-12",
     order: 12,
-    description: "Monitor user interactions, capture Javascript crashes, trace metrics drift, and deploy feature flag structures.",
+    groupId: "group-d",
+    title: "Micro Frontends",
+    slug: "micro-frontends",
+    description: "Scale development pipelines leveraging module federation, runtime scripts composition, and decoupled micro events paths.",
     status: "coming-soon",
-    modules: ["telemetry-logging", "real-user-monitoring", "error-tracking-sentry", "feature-flags-ab-testing"],
-    plannedProjects: ["observability-dashboard", "error-tracking-lab", "feature-flag-rollout", "ab-testing-lab"],
-    learningOutcomes: [
-      "Capture nested JS stack traces mapped with source maps logs",
-      "Measure client-side performance timings using User Timing API",
-      "Design canary rollout workflows using targeted feature flags servers"
-    ],
-    interviewValue: [
-      "Explain how real user monitoring (RUM) tracks performance variance across devices",
-      "Design client logging architectures that prevent leaking personal identifiable data (PII)"
-    ]
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 40,
+    interviewRelevance: "high",
+    prerequisites: ["frontend-architecture-fundamentals"],
+    outcomes: ["micro-frontends-module-federation"],
+    submodules: ["micro-frontends-module-federation"]
   },
   {
-    id: "system-design",
-    slug: "system-design",
-    title: "Track 13: Frontend System Design",
+    id: "track-13",
     order: 13,
-    description: "Master senior frontend system design rounds. Architect YouTube, Figma, Netflix, and collaborative applications.",
+    groupId: "group-d",
+    title: "Monorepo Architecture",
+    slug: "monorepo-architecture",
+    description: "Configure monorepos utilizing pnpm workspaces and Turborepo caching pipelines to speed up compiler tasks.",
     status: "coming-soon",
-    modules: ["system-requirements", "fe-component-architecture", "fe-data-flow-design", "collaborative-ui-design"],
-    plannedProjects: ["design-youtube-fe", "design-amazon-fe", "design-netflix-fe", "design-realtime-dashboard", "design-ecommerce-checkout", "design-figma-fe"],
-    learningOutcomes: [
-      "Structure client-side state engines for real-time multiplayer applications",
-      "Design video buffering, pre-fetching, and lazy chunking queues controls",
-      "Defend performance, styling, and bundle partitioning architectures"
-    ],
-    interviewValue: [
-      "Present complete high-level architectures for infinite scroll layout grids",
-      "Propose strategies handling network drops inside offline-first data dashboards"
-    ]
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 30,
+    interviewRelevance: "medium",
+    prerequisites: ["frontend-architecture-fundamentals"],
+    outcomes: ["monorepo-turborepo-nx-workspaces"],
+    submodules: ["monorepo-turborepo-nx-workspaces"]
   },
   {
-    id: "interview-mastery",
-    slug: "interview-mastery",
-    title: "Track 14: Frontend Interview Mastery",
+    id: "track-14",
     order: 14,
-    description: "Prepare for coding loops, JavaScript depths, behavioral evaluations, and leadership tradeoff reviews.",
+    groupId: "group-d",
+    title: "Modular Monolith Frontend",
+    slug: "modular-monolith-frontend",
+    description: "Structure modular monolithic codebases using strict package borders and ESLint boundaries constraints.",
     status: "coming-soon",
-    modules: ["javascript-deep-dive", "typescript-narrowing-q", "react-fiber-questions", "machine-coding-practice", "leadership-scenarios"],
-    plannedProjects: ["interview-question-bank", "machine-coding-practice-set", "architecture-casebook", "staff-interview-simulator"],
-    learningOutcomes: [
-      "Explain prototypal inheritance and closures structures under scrutiny",
-      "Complete live machine coding layouts inside tight time limits",
-      "Structure behavioral responses showing staff-level project leadership stories"
-    ],
-    interviewValue: [
-      "Defend performance-complexity engineering compromises to senior panels",
-      "Answer core runtime execution questions from memory without debugger dependencies"
-    ]
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 25,
+    interviewRelevance: "medium",
+    prerequisites: ["frontend-architecture-fundamentals"],
+    outcomes: ["modular-monolith-folder-boundaries"],
+    submodules: ["modular-monolith-folder-boundaries"]
+  },
+  {
+    id: "track-15",
+    order: 15,
+    groupId: "group-d",
+    title: "Frontend Design Patterns",
+    slug: "frontend-design-patterns",
+    description: "Implement Adapter schema conversions, Facade state abstractions, command handlers, and dynamic plugin structures.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 35,
+    interviewRelevance: "critical",
+    prerequisites: ["modern-js-ts"],
+    outcomes: ["design-patterns-adapter-facade"],
+    submodules: ["design-patterns-adapter-facade"]
+  },
+  {
+    id: "track-16",
+    order: 16,
+    groupId: "group-d",
+    title: "Design Systems & Component Libraries",
+    slug: "design-systems-component-libraries",
+    description: "Generate platform variables mapping design tokens schemas, build accessible components, and document usage profiles.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 45,
+    interviewRelevance: "high",
+    prerequisites: ["component-engineering"],
+    outcomes: ["design-tokens-themes-storybook"],
+    submodules: ["design-tokens-themes-storybook"]
+  },
+
+  // Group E
+  {
+    id: "track-17",
+    order: 17,
+    groupId: "group-e",
+    title: "Frontend Performance Engineering",
+    slug: "frontend-performance-engineering",
+    description: "Track performance metrics Core Web Vitals (LCP, INP, CLS), optimize code split bundles, and isolate execution loops.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 50,
+    interviewRelevance: "critical",
+    prerequisites: ["web-platform-foundation"],
+    outcomes: ["core-web-vitals-performance-auditing"],
+    submodules: ["core-web-vitals-performance-auditing"]
+  },
+  {
+    id: "track-18",
+    order: 18,
+    groupId: "group-e",
+    title: "Frontend Caching Architecture",
+    slug: "frontend-caching-architecture",
+    description: "Deploy CDN templates caching headers, configure service workers caches, and manage client-side state validations.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 30,
+    interviewRelevance: "high",
+    prerequisites: ["web-platform-foundation"],
+    outcomes: ["http-cdn-react-query-caching"],
+    submodules: ["http-cdn-react-query-caching"]
+  },
+  {
+    id: "track-19",
+    order: 19,
+    groupId: "group-e",
+    title: "Frontend Security",
+    slug: "frontend-security",
+    description: "Write content security policies headers blocking script injections, secure cookies tokens, and audit packages dependencies.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 30,
+    interviewRelevance: "critical",
+    prerequisites: ["web-platform-foundation"],
+    outcomes: ["xss-csrf-csp-cors-security"],
+    submodules: ["xss-csrf-csp-cors-security"]
+  },
+  {
+    id: "track-20",
+    order: 20,
+    groupId: "group-e",
+    title: "Accessibility Engineering",
+    slug: "accessibility-engineering",
+    description: "Code screen-reader accessible documents, handle interactive keyboard focus overlays, and execute WCAG AA audits.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 35,
+    interviewRelevance: "high",
+    prerequisites: ["web-platform-foundation"],
+    outcomes: ["wcag-aria-accessible-forms-modals"],
+    submodules: ["wcag-aria-accessible-forms-modals"]
+  },
+  {
+    id: "track-21",
+    order: 21,
+    groupId: "group-e",
+    title: "Frontend Reliability & Resilience",
+    slug: "frontend-reliability-resilience",
+    description: "Build robust interface fallbacks, retry logic boundaries, circuit breakers parameters, and graceful loading state pages.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 25,
+    interviewRelevance: "medium",
+    prerequisites: ["react-engineering"],
+    outcomes: ["error-boundaries-fallback-uis"],
+    submodules: ["error-boundaries-fallback-uis"]
+  },
+  {
+    id: "track-22",
+    order: 22,
+    groupId: "group-e",
+    title: "Frontend Observability & Production",
+    slug: "frontend-observability-production",
+    description: "Monitor user interaction timings user Timing APIs, log compiled javascript exceptions, and configure feature flags canary rollouts.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 30,
+    interviewRelevance: "high",
+    prerequisites: ["nodejs-for-frontend"],
+    outcomes: ["logging-sentry-real-user-monitoring"],
+    submodules: ["logging-sentry-real-user-monitoring"]
+  },
+  {
+    id: "track-23",
+    order: 23,
+    groupId: "group-e",
+    title: "Testing Strategy",
+    slug: "testing-strategy",
+    description: "Enforce code validation pyramids combining Playwright integration checks, MSW backend mocks, and components regression tests.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "advanced",
+    estimatedHours: 40,
+    interviewRelevance: "high",
+    prerequisites: ["react-engineering"],
+    outcomes: ["playwright-msw-testing-pyramid"],
+    submodules: ["playwright-msw-testing-pyramid"]
+  },
+  {
+    id: "track-24",
+    order: 24,
+    groupId: "group-e",
+    title: "Build Systems, Tooling & CI/CD",
+    slug: "build-systems-tooling-ci-cd",
+    description: "Optimize compiler pipelines using Vite and SWC tools, configure bundle splits, and build tree shaking verification checks.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 35,
+    interviewRelevance: "medium",
+    prerequisites: ["nodejs-for-frontend"],
+    outcomes: ["vite-webpack-swc-compiler-ci"],
+    submodules: ["vite-webpack-swc-compiler-ci"]
+  },
+
+  // Group F
+  {
+    id: "track-25",
+    order: 25,
+    groupId: "group-f",
+    title: "Frontend System Design Fundamentals",
+    slug: "frontend-system-design-fundamentals",
+    description: "Deconstruct specifications mapping functional data layers, state models caching configurations, and deployment strategies.",
+    status: "coming-soon",
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 40,
+    interviewRelevance: "critical",
+    prerequisites: ["frontend-architecture-fundamentals"],
+    outcomes: ["system-design-requirements-contracts"],
+    submodules: ["system-design-requirements-contracts"]
+  },
+  {
+    id: "track-26",
+    order: 26,
+    groupId: "group-f",
+    title: "Real-World Frontend Case Studies",
+    slug: "real-world-frontend-case-studies",
+    description: "Walk through 20 structured senior design interviews mapping feeds dynamic updates, canvas collaborative loops, and checkout pages.",
+    status: "available",
+    projectCount: 0,
+    difficulty: "architect",
+    estimatedHours: 60,
+    interviewRelevance: "critical",
+    prerequisites: ["frontend-system-design-fundamentals"],
+    caseStudyCount: 20,
+    outcomes: ["case-studies-system-design-review"],
+    submodules: ["case-studies-system-design-review"]
+  },
+
+  // Group G
+  {
+    id: "track-27",
+    order: 27,
+    groupId: "group-g",
+    title: "Frontend Architect Capstones",
+    slug: "frontend-architect-capstones",
+    description: "Deploy production-grade federated client dashboards, custom testing tools, and design systems packages.",
+    status: "available",
+    projectCount: 10,
+    difficulty: "architect",
+    estimatedHours: 100,
+    interviewRelevance: "high",
+    prerequisites: ["real-world-frontend-case-studies"],
+    outcomes: ["capstones-portfolio-projects-kit"],
+    submodules: ["capstones-portfolio-projects-kit"]
   }
 ];

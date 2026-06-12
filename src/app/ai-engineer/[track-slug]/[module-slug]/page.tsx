@@ -8,6 +8,8 @@ import AIStatusBadge from "@/components/ai/AIStatusBadge";
 import { aiTracks } from "@/data/ai/tracks";
 import { aiModules } from "@/data/ai/modules";
 import { aiSubmodules } from "@/data/ai/submodules";
+import { aiProjectDetails } from "@/data/ai/projectsIndex";
+import ProjectBlueprintView from "./ProjectBlueprintView";
 import { ArrowLeft, BookOpen, ChevronRight, HelpCircle } from "lucide-react";
 
 interface ModulePageProps {
@@ -28,6 +30,26 @@ export async function generateStaticParams() {
   return params;
 }
 
+export async function generateMetadata({ params }: ModulePageProps) {
+  const resolvedParams = await params;
+  const moduleSlug = resolvedParams["module-slug"];
+  const projectDetail = aiProjectDetails[moduleSlug];
+
+  if (projectDetail) {
+    return {
+      title: `${projectDetail.title} Requirements & Architecture | DevJam`,
+      description: `Build a type-safe LLM structured output validation system using FastAPI, Pydantic, JSON validation, retry logic, and frontend inspection tools.`,
+    };
+  }
+
+  const aiModule = aiModules[moduleSlug];
+  if (!aiModule) return {};
+  return {
+    title: `${aiModule.title} | DevJam`,
+    description: aiModule.description,
+  };
+}
+
 export default async function AiEngineerModuleDetailPage({ params }: ModulePageProps) {
   const resolvedParams = await params;
   const trackSlug = resolvedParams["track-slug"];
@@ -38,6 +60,22 @@ export default async function AiEngineerModuleDetailPage({ params }: ModulePageP
 
   if (!track || !aiModule || aiModule.trackSlug !== trackSlug) {
     notFound();
+  }
+
+  // Check if a detailed project blueprint exists for this module
+  const projectDetail = aiProjectDetails[moduleSlug];
+  if (projectDetail) {
+    return (
+      <>
+        <Navbar />
+        <ProjectBlueprintView 
+          projectDetail={projectDetail} 
+          trackTitle={track.title} 
+          trackSlug={track.slug} 
+        />
+        <Footer />
+      </>
+    );
   }
 
   // Get submodules belonging to this module
