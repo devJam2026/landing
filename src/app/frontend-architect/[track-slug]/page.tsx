@@ -10,6 +10,8 @@ import { frontendProjects } from "@/data/frontend/projects";
 import { frontendSubmodules } from "@/data/frontend/submodules";
 import { frontendCaseStudies } from "@/data/frontend/caseStudies";
 import { frontendOutcomes } from "@/data/frontend/outcomes";
+import { frontendTrackDetails } from "@/data/frontend/tracksIndex";
+import FrontendTrackHubView from "./FrontendTrackHubView";
 import { 
   ArrowLeft, 
   BookOpen, 
@@ -18,12 +20,30 @@ import {
   Code, 
   Clock, 
   ChevronRight,
-  Sparkles,
-  CheckCircle2
+  Sparkles
 } from "lucide-react";
-
 interface TrackPageProps {
   params: Promise<{ "track-slug": string }>;
+}
+
+export async function generateMetadata({ params }: TrackPageProps) {
+  const resolvedParams = await params;
+  const trackSlug = resolvedParams["track-slug"];
+  const trackDetailHub = frontendTrackDetails[trackSlug];
+
+  if (trackDetailHub) {
+    return {
+      title: `${trackDetailHub.title} Interview Preparation & Architecture Hub | DevJam`,
+      description: trackDetailHub.subtitle,
+    };
+  }
+
+  const track = frontendTracks.find((t) => t.slug === trackSlug);
+  if (!track) return {};
+  return {
+    title: `${track.title} | DevJam`,
+    description: track.description,
+  };
 }
 
 export async function generateStaticParams() {
@@ -55,6 +75,20 @@ export default async function FrontendTrackDetailPage({ params }: TrackPageProps
 
   if (!track) {
     notFound();
+  }
+
+  // Intercept and load structured interview hub view if registered
+  const trackDetailHub = frontendTrackDetails[trackSlug];
+  if (trackDetailHub) {
+    return (
+      <>
+        <Navbar />
+        <FrontendTrackHubView
+          trackDetailHub={trackDetailHub}
+        />
+        <Footer />
+      </>
+    );
   }
 
   // Get modules belonging to this track
