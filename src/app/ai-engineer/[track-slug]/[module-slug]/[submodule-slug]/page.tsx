@@ -13,6 +13,10 @@ interface SubmodulePageProps {
 export async function generateStaticParams() {
   const params: { "track-slug": string; "module-slug": string; "submodule-slug": string }[] = [];
   Object.values(aiSubmodules).forEach((submodule) => {
+    // Skip because we have dedicated static routes under /ai-engineer/foundation/tokenization/[submodule-slug]
+    if (submodule.trackSlug === "foundation" && submodule.moduleSlug === "tokenization") {
+      return;
+    }
     params.push({
       "track-slug": submodule.trackSlug,
       "module-slug": submodule.moduleSlug,

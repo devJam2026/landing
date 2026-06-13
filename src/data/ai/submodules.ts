@@ -24,58 +24,41 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     slug: "what-is-tokenization",
     trackSlug: "foundation",
     moduleSlug: "tokenization",
-    title: "What is Tokenization?",
-    description: "Learn how raw text strings are converted into discrete numeric IDs that LLMs can digest.",
-    status: "in-progress",
+    title: "What Is Tokenization?",
+    description: "Learn how raw text is converted into tokens and token IDs before entering an LLM.",
+    status: "complete",
     whatYouWillLearn: [
-      "The role of the vocabulary in models",
-      "Character vs word vs subword tokenization splits",
-      "How numbers are projected as index positions in embedding tables"
+      "Understand what tokens are",
+      "Explain token IDs",
+      "Describe the LLM input pipeline"
     ],
     whyItMatters: "Tokenization is the entry gate to any language model. A poor tokenizer splits text inefficiently, inflating context window costs and degrading generation accuracy.",
-    conceptsCovered: ["Vocabulary Mapping", "Integer ID Projection", "Subword Splits"],
+    conceptsCovered: ["Token", "Token ID", "Tokenizer Vocabulary", "Embedding Lookup"],
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Explain why raw emojis or spelling variations can inflate token counts",
       "Describe how out-of-vocabulary terms are resolved in tokenizers"
     ],
-    detailedExplanation: "Tokenization translates unstructured text into a sequence of discrete integers (tokens) corresponding to indices in the model's embedding matrix. LLMs do not read characters directly. Instead, they operate on these numerical IDs. Character-based splits result in long sequences that exhaust context windows, while word-based splits suffer from infinite vocabulary growth (Out-Of-Vocabulary elements). Subword tokenization strikes an optimal balance by breaking rare words into common root fragments.",
-    interviewQuestions: [
-      {
-        question: "Why do emojis or non-English text consume significantly more tokens?",
-        answer: "Tokenizers are typically pre-trained on corpora heavily weighted toward English text. Emojis and non-English scripts (like Devanagari or Cyrillic) are often underrepresented in the vocabulary, forcing the tokenizer to split single characters or words into multiple byte-level tokens, inflating the sequence size."
-      },
-      {
-        question: "How do tokenizers handle completely unknown characters?",
-        answer: "Modern subword tokenizers fallback to byte-level representations. Characters not present in the vocabulary are converted to their raw UTF-8 bytes (such as byte tokens <0x4E>), ensuring the tokenizer never encounters a hard Out-Of-Vocabulary (OOV) crash."
-      }
-    ]
+    detailedExplanation: "Tokenization translates unstructured text into a sequence of discrete integers (tokens) corresponding to indices in the model's embedding matrix. LLMs do not read characters directly. Instead, they operate on these numerical IDs."
   },
   "tokenization-algorithms": {
     id: "tokenization-algorithms",
     slug: "tokenization-algorithms",
     trackSlug: "foundation",
     moduleSlug: "tokenization",
-    title: "Tokenization Algorithms",
-    description: "Deep dive into character, word, and subword tokenization splits.",
-    status: "placeholder",
+    title: "Character, Word & Subword Tokenization",
+    description: "Compare character-level, word-level, and subword tokenization with simple examples.",
+    status: "complete",
     whatYouWillLearn: [
-      "Sparsity problems in word tokenization",
-      "Token size limits",
-      "The logic of subword splits"
+      "Compare tokenizer types",
+      "Understand why subwords are used",
+      "Identify tokenization trade-offs"
     ],
     whyItMatters: "Modern models use subword splits to balance vocabulary size against context efficiency.",
-    conceptsCovered: ["Character Splitting", "Word Sparsity", "Subword Logic"],
+    conceptsCovered: ["Character Tokenization", "Word Tokenization", "Subword Tokenization"],
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
-      "Explain the OOV (Out of Vocabulary) bottleneck in word-based tokenizers"
-    ],
-    detailedExplanation: "Older NLP systems used word-level tokenization, which suffered from high sparsity (the vocabulary could grow to millions of words and still fail to recognize plurals or misspelling variations). Character tokenization solves sparsity but splits text into tiny steps, making it difficult for self-attention layers to model long-range dependencies. Modern subword algorithms (BPE, WordPiece, Unigram) merge frequent character sequences, creating dynamic vocabularies of 30,000 to 256,000 entries that handle any word.",
-    interviewQuestions: [
-      {
-        question: "Compare BPE, WordPiece, and Unigram tokenization algorithms.",
-        answer: "BPE (Byte Pair Encoding) is a bottom-up method that merges the most frequent pairs of bytes/characters. WordPiece is similar but selects merges that maximize the likelihood of the training data according to a language model. Unigram starts with a large vocabulary and iteratively prunes characters that contribute least to the training corpus likelihood."
-      }
+      "Explain the OOV bottleneck in word-based tokenizers"
     ]
   },
   "bpe-wordpiece": {
@@ -83,80 +66,99 @@ export const aiSubmodules: Record<string, AISubmodule> = {
     slug: "bpe-wordpiece",
     trackSlug: "foundation",
     moduleSlug: "tokenization",
-    title: "BPE & WordPiece",
-    description: "How Byte Pair Encoding and WordPiece build text vocabularies iteratively.",
-    status: "placeholder",
+    title: "BPE, WordPiece & SentencePiece",
+    description: "Deep dive into common tokenizer algorithms used by modern NLP and LLM systems.",
+    status: "complete",
     whatYouWillLearn: [
-      "How BPE builds vocabulary by merging frequent character pairs",
-      "The differences between BPE and WordPiece",
-      "Analyzing token boundaries"
+      "Explain Byte Pair Encoding",
+      "Understand WordPiece",
+      "Understand SentencePiece and Unigram"
     ],
     whyItMatters: "BPE is the standard algorithm used by GPT-4 and Llama models to build subword vocabularies.",
-    conceptsCovered: ["Byte Pair Encoding", "WordPiece", "Vocabulary Merging"],
+    conceptsCovered: ["Byte Pair Encoding", "WordPiece", "SentencePiece"],
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Explain the merge logic of the Byte Pair Encoding (BPE) algorithm"
-    ],
-    detailedExplanation: "Byte Pair Encoding (BPE) begins with a vocabulary of base characters/bytes. It scans the training corpus, counts all adjacent token pairs, and merges the most frequent pair (e.g., 't' and 'h' become 'th'). This process repeats for a fixed number of merge iterations until the target vocabulary size is reached. BPE is deterministic and operates strictly on frequency statistics, making it highly efficient.",
-    interviewQuestions: [
-      {
-        question: "How does the BPE tokenizer decode integer tokens back to strings?",
-        answer: "Decoding is straightforward: the tokenizer maps each integer ID back to its byte/character sequence in the vocabulary table, concatenates them, and converts the resulting byte array back to a UTF-8 string."
-      }
     ]
   },
-  "token-inflation-costs": {
-    id: "token-inflation-costs",
-    slug: "token-inflation-costs",
+  "token-ids-vocabulary": {
+    id: "token-ids-vocabulary",
+    slug: "token-ids-vocabulary",
     trackSlug: "foundation",
     moduleSlug: "tokenization",
-    title: "Token Inflation & Costs",
-    description: "Analyze API bills, non-English token inflation, and cost optimization.",
-    status: "placeholder",
+    title: "Token IDs, Vocabulary & Embeddings",
+    description: "Connect tokens to vocabulary IDs, embeddings, and the transformer input pipeline.",
+    status: "complete",
     whatYouWillLearn: [
-      "Calculating token consumption against API cost matrices",
-      "Non-English token multiplication dynamics",
-      "Optimizing prompt sizes"
+      "Explain tokenizer vocabulary",
+      "Understand token IDs",
+      "Connect tokens to embeddings"
+    ],
+    whyItMatters: "Tokenization ends with IDs; the model starts with embeddings. Understanding this interface is key to understanding neural NLP.",
+    conceptsCovered: ["Vocabulary Table", "Embedding Lookup", "Hidden Dimension"],
+    projectMapping: ["tokenizer-visualizer-studio"],
+    interviewValue: [
+      "Explain the connection between token IDs and the embedding matrix"
+    ]
+  },
+  "token-cost": {
+    id: "token-cost",
+    slug: "token-cost",
+    trackSlug: "foundation",
+    moduleSlug: "tokenization",
+    title: "Token Inflation, Context Window & API Cost",
+    description: "Learn why token count affects LLM pricing, context length, latency, and production architecture.",
+    status: "complete",
+    whatYouWillLearn: [
+      "Estimate token usage",
+      "Understand token inflation",
+      "Optimize prompts for cost"
     ],
     whyItMatters: "Non-English languages can consume up to 4x more tokens for the same sentence, leading to high cost inflation.",
-    conceptsCovered: ["Token Billing", "Language Bias in Tokenizers", "Cost Optimization"],
+    conceptsCovered: ["Token Inflation", "API Pricing", "Context Limits"],
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Detail how token inflation affects pricing and context windows in international applications"
-    ],
-    detailedExplanation: "Because vocabularies are optimized for English, non-English words are split into multiple smaller tokens. A single word in Spanish or Japanese might take 3 to 5 tokens, whereas the same concept takes 1 token in English. This creates a billing inflation and reduces the effective context window size for international users. Understanding token-to-word ratios is critical for estimating operational costs at scale.",
-    interviewQuestions: [
-      {
-        question: "How would you optimize an international translation application against token inflation costs?",
-        answer: "You can use a custom tokenizer trained specifically on the target languages (like Llama-3's expanded 128k vocabulary which reduces non-English token inflation by 15-20%), or compress inputs using semantic mapping before sending them to the LLM."
-      }
     ]
   },
-  "tokenization-interview": {
-    id: "tokenization-interview",
-    slug: "tokenization-interview",
+  "rag-agents": {
+    id: "rag-agents",
+    slug: "rag-agents",
     trackSlug: "foundation",
     moduleSlug: "tokenization",
-    title: "Tokenization in Interviews",
-    description: "How to answer core tokenizer engineering questions in interview loops.",
-    status: "placeholder",
+    title: "Tokenization in RAG & AI Agents",
+    description: "Understand how tokenization affects chunking, retrieval, memory, and agent workflows.",
+    status: "complete",
     whatYouWillLearn: [
-      "Answering common tokenizer questions",
-      "Sizing vocabulary counts",
-      "Explaining BPE implementation steps"
+      "Design token-aware RAG chunks",
+      "Control agent memory size",
+      "Reduce context waste"
     ],
-    whyItMatters: "Senior AI panels frequently test tokenizer limits to evaluate production system design skills.",
-    conceptsCovered: ["Vocabulary Size Tradeoffs", "BPE Proofs", "Token Limits Defense"],
+    whyItMatters: "Chunking database documents by characters instead of token counts causes vector search mismatches and context overflows.",
+    conceptsCovered: ["Token Chunking", "Agent Loops", "Memory Trimming"],
+    projectMapping: ["tokenizer-visualizer-studio"],
+    interviewValue: [
+      "How does tokenization affect document chunking in RAG pipelines?"
+    ]
+  },
+  "interview-guide": {
+    id: "interview-guide",
+    slug: "interview-guide",
+    trackSlug: "foundation",
+    moduleSlug: "tokenization",
+    title: "Tokenization Interview Guide",
+    description: "Prepare clear interview answers for tokenizer, BPE, token IDs, context window, and cost questions.",
+    status: "complete",
+    whatYouWillLearn: [
+      "Answer tokenization interview questions",
+      "Explain BPE clearly",
+      "Connect tokenization to production systems"
+    ],
+    whyItMatters: "Syllabus interviews frequently focus on boundaries and trade-offs of tokenization systems.",
+    conceptsCovered: ["Vocabulary Trade-offs", "BPE Merges", "UTF-8 Fallback"],
     projectMapping: ["tokenizer-visualizer-studio"],
     interviewValue: [
       "Defend the choice of a 32k vs 128k vocabulary size to a senior panel"
-    ],
-    detailedExplanation: "Interview questions surrounding tokenization probe your understanding of the interface between text and model weight parameters. Designing vocabularies involves a hard trade-off: larger vocabularies (e.g. 128,000 tokens) represent text more compactly (fewer tokens per word) but enlarge the embedding matrix weights, consuming more GPU memory. Smaller vocabularies conserve model parameter space but inflate the context window length.",
-    interviewQuestions: [
-      {
-        question: "Explain the space-compute trade-off of changing the tokenizer vocabulary size.",
-        answer: "A larger vocabulary size decreases the sequence length (fewer tokens to represent a prompt), reducing the quadratic attention computational cost. However, it requires a larger embedding layer (Vocabulary Size x Hidden Dimension) which increases the model's parameter size and memory footprint."
-      }
     ]
   },
 

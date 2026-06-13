@@ -279,97 +279,6 @@ export default function FrontendTrackHubView({
             </div>
           </div>
 
-          {/* Recommended Learning Articles */}
-          <section id="articles" className="flex flex-col gap-4">
-            <h2 className="text-base font-black text-foreground border-b border-card-border/40 pb-2 flex items-center gap-2">
-              <FileText className="h-5 w-5 text-cyan-400" />
-              Featured Technical Articles
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-              {trackDetailHub.articles.map((art) => (
-                <div
-                  key={art.id}
-                  className="p-4 rounded-xl border border-card-border bg-[#050811]/45 flex flex-col justify-between gap-4 transition-all hover:border-card-border/80"
-                >
-                  <div className="flex flex-col gap-2">
-                    <div className="flex justify-between items-center gap-2">
-                      <span className="bg-[#030712] border border-card-border px-2 py-0.5 rounded text-[8px] font-mono text-cyan-400">
-                        {art.difficulty}
-                      </span>
-                      <span className="text-[9px] font-mono text-text-muted">
-                        {art.readTime}
-                      </span>
-                    </div>
-                    <h4 className="text-xs font-bold text-foreground">
-                      {art.title}
-                    </h4>
-                    <p className="text-[11px] text-text-muted leading-relaxed">
-                      {art.description}
-                    </p>
-                  </div>
-
-                  <div className="flex justify-between items-center gap-2 pt-2 border-t border-card-border/30 mt-1">
-                    <div className="flex flex-wrap gap-1">
-                      {art.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} className="bg-[#030712] px-1.5 py-0.5 rounded border border-card-border/40 font-mono text-[8px] text-text-muted">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    {art.status === "Published" ? (
-                      <Link 
-                        href={`/frontend-architect/articles/${art.slug}`}
-                        className="text-[10px] text-orange-500 font-bold hover:underline inline-flex items-center gap-0.5"
-                      >
-                        Read
-                        <ChevronRight className="h-3 w-3" />
-                      </Link>
-                    ) : (
-                      <span className="text-[10px] text-text-muted italic">Planned</span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* References & Resources */}
-          <section id="references" className="flex flex-col gap-3">
-            <h2 className="text-base font-black text-foreground border-b border-card-border/40 pb-2 flex items-center gap-2">
-              <ExternalLink className="h-5 w-5 text-indigo-400" />
-              References & Further Reading
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-              {trackDetailHub.references.map((ref, idx) => (
-                <a
-                  key={idx}
-                  href={ref.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-4 rounded-xl border border-card-border bg-[#050811]/45 hover:border-indigo-400/40 hover:shadow-md hover:shadow-indigo-500/5 transition-all flex flex-col justify-between gap-3 group"
-                >
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center gap-2">
-                      <span className="bg-[#030712] border border-card-border px-2 py-0.5 rounded text-[8px] font-mono font-bold text-indigo-400 uppercase">
-                        {ref.type}
-                      </span>
-                      <ExternalLink className="h-3 w-3 text-text-muted group-hover:text-indigo-400 transition-colors" />
-                    </div>
-                    <h4 className="text-xs font-bold text-foreground group-hover:text-indigo-400 transition-colors">
-                      {ref.title}
-                    </h4>
-                    <p className="text-[11px] text-text-muted leading-relaxed">
-                      {ref.description}
-                    </p>
-                  </div>
-                  <span className="text-[10px] text-indigo-400 font-mono group-hover:underline break-all">
-                    {ref.url.replace("https://", "")}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </section>
-
         </div>
 
         {/* Right column - Sidebar metadata info */}
@@ -487,6 +396,97 @@ export default function FrontendTrackHubView({
         </div>
 
       </div>
+
+      {/* Recommended Learning Articles - Full Width */}
+      <section id="articles" className="flex flex-col gap-4 mt-12 w-full">
+        <h2 className="text-base font-black text-foreground border-b border-card-border/40 pb-2 flex items-center gap-2">
+          <FileText className="h-5 w-5 text-cyan-400" />
+          Featured Technical Articles
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+          {trackDetailHub.articles.map((art) => (
+            <div
+              key={art.id}
+              className="p-4 rounded-xl border border-card-border bg-[#050811]/45 flex flex-col justify-between gap-4 transition-all hover:border-card-border/80"
+            >
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between items-center gap-2">
+                  <span className="bg-[#030712] border border-card-border px-2 py-0.5 rounded text-[8px] font-mono text-cyan-400">
+                    {art.difficulty}
+                  </span>
+                  <span className="text-[9px] font-mono text-text-muted">
+                    {art.readTime}
+                  </span>
+                </div>
+                <h4 className="text-xs font-bold text-foreground">
+                  {art.title}
+                </h4>
+                <p className="text-[11px] text-text-muted leading-relaxed">
+                  {art.description}
+                </p>
+              </div>
+
+              <div className="flex justify-between items-center gap-2 pt-2 border-t border-card-border/30 mt-1">
+                <div className="flex flex-wrap gap-1">
+                  {art.tags.slice(0, 2).map((tag) => (
+                    <span key={tag} className="bg-[#030712] px-1.5 py-0.5 rounded border border-card-border/40 font-mono text-[8px] text-text-muted">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                {art.status === "Published" ? (
+                  <Link 
+                    href={`/frontend-architect/articles/${art.slug}`}
+                    className="text-[10px] text-orange-500 font-bold hover:underline inline-flex items-center gap-0.5"
+                  >
+                    Read
+                    <ChevronRight className="h-3 w-3" />
+                  </Link>
+                ) : (
+                  <span className="text-[10px] text-text-muted italic">Planned</span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* References & Resources - Full Width */}
+      <section id="references" className="flex flex-col gap-3 mt-12 w-full">
+        <h2 className="text-base font-black text-foreground border-b border-card-border/40 pb-2 flex items-center gap-2">
+          <ExternalLink className="h-5 w-5 text-indigo-400" />
+          References & Further Reading
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+          {trackDetailHub.references.map((ref, idx) => (
+            <a
+              key={idx}
+              href={ref.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 rounded-xl border border-card-border bg-[#050811]/45 hover:border-indigo-400/40 hover:shadow-md hover:shadow-indigo-500/5 transition-all flex flex-col justify-between gap-3 group"
+            >
+              <div className="flex flex-col gap-1.5">
+                <div className="flex justify-between items-center gap-2">
+                  <span className="bg-[#030712] border border-card-border px-2 py-0.5 rounded text-[8px] font-mono font-bold text-indigo-400 uppercase">
+                    {ref.type}
+                  </span>
+                  <ExternalLink className="h-3 w-3 text-text-muted group-hover:text-indigo-400 transition-colors" />
+                </div>
+                <h4 className="text-xs font-bold text-foreground group-hover:text-indigo-400 transition-colors">
+                  {ref.title}
+                </h4>
+                <p className="text-[11px] text-text-muted leading-relaxed">
+                  {ref.description}
+                </p>
+              </div>
+              <span className="text-[10px] text-indigo-400 font-mono group-hover:underline break-all">
+                {ref.url.replace("https://", "")}
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
 
     </div>
   );

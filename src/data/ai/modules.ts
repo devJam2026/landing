@@ -21,8 +21,16 @@ export const foundationModules: Record<string, AIModule> = {
     trackSlug: "foundation",
     title: "Module 1.1: Tokenization",
     description: "Understand character mappings, subwords vocabulary splits, BPE encoding steps, and API cost implications.",
-    status: "in-progress",
-    submodules: ["what-is-tokenization", "tokenization-algorithms", "bpe-wordpiece", "token-inflation-costs", "tokenization-interview"],
+    status: "complete",
+    submodules: [
+      "what-is-tokenization",
+      "tokenization-algorithms",
+      "bpe-wordpiece",
+      "token-ids-vocabulary",
+      "token-cost",
+      "rag-agents",
+      "interview-guide"
+    ],
     projects: ["tokenizer-visualizer-studio"],
     labs: ["tokenizer-visualizer"],
     learningOutcomes: [

@@ -82,13 +82,39 @@ export default async function FrontendTrackDetailPage({ params }: TrackPageProps
   const trackDetailHub = frontendTrackDetails[trackSlug];
   if (trackDetailHub) {
     return (
-      <>
+      <div className="relative min-h-screen bg-[#030712] overflow-x-hidden transition-colors duration-300">
         <Navbar />
-        <FrontendTrackHubView
-          trackDetailHub={trackDetailHub}
-        />
+
+        <main className="relative flex flex-col pt-20">
+          {/* Glow Effects */}
+          <div className="absolute top-0 right-1/4 h-[400px] w-[400px] rounded-full bg-cyan-500/5 blur-3xl -z-10 animate-glow" />
+          <div className="absolute top-40 left-1/4 h-[400px] w-[400px] rounded-full bg-orange-500/5 blur-3xl -z-10 animate-glow" />
+          <div className="absolute inset-0 grid-bg opacity-30 dark:opacity-20 -z-20" />
+
+          <section className="mx-auto max-w-5xl px-4 sm:px-6 py-6 md:py-10 w-full flex flex-col gap-8">
+            
+            {/* Breadcrumb */}
+            <div className="flex items-center justify-between">
+              <Link
+                href="/roadmaps/frontend-architect"
+                className="inline-flex items-center gap-2 text-xs text-text-muted hover:text-foreground transition-colors font-bold"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Back to Frontend Architect
+              </Link>
+              <span className="text-[10px] font-mono font-bold text-orange-500 bg-orange-500/10 px-2 py-0.5 rounded border border-orange-500/20 uppercase tracking-wider">
+                Track Workspace
+              </span>
+            </div>
+
+            <FrontendTrackHubView
+              trackDetailHub={trackDetailHub}
+            />
+          </section>
+        </main>
+
         <Footer />
-      </>
+      </div>
     );
   }
 

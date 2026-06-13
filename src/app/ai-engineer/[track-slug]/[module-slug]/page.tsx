@@ -22,6 +22,10 @@ interface ModulePageProps {
 export async function generateStaticParams() {
   const params: { "track-slug": string; "module-slug": string }[] = [];
   Object.values(aiModules).forEach((mod) => {
+    // Skip because we have a dedicated static route at /ai-engineer/foundation/tokenization
+    if (mod.trackSlug === "foundation" && mod.slug === "tokenization") {
+      return;
+    }
     params.push({
       "track-slug": mod.trackSlug,
       "module-slug": mod.slug,
