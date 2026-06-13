@@ -36,6 +36,10 @@ import { microFrontendShellAppDesign } from "./articles/micro-frontends/micro-fr
 import { routingDeepLinkingMicroFrontends } from "./articles/micro-frontends/routing-deep-linking-micro-frontends";
 import { authenticationAuthorizationMicroFrontends } from "./articles/micro-frontends/authentication-authorization-micro-frontends";
 import { sharedDependenciesVersioningMicroFrontends } from "./articles/micro-frontends/shared-dependencies-versioning-micro-frontends";
+import { designSystemGovernanceMicroFrontends } from "./articles/micro-frontends/design-system-governance-micro-frontends";
+import { performanceOptimizationMicroFrontends } from "./articles/micro-frontends/performance-optimization-micro-frontends";
+import { errorBoundariesFailureIsolationMicroFrontends } from "./articles/micro-frontends/error-boundaries-failure-isolation-micro-frontends";
+import { microFrontendInterviewQuestions } from "./articles/micro-frontends/micro-frontend-interview-questions";
 
 export const frontendArticles: Record<string, FrontendArticle> = {
   "micro-frontends-complete-guide": microFrontendsCompleteGuide,
@@ -50,4 +54,8 @@ export const frontendArticles: Record<string, FrontendArticle> = {
   "routing-deep-linking-micro-frontends": routingDeepLinkingMicroFrontends,
   "authentication-authorization-micro-frontends": authenticationAuthorizationMicroFrontends,
   "shared-dependencies-versioning-micro-frontends": sharedDependenciesVersioningMicroFrontends,
+  "design-system-governance-micro-frontends": designSystemGovernanceMicroFrontends,
+  "performance-optimization-micro-frontends": performanceOptimizationMicroFrontends,
+  "error-boundaries-failure-isolation-micro-frontends": errorBoundariesFailureIsolationMicroFrontends,
+  "micro-frontend-interview-questions": microFrontendInterviewQuestions,
 };

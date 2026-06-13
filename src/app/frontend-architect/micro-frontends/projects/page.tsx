@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { ArrowLeft, ChevronRight, CheckCircle2, LayoutGrid, Award, ShieldCheck, Cpu } from "lucide-react";
+import { ChevronRight, LayoutGrid, Award, ShieldCheck, Cpu } from "lucide-react";
 import { microFrontendsDetail } from "@/data/frontend/tracks/micro-frontends-detail";
 
 export default function MicroFrontendsProjectsPage() {

@@ -213,7 +213,7 @@ export const frontendModules: Record<string, FrontendModule> = {
     trackSlug: "micro-frontends",
     title: "Module 12.1: Runtime Module Federation",
     description: "Scale large teams projects importing remote packages dynamically without shell rebuilds.",
-    status: "coming-soon",
+    status: "available",
     submodules: ["micro-frontends-module-federation"],
     projects: [],
     labs: [],

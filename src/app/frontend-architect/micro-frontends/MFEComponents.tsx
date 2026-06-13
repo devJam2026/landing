@@ -4,10 +4,7 @@ import React, { useState } from "react";
 import {
   HelpCircle,
   AlertTriangle,
-  CheckCircle2,
   Activity,
-  Check,
-  Copy,
   Workflow,
   Globe,
   Layout,

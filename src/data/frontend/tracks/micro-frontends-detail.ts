@@ -159,7 +159,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       goal: "Create one shell app and one remote app using Module Federation.",
       concepts: ["Host", "Remote", "remoteEntry.js", "Runtime loading"],
       difficulty: "Intermediate",
-      status: "Coming Soon"
+      status: "Available"
     },
     {
       id: "lab-2",
@@ -167,7 +167,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       goal: "Share React and React DOM as singleton dependencies.",
       concepts: ["Shared dependencies", "Singleton", "Version alignment", "Bundle duplication"],
       difficulty: "Intermediate",
-      status: "Coming Soon"
+      status: "Available"
     },
     {
       id: "lab-3",
@@ -175,7 +175,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       goal: "Show fallback UI when remote loading fails.",
       concepts: ["Error boundary", "Fallback UI", "Graceful degradation", "Runtime failure"],
       difficulty: "Senior",
-      status: "Coming Soon"
+      status: "Available"
     },
     {
       id: "lab-4",
@@ -183,7 +183,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       goal: "Send cart count update from Cart Remote to Shell Header.",
       concepts: ["Custom events", "Event contract", "Cart state", "Cross-app communication"],
       difficulty: "Intermediate",
-      status: "Coming Soon"
+      status: "Available"
     },
     {
       id: "lab-5",
@@ -191,7 +191,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       goal: "Deploy shell and remote independently.",
       concepts: ["CI/CD", "CDN hosting", "Remote manifest", "Rollback"],
       difficulty: "Architect",
-      status: "Coming Soon"
+      status: "Available"
     }
   ],
   projects: [
@@ -217,7 +217,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       ],
       interviewValue: "You can explain how large e-commerce companies split frontend ownership across teams.",
       difficulty: "Architect",
-      status: "Coming Soon"
+      status: "Available"
     },
     {
       id: "proj-2",
@@ -239,7 +239,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       ],
       interviewValue: "Demonstrates architectural knowledge of composing complex client dashboards with strict security boundaries.",
       difficulty: "Senior",
-      status: "Coming Soon"
+      status: "Available"
     },
     {
       id: "proj-3",
@@ -261,7 +261,7 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
       ],
       interviewValue: "Crucial for answering: 'How would you migrate a frontend monolith to micro frontends?'",
       difficulty: "Architect",
-      status: "Coming Soon"
+      status: "Available"
     }
   ],
   caseStudies: [
@@ -380,13 +380,20 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
     },
     {
       id: "art-10",
-      title: "Top Micro Frontend Interview Questions for Senior Frontend Engineers",
-      description: "Curated list of answers to common architectural challenges presented in senior technical assessments.",
-      difficulty: "Senior",
-      readTime: "15 min",
-      tags: ["Interview Prep", "Q&A", "Senior Prep"],
-      slug: "micro-frontends-interview-questions-senior",
-      status: "Coming Soon"
+      title: "Micro Frontend Interview Questions and Answers",
+      description: "Prepare for senior frontend and frontend architect interviews with micro frontend questions covering architecture, Module Federation, routing, auth, state, testing, deployment, performance, and system design.",
+      difficulty: "Architect",
+      readTime: "18 min read",
+      tags: [
+        "Micro Frontends",
+        "Interview Questions",
+        "Frontend Architecture",
+        "System Design",
+        "Module Federation",
+        "Interview Prep"
+      ],
+      slug: "micro-frontend-interview-questions",
+      status: "Published"
     },
     {
       id: "art-11",
@@ -454,6 +461,57 @@ Fetch Remote Bundle (e.g. cartApp/remoteEntry.js)
         "Interview Prep"
       ],
       slug: "shared-dependencies-versioning-micro-frontends",
+      status: "Published"
+    },
+    {
+      id: "art-15",
+      title: "Design System Governance for Micro Frontends",
+      description: "Learn how to govern design systems in micro frontend architecture, including design tokens, shared components, accessibility, visual regression, versioning, contribution models, and UI consistency across teams.",
+      difficulty: "Senior",
+      readTime: "13 min read",
+      tags: [
+        "Micro Frontends",
+        "Design System",
+        "Frontend Architecture",
+        "UI Governance",
+        "Accessibility",
+        "Interview Prep"
+      ],
+      slug: "design-system-governance-micro-frontends",
+      status: "Published"
+    },
+    {
+      id: "art-16",
+      title: "Performance Optimization in Micro Frontends",
+      description: "Learn how to optimize micro frontend performance using route-level loading, remote preloading, shared dependency strategy, bundle budgets, caching, Web Vitals, and production monitoring.",
+      difficulty: "Architect",
+      readTime: "16 min read",
+      tags: [
+        "Micro Frontends",
+        "Performance",
+        "Web Vitals",
+        "Frontend Architecture",
+        "Module Federation",
+        "Interview Prep"
+      ],
+      slug: "performance-optimization-micro-frontends",
+      status: "Published"
+    },
+    {
+      id: "art-17",
+      title: "Error Boundaries and Failure Isolation in Micro Frontends",
+      description: "Learn how to design failure isolation in micro frontend architecture using error boundaries, fallback UI, remote loading failure handling, retry strategies, monitoring, rollback, and graceful degradation.",
+      difficulty: "Senior",
+      readTime: "13 min read",
+      tags: [
+        "Micro Frontends",
+        "Error Boundaries",
+        "Failure Isolation",
+        "Frontend Architecture",
+        "Reliability",
+        "Interview Prep"
+      ],
+      slug: "error-boundaries-failure-isolation-micro-frontends",
       status: "Published"
     }
   ],

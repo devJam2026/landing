@@ -5,8 +5,6 @@ import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { 
-  ArrowLeft, 
-  ChevronRight, 
   Terminal, 
   Copy, 
   Check, 
@@ -14,16 +12,12 @@ import {
   BookOpen,
   Award,
   Globe,
-  Layout,
-  ShieldCheck,
-  Server,
-  Workflow
+  Layout
 } from "lucide-react";
 import { microFrontendsDetail } from "@/data/frontend/tracks/micro-frontends-detail";
 import { 
   ActiveRecallCard, 
   InterviewPitfall, 
-  QuickSelfTest,
   VisualHighLevelArch,
   VisualRuntimeSequence,
   VisualBuildVsRuntime,

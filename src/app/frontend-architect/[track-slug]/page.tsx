@@ -20,7 +20,8 @@ import {
   Code, 
   Clock, 
   ChevronRight,
-  Sparkles
+  Sparkles,
+  CheckCircle2
 } from "lucide-react";
 interface TrackPageProps {
   params: Promise<{ "track-slug": string }>;
