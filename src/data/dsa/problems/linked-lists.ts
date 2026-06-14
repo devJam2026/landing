@@ -660,5 +660,100 @@ function isPalindromeRec(head) {
         answer: "By placing the cloned node immediately after the original node in the list, we store the mapping (original -> clone) implicitly in the structure itself. The clone of any node `N` is always `N.next`, which can be accessed in constant time."
       }
     ],
+  },
+  {
+    id: 301,
+    title: "Linked List Cycle II",
+    slug: "linked-list-cycle-ii",
+    difficulty: "Medium",
+    pillarSlug: "linked-lists",
+    statement: "Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null. There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Do not modify the linked list.",
+    starterCode: `function detectCycle(head) {
+  // Write your code here
+  return null;
+}`,
+    bruteForce: {
+      code: `function detectCycleBrute(head) {
+  const visited = new Set();
+  let curr = head;
+  while (curr !== null) {
+    if (visited.has(curr)) {
+      return curr;
+    }
+    visited.add(curr);
+    curr = curr.next;
+  }
+  return null;
+}`,
+      language: "javascript",
+      explanation: "Iterate through the linked list and keep track of visited node references using a Set. The first node that is already present in the Set is the start of the cycle. Runs in O(N) time with O(N) space.",
+    },
+    better: {
+      code: `function detectCycleBruteArray(head) {
+  const visited = [];
+  let curr = head;
+  while (curr !== null) {
+    if (visited.includes(curr)) {
+      return curr;
+    }
+    visited.push(curr);
+    curr = curr.next;
+  }
+  return null;
+}`,
+      language: "javascript",
+      explanation: "Iterate and store visited nodes in an array. Check array inclusion at each node. Runs in O(N^2) time with O(N) space due to array lookup time.",
+    },
+    optimal: {
+      code: `function detectCycleOptimal(head) {
+  if (!head || !head.next) return null;
+  let slow = head;
+  let fast = head;
+  let hasCycle = false;
+  
+  while (fast !== null && fast.next !== null) {
+    slow = slow.next;
+    fast = fast.next.next;
+    if (slow === fast) {
+      hasCycle = true;
+      break;
+    }
+  }
+  
+  if (!hasCycle) return null;
+  
+  let entry = head;
+  while (entry !== slow) {
+    entry = entry.next;
+    slow = slow.next;
+  }
+  return entry;
+}`,
+      language: "javascript",
+      explanation: "Floyd's Cycle Finding algorithm. 1. Use slow/fast pointers to detect if a cycle exists. 2. If a cycle is detected, reset a pointer (`entry`) to head, and move both `entry` and `slow` pointers one step at a time. The node where they meet is the start of the cycle. Runs in O(N) time and O(1) space.",
+    },
+    timeComplexity: "O(n)",
+    spaceComplexity: "O(1)",
+    dryRun: [
+      { line: 1, variables: { head: "Node(3)", slow: "Node(3)", fast: "Node(3)" }, description: "Initialize slow and fast pointers at head." },
+      { line: 2, variables: { slow: "Node(-4)", fast: "Node(-4)" }, description: "Pointers meet at node -4. Cycle detected." },
+      { line: 3, variables: { entry: "Node(3)", slow: "Node(-4)" }, description: "Reset entry to head. Move both entry and slow 1 step at a time." },
+      { line: 4, variables: { entry: "Node(2)", slow: "Node(2)" }, description: "They meet at Node(2), which is the start of the cycle. Return Node(2)." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Why do entry and slow pointers meet at the start of the cycle?",
+        answer: "Let L1 be the distance from head to the start of the cycle, and L2 be the distance from the start to the meeting point. The slow pointer travels L1 + L2 steps. The fast pointer travels L1 + L2 + n*C steps, where C is cycle length. Since fast is twice as fast, 2*(L1 + L2) = L1 + L2 + n*C => L1 + L2 = n*C => L1 = n*C - L2. This implies moving L1 steps from head and L1 steps from the meeting point lands exactly at the cycle entrance.",
+      }
+    ],
+    edgeCases: [
+      "No cycle exists (returns null)",
+      "Cycle starts at the head node itself",
+      "Only one node with a self-loop"
+    ],
+    commonMistakes: [
+      "Not checking if fast or fast.next reaches null before setting hasCycle to true",
+      "Returning slow/fast meeting node directly instead of the cycle start node"
+    ]
   }
 ];

@@ -3,8 +3,8 @@ import { Problem } from "./types";
 export const heapProblems: Problem[] = [
   {
     id: 15,
-    title: "Kth Largest Element",
-    slug: "kth-largest-element",
+    title: "Kth Largest Element in an Array",
+    slug: "kth-largest-element-in-an-array",
     difficulty: "Medium",
     pillarSlug: "heap",
     statement: "Given an integer array nums and an integer k, return the kth largest element in the array. Note that it is the kth largest element in the sorted order, not the kth distinct element.",

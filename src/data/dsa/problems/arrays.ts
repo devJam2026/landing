@@ -961,5 +961,83 @@ function maxAreaOptimizedBrute(height) {
       "Not skipping duplicates for pointers and loop indices, producing duplicate quadruplets in the result",
       "Incorrect index updates on matching target sums, causing infinite loops"
     ]
+  },
+  {
+    id: 300,
+    title: "Majority Element",
+    slug: "majority-element",
+    difficulty: "Easy",
+    pillarSlug: "arrays",
+    statement: "Given an array nums of size n, return the majority element. The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.",
+    starterCode: `function majorityElement(nums) {
+  // Write your code here
+  return 0;
+}`,
+    bruteForce: {
+      code: `function majorityElementBrute(nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let count = 0;
+    for (let j = 0; j < nums.length; j++) {
+      if (nums[i] === nums[j]) count++;
+    }
+    if (count > nums.length / 2) return nums[i];
+  }
+  return -1;
+}`,
+      language: "javascript",
+      explanation: "Iterate through each element, count its occurrences using another nested loop, and check if it's the majority element. Takes O(N^2) time.",
+    },
+    better: {
+      code: `function majorityElementMap(nums) {
+  const map = {};
+  for (const num of nums) {
+    map[num] = (map[num] || 0) + 1;
+    if (map[num] > nums.length / 2) {
+      return num;
+    }
+  }
+  return -1;
+}`,
+      language: "javascript",
+      explanation: "Use a hash map to keep track of frequency counts for each element. Returns as soon as a frequency exceeds N/2. Runs in O(N) time with O(N) space.",
+    },
+    optimal: {
+      code: `function majorityElementOptimal(nums) {
+  let candidate = null;
+  let count = 0;
+  for (const num of nums) {
+    if (count === 0) {
+      candidate = num;
+    }
+    count += (num === candidate) ? 1 : -1;
+  }
+  return candidate;
+}`,
+      language: "javascript",
+      explanation: "Boyer-Moore Voting Algorithm. Maintain a candidate element and a counter. Traverse the array: if count is 0, choose current element as candidate. Increment count if current matches candidate, else decrement it. The final candidate will be the majority element. Runs in O(N) time and O(1) space.",
+    },
+    timeComplexity: "O(n)",
+    spaceComplexity: "O(1)",
+    dryRun: [
+      { line: 1, variables: { nums: "[2, 2, 1, 1, 1, 2, 2]", candidate: "null", count: 0 }, description: "Start loop with count = 0." },
+      { line: 2, variables: { num: 2, candidate: 2, count: 1 }, description: "count is 0, set candidate = 2. count becomes 1." },
+      { line: 3, variables: { num: 2, count: 2 }, description: "num is 2, matches candidate. Increment count to 2." },
+      { line: 4, variables: { num: 1, count: 1 }, description: "num is 1, does not match candidate. Decrement count to 1." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Does Boyer-Moore Voting work if a majority element does not always exist?",
+        answer: "No, the algorithm assumes a majority element exists. If it might not exist, we must run a second linear pass to verify if the candidate's frequency is indeed greater than ⌊N/2⌋.",
+      }
+    ],
+    edgeCases: [
+      "Array has only 1 element (candidate returned immediately)",
+      "Array contains negative numbers",
+      "Alternating elements like [1, 2, 1, 2, 1]"
+    ],
+    commonMistakes: [
+      "Assuming the candidate with the highest count at the end is the majority element without confirming if it exceeds N/2 (if not guaranteed)",
+      "Resetting the candidate but not incrementing count correctly when count reaches 0"
+    ]
   }
 ];

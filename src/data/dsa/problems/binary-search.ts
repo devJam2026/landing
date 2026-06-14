@@ -4,7 +4,7 @@ export const binarySearchProblems: Problem[] = [
   {
     id: 18,
     title: "Search in Rotated Sorted Array",
-    slug: "search-rotated-sorted",
+    slug: "search-in-rotated-sorted-array",
     difficulty: "Medium",
     pillarSlug: "binary-search",
     statement: "Given a sorted integer array nums that has been possibly rotated at an unknown pivot index, and a target value, return the index of target if it is in nums, or -1 if it is not. You must write an algorithm with O(log N) runtime complexity.",

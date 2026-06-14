@@ -381,7 +381,7 @@ Tree:
       "Calling bubble-up/down on index offsets that do not match child formulas."
     ],
     relatedProblems: [
-      { name: "Kth Largest Element", difficulty: "Medium", link: "/dsa/practice/kth-largest-element" }
+      { name: "Kth Largest Element in an Array", difficulty: "Medium", link: "/dsa/practice/kth-largest-element-in-an-array" }
     ],
     relatedTopics: [
       { name: "Queue", slug: "queue" },
@@ -589,7 +589,7 @@ Sorted Array Binary Search:
     ],
     relatedProblems: [
       { name: "Binary Search", difficulty: "Easy", link: "/dsa/practice/binary-search" },
-      { name: "Search in Rotated Sorted Array", difficulty: "Medium", link: "/dsa/practice/search-rotated-sorted" }
+      { name: "Search in Rotated Sorted Array", difficulty: "Medium", link: "/dsa/practice/search-in-rotated-sorted-array" }
     ],
     relatedTopics: [
       { name: "Complexity Analysis", slug: "complexity-analysis" },
