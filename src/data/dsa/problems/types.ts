@@ -29,4 +29,6 @@ export interface Problem {
     answer: string;
   }[];
   pattern?: string;
+  edgeCases?: string[];
+  commonMistakes?: string[];
 }

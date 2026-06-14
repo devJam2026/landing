@@ -1,9 +1,30 @@
 import React from "react";
+import { Metadata } from "next";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Link from "next/link";
 import { dsaProblems } from "../../../../data/dsa/problems";
 import PracticeConsole from "./PracticeConsole";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ "problem-slug": string }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams["problem-slug"];
+  const problem = dsaProblems.find((item) => item.slug === slug);
+  if (!problem) {
+    return {
+      title: "Practice Coding Problem | DevJam",
+      description: "Solve coding problems in DevJam's interactive playground."
+    };
+  }
+  return {
+    title: `${problem.title} - Practice Coding | DevJam`,
+    description: `Solve the ${problem.title} coding problem in JavaScript. Statement: ${problem.statement.substring(0, 150)}...`,
+  };
+}
 
 export async function generateStaticParams() {
   return dsaProblems.map((prob) => ({

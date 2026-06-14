@@ -765,5 +765,201 @@ function maxAreaOptimizedBrute(height) {
         answer: "If `k` is equal to or larger than the array length, rotating by `k` is equivalent to rotating by `k % N`. For example, rotating an array of size 7 by 7 steps returns the array to its original state."
       }
     ],
+  },
+  {
+    id: 110,
+    title: "Sort Colors",
+    slug: "sort-colors",
+    difficulty: "Medium",
+    pillarSlug: "arrays",
+    statement: "Given an array nums with n objects colored red, white, or blue, sort them in-place so that objects of the same color are adjacent, with the colors in the order red, white, and blue. We will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively.",
+    starterCode: `function sortColors(nums) {
+  // Write your code here
+}`,
+    bruteForce: {
+      code: `function sortColorsBrute(nums) {
+  nums.sort((a,b) => a-b);
+}`,
+      language: "javascript",
+      explanation: "Use standard array sorting. Runs in O(N log N) time and does not leverage the constraint of having only three distinct numbers."
+    },
+    better: {
+      code: `function sortColorsCounting(nums) {
+  const counts = [0, 0, 0];
+  for (let n of nums) counts[n]++;
+  let idx = 0;
+  for (let i = 0; i < 3; i++) {
+    while (counts[i] > 0) {
+      nums[idx++] = i;
+      counts[i]--;
+    }
+  }
+}`,
+      language: "javascript",
+      explanation: "Counting Sort: Count occurrences of 0s, 1s, and 2s in a frequency array. Overwrite nums sequentially in a second pass. Runs in linear O(N) time but requires two passes."
+    },
+    optimal: {
+      code: `function sortColorsOptimal(nums) {
+  let low = 0, mid = 0, high = nums.length - 1;
+  while (mid <= high) {
+    if (nums[mid] === 0) {
+      swap(nums, low, mid);
+      low++;
+      mid++;
+    } else if (nums[mid] === 1) {
+      mid++;
+    } else {
+      swap(nums, mid, high);
+      high--;
+    }
+  }
+  function swap(arr, i, j) {
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+}`,
+      language: "javascript",
+      explanation: "Dutch National Flag Algorithm: Single-pass pointer partitioning. Pivot around low (0 boundaries) and high (2 boundaries) using a mid pointer. Runs in O(N) time and O(1) space."
+    },
+    timeComplexity: "O(n)",
+    spaceComplexity: "O(1)",
+    dryRun: [
+      { line: 1, variables: { nums: "[2, 0, 1]", low: 0, mid: 0, high: 2 }, description: "Initialize pointers." },
+      { line: 2, variables: { nums: "[1, 0, 2]", low: 0, mid: 0, high: 1 }, description: "nums[mid] is 2. Swap with nums[high]. Decrement high pointer." },
+      { line: 3, variables: { nums: "[0, 1, 2]", low: 1, mid: 1, high: 1 }, description: "nums[mid] was 1, swap with low (0). Increment low and mid." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Why is a single pass solution preferred over counting sort?",
+        answer: "A single-pass solution minimizes cache invalidations and memory reads/writes. This is highly beneficial in embedded systems operating on volatile memory buffers."
+      }
+    ],
+    edgeCases: [
+      "Empty array or array of length 1",
+      "Array containing only 1 color (e.g., [0, 0, 0] or [2, 2])",
+      "Array containing only 2 of the 3 colors (e.g., [0, 2, 0, 2])"
+    ],
+    commonMistakes: [
+      "Incrementing the mid pointer after swapping with high. The swapped element from high must be inspected first.",
+      "Using standard library sort which has O(N log N) runtime complexity.",
+      "Using counting sort (two passes) when a single-pass in-place algorithm is requested."
+    ]
+  },
+  {
+    id: 112,
+    title: "4Sum",
+    slug: "4sum",
+    difficulty: "Medium",
+    pillarSlug: "arrays",
+    statement: "Given an array nums of n integers, return an array of all the unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that 0 <= a, b, c, d < n, the indices are distinct, and nums[a] + nums[b] + nums[c] + nums[d] == target. You may return the answer in any order.",
+    starterCode: `function fourSum(nums, target) {
+  // Write your code here
+  return [];
+}`,
+    bruteForce: {
+      code: `function fourSumBrute(nums, target) {
+  const result = [];
+  const n = nums.length;
+  const seen = new Set();
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      for (let k = j + 1; k < n; k++) {
+        for (let l = k + 1; l < n; l++) {
+          if (nums[i] + nums[j] + nums[k] + nums[l] === target) {
+            const quad = [nums[i], nums[j], nums[k], nums[l]].sort((a,b) => a-b);
+            const str = quad.toString();
+            if (!seen.has(str)) {
+              seen.add(str);
+              result.push(quad);
+            }
+          }
+        }
+      }
+    }
+  }
+  return result;
+}`,
+      language: "javascript",
+      explanation: "Four nested loops testing all quadruplets. Time complexity is O(N^4), which is extremely slow."
+    },
+    better: {
+      code: `function fourSumBetter(nums, target) {
+  nums.sort((a, b) => a - b);
+  const result = [];
+  const n = nums.length;
+  for (let i = 0; i < n; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    for (let j = i + 1; j < n; j++) {
+      if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+      const seen = new Set();
+      for (let k = j + 1; k < n; k++) {
+        const remaining = target - (nums[i] + nums[j] + nums[k]);
+        if (seen.has(remaining)) {
+          result.push([nums[i], nums[j], remaining, nums[k]]);
+          while (k + 1 < n && nums[k] === nums[k + 1]) k++;
+        }
+        seen.add(nums[k]);
+      }
+    }
+  }
+  return result;
+}`,
+      language: "javascript",
+      explanation: "Uses a hash set to locate the fourth element inside the third loop, reducing the complexity of the fourth loop. Runs in O(N^3) time and O(N) space.",
+    },
+    optimal: {
+      code: `function fourSumOptimal(nums, target) {
+  nums.sort((a, b) => a - b);
+  const result = [];
+  const n = nums.length;
+  for (let i = 0; i < n - 3; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    for (let j = i + 1; j < n - 2; j++) {
+      if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+      let left = j + 1;
+      let right = n - 1;
+      while (left < right) {
+        const sum = nums[i] + nums[j] + nums[left] + nums[right];
+        if (sum === target) {
+          result.push([nums[i], nums[j], nums[left], nums[right]]);
+          while (left < right && nums[left] === nums[left + 1]) left++;
+          while (left < right && nums[right] === nums[right - 1]) right--;
+          left++;
+          right--;
+        } else if (sum < target) {
+          left++;
+        } else {
+          right--;
+        }
+      }
+    }
+  }
+  return result;
+}`,
+      language: "javascript",
+      explanation: "Sort the array. Fix the first two elements using nested loops, and find the remaining two elements in O(N) using two pointers. Skip duplicates to prevent duplicate quadruplets. Runs in O(N^3) time."
+    },
+    timeComplexity: "O(n^3)",
+    spaceComplexity: "O(1)",
+    dryRun: [
+      { line: 1, variables: { nums: "[-2, -1, 0, 0, 1, 2]", target: 0 }, description: "Sort array and run nested loop scans." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Can this algorithm be generalized to K-Sum?",
+        answer: "Yes, using recursion. For K-Sum, we recursively reduce the problem to (K-1) Sum, until we reach 2-Sum, which is solved in O(N) using two pointers."
+      }
+    ],
+    edgeCases: [
+      "Array contains fewer than 4 elements (returns empty list)",
+      "Integer overflow during sum accumulation (handled automatically in JS but a concern for C++/Java)",
+      "Target is negative and array contains large negative elements"
+    ],
+    commonMistakes: [
+      "Forgetting to sort the array initially, which invalidates the two-pointer approach",
+      "Not skipping duplicates for pointers and loop indices, producing duplicate quadruplets in the result",
+      "Incorrect index updates on matching target sums, causing infinite loops"
+    ]
   }
 ];

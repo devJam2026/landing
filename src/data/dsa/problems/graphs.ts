@@ -741,5 +741,199 @@ function countComponentsOptimal(n, edges) {
         answer: "Both have linear time complexities. However, DFS requires constructing an adjacency list first, whereas Union-Find processes edges directly, saving memory and yielding cleaner code."
       }
     ],
+  },
+  {
+    id: 83,
+    title: "Course Schedule II",
+    slug: "course-schedule-ii",
+    difficulty: "Medium",
+    pillarSlug: "graphs",
+    statement: "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai. Return the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.",
+    starterCode: `function findOrder(numCourses, prerequisites) {
+  // Write your code here
+  return [];
+}`,
+    bruteForce: {
+      code: `function findOrderBrute(numCourses, prerequisites) {
+  // Generate all permutations of courses and check if one satisfies prerequisites
+  // Time complexity: O(V! * E)
+  return [];
+}`,
+      language: "javascript",
+      explanation: "Generate all possible course order permutations and validate each against prerequisites, resulting in factorial runtime.",
+    },
+    better: {
+      code: `function findOrderDFS(numCourses, prerequisites) {
+  const adj = Array.from({ length: numCourses }, () => []);
+  for (const [u, v] of prerequisites) {
+    adj[v].push(u);
+  }
+  const visited = new Array(numCourses).fill(0); // 0: unvisited, 1: visiting, 2: visited
+  const result = [];
+  let hasCycle = false;
+  
+  function dfs(u) {
+    if (hasCycle) return;
+    visited[u] = 1;
+    for (const v of adj[u]) {
+      if (visited[v] === 0) {
+        dfs(v);
+      } else if (visited[v] === 1) {
+        hasCycle = true;
+        return;
+      }
+    }
+    visited[u] = 2;
+    result.push(u);
+  }
+  
+  for (let i = 0; i < numCourses; i++) {
+    if (visited[i] === 0) dfs(i);
+  }
+  return hasCycle ? [] : result.reverse();
+}`,
+      language: "javascript",
+      explanation: "DFS topological sort: use 3-state coloring for cycle detection. Post-order push to result and reverse it. Time complexity: O(V + E).",
+    },
+    optimal: {
+      code: `function findOrderOptimal(numCourses, prerequisites) {
+  const adj = Array.from({ length: numCourses }, () => []);
+  const inDegree = new Array(numCourses).fill(0);
+  for (const [u, v] of prerequisites) {
+    adj[v].push(u);
+    inDegree[u]++;
+  }
+  
+  const queue = [];
+  for (let i = 0; i < numCourses; i++) {
+    if (inDegree[i] === 0) queue.push(i);
+  }
+  
+  const order = [];
+  while (queue.length > 0) {
+    const u = queue.shift();
+    order.push(u);
+    for (const v of adj[u]) {
+      inDegree[v]--;
+      if (inDegree[v] === 0) queue.push(v);
+    }
+  }
+  
+  return order.length === numCourses ? order : [];
+}`,
+      language: "javascript",
+      explanation: "Kahn's Algorithm (BFS topological sort): Compute in-degrees of all courses. Enqueue courses with 0 in-degree. Dequeue a course, add to order, and decrement neighbor in-degrees. Enqueue any neighbor whose in-degree becomes 0. If order matches numCourses, it succeeds. Otherwise, a cycle exists. Time complexity: O(V + E).",
+    },
+    timeComplexity: "O(V + E)",
+    spaceComplexity: "O(V + E)",
+    dryRun: [
+      { line: 1, variables: { numCourses: 2, prerequisites: "[[1, 0]]", inDegree: "[0, 1]" }, description: "Initialize in-degrees. course 0 has 0, course 1 has 1." },
+      { line: 2, variables: { queue: "[0]", order: "[]" }, description: "Enqueue course 0 since its in-degree is 0." },
+      { line: 3, variables: { popped: 0, order: "[0]", inDegree: "[0, 0]", queue: "[1]" }, description: "Pop 0, decrement neighbor 1's in-degree to 0. Enqueue 1." },
+      { line: 4, variables: { popped: 1, order: "[0, 1]", queue: "[]" }, description: "Pop 1, add to order. Order length matches numCourses. Return order." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "How do you detect a cycle using Kahn's algorithm versus DFS?",
+        answer: "In Kahn's algorithm, a cycle is detected if the final topological order contains fewer nodes than the total vertices. In DFS, we use an active recursion stack (coloring nodes: visiting/gray) to detect back-edges."
+      }
+    ],
+    edgeCases: [
+      "No prerequisites at all (returns any sequential order [0, 1, ..., n-1])",
+      "Graph contains cycles (returns empty array [])",
+      "Disconnected components (isolated nodes with no dependencies mixed with connected graphs)"
+    ],
+    commonMistakes: [
+      "Reversing the direction of edges in adjacency list representation (e.g., drawing arrows from course to pre-requisite instead of pre-requisite to course).",
+      "Returning a partial path when a cycle exists instead of returning an empty array.",
+      "Not resetting visitation arrays during multiple test executions."
+    ]
+  },
+  {
+    id: 84,
+    title: "Shortest Path in Binary Matrix",
+    slug: "shortest-path-in-binary-matrix",
+    difficulty: "Medium",
+    pillarSlug: "graphs",
+    statement: "Given an n x n binary grid, return the length of the shortest clear path in the matrix. If there is no clear path, return -1. A clear path in a binary matrix is a path from the top-left cell (0, 0) to the bottom-right cell (n - 1, n - 1) such that all the visited cells are 0, and all adjacent cells of the path are 8-directionally connected.",
+    starterCode: `function shortestPathBinaryMatrix(grid) {
+  // Write your code here
+  return -1;
+}`,
+    bruteForce: {
+      code: `function shortestPathBrute(grid) {
+  // DFS to explore all 8-directional paths from (0,0) to (n-1, n-1)
+  // Time complexity: O(8^(N^2))
+  return -1;
+}`,
+      language: "javascript",
+      explanation: "Exhaustive DFS paths search exploring all possible cell paths recursively. Causes Stack Overflow or TLE on larger inputs.",
+    },
+    better: {
+      code: `function shortestPathDFSWithMemo(grid) {
+  // Memoized DFS. Note that DFS with memoization is hard to compute for shortest path 
+  // without revisiting nodes because paths can cross. Still O(N^2) state representation but complex.
+  return -1;
+}`,
+      language: "javascript",
+      explanation: "Memoized DFS path traversal, still less optimal than standard BFS.",
+    },
+    optimal: {
+      code: `function shortestPathBinaryMatrixOptimal(grid) {
+  const n = grid.length;
+  if (grid[0][0] !== 0 || grid[n - 1][n - 1] !== 0) return -1;
+  if (n === 1) return 1;
+  
+  const directions = [
+    [-1, -1], [-1, 0], [-1, 1],
+    [0, -1],           [0, 1],
+    [1, -1],  [1, 0],  [1, 1]
+  ];
+  
+  const queue = [[0, 0, 1]]; // [row, col, distance]
+  grid[0][0] = 1; // Mark as visited in-place
+  
+  while (queue.length > 0) {
+    const [r, c, d] = queue.shift();
+    if (r === n - 1 && c === n - 1) return d;
+    
+    for (const [dr, dc] of directions) {
+      const nr = r + dr;
+      const nc = c + dc;
+      if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] === 0) {
+        grid[nr][nc] = 1; // Mark visited
+        queue.push([nr, nc, d + 1]);
+      }
+    }
+  }
+  
+  return -1;
+}`,
+      language: "javascript",
+      explanation: "Breadth-First Search (BFS) starting at (0,0): Explore adjacent cells in all 8 directions. Enqueue cells containing 0 and mark them as visited (setting to 1 in-place) to avoid extra space. The first time we reach (n-1, n-1), we return the distance, which is guaranteed to be the shortest. Runs in O(N^2) time.",
+    },
+    timeComplexity: "O(n^2)",
+    spaceComplexity: "O(n^2)",
+    dryRun: [
+      { line: 1, variables: { queue: "[[0, 0, 1]]", grid_0_0: 1 }, description: "Check boundary and start BFS from (0,0) with path length 1." },
+      { line: 2, variables: { popped: "[0,0,1]", neighboursChecked: 8 }, description: "Check all 8 directions. Push unvisited valid zero cells and mark as 1." },
+      { line: 3, variables: { targetReached: "true", distance: "d" }, description: "If row === n - 1 and col === n - 1, return the distance immediately." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Why is BFS preferred over DFS for finding the shortest path in unweighted grids?",
+        answer: "BFS visits nodes in order of increasing distance from the starting node. The first time the destination is reached, the path length is guaranteed to be the shortest. DFS visits paths fully and can find a very long path first, requiring exhaustive exploration to confirm if it's the shortest."
+      }
+    ],
+    edgeCases: [
+      "1x1 grid containing 0 (path length is 1)",
+      "Start cell (0,0) or end cell (n-1,n-1) is blocked (1) (returns -1)",
+      "No path exists due to walls (returns -1)"
+    ],
+    commonMistakes: [
+      "Forgetting to check if the start or target cells are blocked (1) initially.",
+      "Marking a cell as visited when dequeued rather than when enqueued, resulting in duplicate node inserts and Memory Limit Exceeded (MLE).",
+      "Using 4 directions instead of the requested 8 directions."
+    ]
   }
 ];

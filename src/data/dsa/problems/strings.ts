@@ -687,5 +687,77 @@ function myAtoiIterative(s) {
         answer: "LPS stands for Longest Proper Prefix which is also a Suffix. It tells us the length of the longest matching prefix segment that repeats at the end of the substring, allowing the needle to shift without re-matching characters."
       }
     ],
+  },
+  {
+    id: 113,
+    title: "Palindrome Number",
+    slug: "palindrome-number",
+    difficulty: "Easy",
+    pillarSlug: "strings",
+    statement: "Given an integer x, return true if x is a palindrome, and false otherwise. An integer is a palindrome when it reads the same backward as forward. For example, 121 is a palindrome while 123 is not.",
+    starterCode: `function isPalindromeNumber(x) {
+  // Write your code here
+  return false;
+}`,
+    bruteForce: {
+      code: `function isPalindromeString(x) {
+  const str = String(x);
+  return str === str.split("").reverse().join("");
+}`,
+      language: "javascript",
+      explanation: "Convert the integer to a string, reverse it, and compare with original string. Requires O(N) space to allocate the string representation."
+    },
+    better: {
+      code: `function isPalindromeBetter(x) {
+  if (x < 0) return false;
+  const str = String(x);
+  let left = 0;
+  let right = str.length - 1;
+  while (left < right) {
+    if (str[left] !== str[right]) return false;
+    left++;
+    right--;
+  }
+  return true;
+}`,
+      language: "javascript",
+      explanation: "Convert the integer to a string, then run two pointers inwards from left and right. Avoids full array reversals but still uses extra string memory space. Runs in O(log(X)) time and space.",
+    },
+    optimal: {
+      code: `function isPalindromeOptimal(x) {
+  if (x < 0 || (x % 10 === 0 && x !== 0)) return false;
+  let revertedNumber = 0;
+  while (x > revertedNumber) {
+    revertedNumber = revertedNumber * 10 + (x % 10);
+    x = Math.floor(x / 10);
+  }
+  return x === revertedNumber || x === Math.floor(revertedNumber / 10);
+}`,
+      language: "javascript",
+      explanation: "Reverse the second half of the integer dynamically by extracting modulo digits, and compare with the first half. Avoids string allocations, running in logarithmic time relative to digits and constant O(1) space."
+    },
+    timeComplexity: "O(log10(x))",
+    spaceComplexity: "O(1)",
+    dryRun: [
+      { line: 1, variables: { x: 1221, reverted: 0 }, description: "Initial value. Since x is positive, start loop." },
+      { line: 2, variables: { x: 122, reverted: 1 }, description: "Extract 1. x = 122, reverted = 1." },
+      { line: 3, variables: { x: 12, reverted: 12 }, description: "Extract 2. x = 12, reverted = 12. Loop ends since x is not greater than reverted. Check equality: x === reverted (12 === 12), returns true." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Why does the algorithm check `x < 0` at the start?",
+        answer: "Negative numbers have a leading minus sign (e.g. -121). When reversed, they end with a minus sign (e.g. 121-), which makes them asymmetrical, so they can never be palindromic."
+      }
+    ],
+    edgeCases: [
+      "Negative numbers (e.g., -121) are never palindromes",
+      "Numbers ending with 0 (e.g., 10, 290) are never palindromes (except 0 itself)",
+      "Single-digit numbers (0-9) are always palindromes"
+    ],
+    commonMistakes: [
+      "Not handling negative numbers, assuming they can be palindromes",
+      "Trying to convert to string when the interviewer explicitly asks for integer arithmetic only",
+      "Reversing the entire number, which could cause integer overflow in standard environments"
+    ]
   }
 ];

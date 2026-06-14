@@ -110,6 +110,8 @@ const slugToPattern: Record<string, string> = {
   "n-queens": "Backtracking",
   "letter-combinations-of-a-phone-number": "Backtracking",
   "sudoku-solver": "Backtracking",
+  "different-ways-to-add-parentheses": "Divide and Conquer / Backtracking",
+  "expression-add-operators": "Backtracking",
 
   // DP
   "climbing-stairs": "Dynamic Programming",
@@ -122,6 +124,19 @@ const slugToPattern: Record<string, string> = {
   "edit-distance": "Dynamic Programming",
   "unique-paths": "Dynamic Programming",
   "maximal-square": "Dynamic Programming",
+  "wildcard-matching": "Dynamic Programming",
+  "regular-expression-matching": "Dynamic Programming",
+  "burst-balloons": "Interval DP",
+  "scramble-string": "Dynamic Programming",
+
+  // Additional New Problems Mapped
+  "palindrome-number": "Math / Two Pointers",
+  "sort-colors": "Dutch National Flag / Two Pointers",
+  "4sum": "Two Pointers",
+  "binary-tree-maximum-path-sum": "Tree Depth First Search",
+  "course-schedule-ii": "Graph Traversals (BFS / DFS)",
+  "trapping-rain-water": "Monotonic Stack",
+  "shortest-path-in-binary-matrix": "Graph Traversals (BFS / DFS)",
 
   // Bits
   "single-number": "Bit Manipulation",

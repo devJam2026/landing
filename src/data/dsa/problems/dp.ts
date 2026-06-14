@@ -767,5 +767,408 @@ export const dpProblems: Problem[] = [
         answer: "A square of size K can only be formed at cell (r, c) if there are valid squares of size K-1 ending at (r-1, c) [top], (r, c-1) [left], and (r-1, c-1) [top-left diagonal]. The bottleneck is the smallest of these three configurations, which is why we apply the `Math.min` operation."
       }
     ]
+  },
+  {
+    id: 96,
+    title: "Wildcard Matching",
+    slug: "wildcard-matching",
+    difficulty: "Hard",
+    pillarSlug: "dynamic-programming",
+    statement: "Given an input string (s) and a pattern (p), match the input string against the pattern. The pattern supports '?' (matches any single character) and '*' (matches any sequence of characters, including the empty sequence).",
+    starterCode: `function isMatch(s, p) {
+  // Write your code here
+  return false;
+}`,
+    bruteForce: {
+      code: `function isMatchBrute(s, p) {
+  function solve(i, j) {
+    if (i < 0 && j < 0) return true;
+    if (j < 0) return false;
+    if (i < 0) {
+      for (let k = 0; k <= j; k++) {
+        if (p[k] !== '*') return false;
+      }
+      return true;
+    }
+    if (p[j] === '?' || s[i] === p[j]) {
+      return solve(i - 1, j - 1);
+    }
+    if (p[j] === '*') {
+      return solve(i, j - 1) || solve(i - 1, j);
+    }
+    return false;
+  }
+  return solve(s.length - 1, p.length - 1);
+}`,
+      language: "javascript",
+      explanation: "Recursive solution checking all pattern options: match single, skip wildcard, or match wildcard. Runs in exponential time O(2^(N+M)).",
+    },
+    better: {
+      code: `function isMatchMemo(s, p) {
+  const memo = Array.from({ length: s.length + 1 }, () => Array(p.length + 1).fill(-1));
+  function solve(i, j) {
+    if (i === 0 && j === 0) return true;
+    if (j === 0) return false;
+    if (i === 0) {
+      for (let k = 1; k <= j; k++) {
+        if (p[k - 1] !== '*') return false;
+      }
+      return true;
+    }
+    if (memo[i][j] !== -1) return memo[i][j];
+    
+    if (p[j - 1] === '?' || s[i - 1] === p[j - 1]) {
+      return memo[i][j] = solve(i - 1, j - 1);
+    }
+    if (p[j - 1] === '*') {
+      return memo[i][j] = solve(i, j - 1) || solve(i - 1, j);
+    }
+    return memo[i][j] = false;
+  }
+  return solve(s.length, p.length);
+}`,
+      language: "javascript",
+      explanation: "Top-down memoized recursion storing states of (i, j). Avoids overlapping subproblems. Runs in O(M * N) time and space.",
+    },
+    optimal: {
+      code: `function isMatchOptimal(s, p) {
+  const m = s.length, n = p.length;
+  const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(false));
+  dp[0][0] = true;
+  for (let j = 1; j <= n; j++) {
+    if (p[j - 1] === '*') dp[0][j] = dp[0][j - 1];
+  }
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (p[j - 1] === '?' || s[i - 1] === p[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else if (p[j - 1] === '*') {
+        dp[i][j] = dp[i][j - 1] || dp[i - 1][j];
+      }
+    }
+  }
+  return dp[m][n];
+}`,
+      language: "javascript",
+      explanation: "Bottom-up 2D dynamic programming: Let dp[i][j] be true if s[0...i-1] matches p[0...j-1]. Transitions handle direct char matches, '?', and '*' which can act as empty sequence or match one/more chars. Runs in O(M * N) time and space.",
+    },
+    timeComplexity: "O(m * n)",
+    spaceComplexity: "O(m * n)",
+    dryRun: [
+      { line: 1, variables: { s: '"aa"', p: '"*"', dp_0_0: "true" }, description: "Base case: empty string matches empty pattern. Row 0 gets wildcard checks. dp[0][1] = true." },
+      { line: 2, variables: { i: 1, j: 1, dp_1_1: "true" }, description: "Match 'a' with '*'. dp[1][1] = dp[1][0] || dp[0][1] = false || true = true." },
+      { line: 3, variables: { i: 2, j: 1, dp_2_1: "true" }, description: "Match 'aa' with '*'. dp[2][1] = dp[2][0] || dp[1][1] = false || true = true. Output true." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Can we solve this in O(1) auxiliary space?",
+        answer: "Yes, using a greedy pointer algorithm with backtracking. We maintain pointers for string and pattern, as well as placeholders for wildcard matches, scanning the string in linear O(N + M) average time and O(1) space."
+      }
+    ],
+    edgeCases: [
+      "Both string and pattern are empty (returns true)",
+      "Pattern is one or multiple consecutive stars (e.g., '*', '***') (returns true)",
+      "String is empty and pattern is non-empty (returns false unless pattern consists entirely of '*')"
+    ],
+    commonMistakes: [
+      "Not initializing base cases for dp[0][j] where pattern starts with '*', leading to incorrect match starts.",
+      "Off-by-one errors due to mismatch between 0-indexed string chars and 1-indexed DP arrays.",
+      "Forgetting to memoize recursion, causing Time Limit Exceeded (TLE) on long match sequences."
+    ]
+  },
+  {
+    id: 97,
+    title: "Regex Matching",
+    slug: "regular-expression-matching",
+    difficulty: "Hard",
+    pillarSlug: "dynamic-programming",
+    statement: "Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*' where '.' matches any single character and '*' matches zero or more of the preceding element.",
+    starterCode: `function isMatch(s, p) {
+  // Write your code here
+  return false;
+}`,
+    bruteForce: {
+      code: `function isMatchBrute(s, p) {
+  if (p.length === 0) return s.length === 0;
+  const firstMatch = s.length > 0 && (p[0] === s[0] || p[0] === '.');
+  if (p.length >= 2 && p[1] === '*') {
+    return isMatchBrute(s, p.substring(2)) || (firstMatch && isMatchBrute(s.substring(1), p));
+  } else {
+    return firstMatch && isMatchBrute(s.substring(1), p.substring(1));
+  }
+}`,
+      language: "javascript",
+      explanation: "Recursive checks with substring slices. Brute force branches dynamically on star elements. Worst case time complexity is exponential O(2^(N + M)).",
+    },
+    better: {
+      code: `function isMatchMemo(s, p) {
+  const memo = {};
+  function check(i, j) {
+    const key = i + ',' + j;
+    if (key in memo) return memo[key];
+    if (j === p.length) return i === s.length;
+    const firstMatch = i < s.length && (p[j] === s[i] || p[j] === '.');
+    let ans = false;
+    if (j + 1 < p.length && p[j + 1] === '*') {
+      ans = check(i, j + 2) || (firstMatch && check(i + 1, j));
+    } else {
+      ans = firstMatch && check(i + 1, j + 1);
+    }
+    return memo[key] = ans;
+  }
+  return check(0, 0);
+}`,
+      language: "javascript",
+      explanation: "Top-down memoized recursion storing states in a hashmap. Prevents recomputation of subproblems. Runs in O(M * N) time and space.",
+    },
+    optimal: {
+      code: `function isMatchOptimal(s, p) {
+  const m = s.length, n = p.length;
+  const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(false));
+  dp[0][0] = true;
+  for (let j = 2; j <= n; j++) {
+    if (p[j - 1] === '*') dp[0][j] = dp[0][j - 2];
+  }
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      if (p[j - 1] === '.' || p[j - 1] === s[i - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else if (p[j - 1] === '*') {
+        dp[i][j] = dp[i][j - 2]; // Match zero times
+        if (p[j - 2] === '.' || p[j - 2] === s[i - 1]) {
+          dp[i][j] = dp[i][j] || dp[i - 1][j]; // Match one or more times
+        }
+      }
+    }
+  }
+  return dp[m][n];
+}`,
+      language: "javascript",
+      explanation: "Bottom-up 2D DP. dp[i][j] is true if s[0...i-1] matches p[0...j-1]. Transitions check '.' matches, direct char matches, and '*' matches. '*' can match 0 times (dp[i][j-2]) or 1+ times (dp[i-1][j]) if the preceding character matches s[i-1]. Runs in O(M * N) time and space.",
+    },
+    timeComplexity: "O(m * n)",
+    spaceComplexity: "O(m * n)",
+    dryRun: [
+      { line: 1, variables: { s: '"aa"', p: '"a*"', dp_0_0: "true" }, description: "Base cases. dp[0][2] = dp[0][0] = true (a* matches empty string)." },
+      { line: 2, variables: { i: 1, j: 2, char: '"a"', star: '"*"' }, description: "Match 'a' with 'a*'. dp[1][2] = dp[1][0] (false) || dp[0][2] (true) = true." },
+      { line: 3, variables: { i: 2, j: 2, char: '"aa"', star: '"*"' }, description: "Match 'aa' with 'a*'. dp[2][2] = dp[2][0] (false) || dp[1][2] (true) = true. Returns true." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "How does Regex Matching differ from Wildcard Matching?",
+        answer: "In Wildcard Matching, '*' stands on its own and matches any sequence of characters. In Regular Expression Matching, '*' is a modifier that applies to the preceding character (e.g. 'a*' matches zero or more 'a's), making transitions slightly more complex."
+      }
+    ],
+    edgeCases: [
+      "Empty string and empty pattern (returns true)",
+      "Pattern matching empty string (e.g., 'a*b*c*') (returns true)",
+      "Dot matcher matching any character (e.g., '.*')"
+    ],
+    commonMistakes: [
+      "Not handling the zero-match transition (matching 0 times of the preceding char), causing false negative results.",
+      "Incorrectly matching '*' on its own without a preceding character, leading to crashes or syntax errors.",
+      "Off-by-one errors mapping string indices into the dynamic programming grid."
+    ]
+  },
+  {
+    id: 98,
+    title: "Burst Balloons",
+    slug: "burst-balloons",
+    difficulty: "Hard",
+    pillarSlug: "dynamic-programming",
+    statement: "You are given n balloons, indexed from 0 to n - 1. Each balloon is painted with a number on it represented by an array nums. You are asked to burst all the balloons. If you burst the ith balloon, you will get nums[i - 1] * nums[i] * nums[i + 1] coins. If i - 1 or i + 1 goes out of bounds of the array, then treat it as if there is a balloon painted with a 1 on it. Return the maximum coins you can collect by bursting the balloons wisely.",
+    starterCode: `function maxCoins(nums) {
+  // Write your code here
+  return 0;
+}`,
+    bruteForce: {
+      code: `function maxCoinsBrute(nums) {
+  // Try all permutations of bursting balloons, tracking arrays recursively.
+  // Time complexity: O(N!)
+  return 0;
+}`,
+      language: "javascript",
+      explanation: "Try all possible orders of bursting the balloons. With N balloons, there are N! possible ordering paths, resulting in factorial runtime.",
+    },
+    better: {
+      code: `function maxCoinsMemo(nums) {
+  const vals = [1, ...nums, 1];
+  const n = vals.length;
+  const memo = Array.from({ length: n }, () => Array(n).fill(-1));
+  function solve(i, j) {
+    if (i > j) return 0;
+    if (memo[i][j] !== -1) return memo[i][j];
+    let maxVal = 0;
+    for (let k = i; k <= j; k++) {
+      const coins = vals[i - 1] * vals[k] * vals[j + 1] + solve(i, k - 1) + solve(k + 1, j);
+      maxVal = Math.max(maxVal, coins);
+    }
+    return memo[i][j] = maxVal;
+  }
+  return solve(1, n - 2);
+}`,
+      language: "javascript",
+      explanation: "Top-down DP (Divide and Conquer with Memoization): Think backwards. Instead of finding the first balloon to burst, find the last balloon `k` to burst in interval [i, j]. Once `k` is burst last, its neighbors are `vals[i-1]` and `vals[j+1]`. Subproblems are [i, k-1] and [k+1, j]. Runs in O(N^3) time and O(N^2) space.",
+    },
+    optimal: {
+      code: `function maxCoinsOptimal(nums) {
+  const vals = [1, ...nums, 1];
+  const n = vals.length;
+  const dp = Array.from({ length: n }, () => Array(n).fill(0));
+  
+  for (let len = 1; len <= n - 2; len++) {
+    for (let i = 1; i <= n - len - 1; i++) {
+      const j = i + len - 1;
+      for (let k = i; k <= j; k++) {
+        dp[i][j] = Math.max(dp[i][j], 
+          vals[i - 1] * vals[k] * vals[j + 1] + dp[i][k - 1] + dp[k + 1][j]
+        );
+      }
+    }
+  }
+  
+  return dp[1][n - 2];
+}`,
+      language: "javascript",
+      explanation: "Bottom-up dynamic programming (Interval DP): Solve subproblems of smaller lengths first. dp[i][j] represents the max coins obtained from bursting balloons in interval [i, j]. We iterate over subproblem lengths from 1 to N-2, and slide the window. For each interval, check all possible last balloons `k` to burst. Runs in O(N^3) time and O(N^2) space.",
+    },
+    timeComplexity: "O(n^3)",
+    spaceComplexity: "O(n^2)",
+    dryRun: [
+      { line: 1, variables: { nums: "[3,1,5]", vals: "[1,3,1,5,1]" }, description: "Add boundaries of 1. Length of vals is 5." },
+      { line: 2, variables: { len: 1, dp_1_1: 3, dp_2_2: 15, dp_3_3: 25 }, description: "Solve intervals of length 1. dp[1][1] = 1*3*1 = 3. dp[2][2] = 3*1*5 = 15. dp[3][3] = 1*5*1 = 5." },
+      { line: 3, variables: { len: 3, dp_1_3: 35 }, description: "Solve length 3. Try k = 2 (bursting 1 last): coin = 1*1*1 + dp[1][1] + dp[3][3] = 1 + 3 + 25 = 29. Try k = 3: coin = 1*5*1 + dp[1][2] + dp[4][3] = 35. Max is 35." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Why do we think backwards (last balloon to burst) instead of forwards?",
+        answer: "If we think forwards (first balloon to burst), bursting a balloon changes the adjacencies of the remaining balloons, which makes subproblems dependent on other actions. By choosing the LAST balloon to burst in an interval, we guarantee that the boundaries of that interval are still alive, separating the subproblems cleanly."
+      }
+    ],
+    edgeCases: [
+      "Array contains only one balloon (max coins is nums[0])",
+      "Array is empty (returns 0)",
+      "Array elements are all 0 (returns 0)"
+    ],
+    commonMistakes: [
+      "Defining the transition based on the first balloon to burst, which makes subproblems dependent and invalidates DP.",
+      "Forgetting to pad the input array with 1 at both boundaries, leading to index errors.",
+      "Iterating subproblem loops in the wrong order; interval DP requires solving smaller intervals first (looping by length)."
+    ]
+  },
+  {
+    id: 99,
+    title: "Scramble String",
+    slug: "scramble-string",
+    difficulty: "Hard",
+    pillarSlug: "dynamic-programming",
+    statement: "We can scramble a string s to get a string t using a recursive algorithm. Given two strings s1 and s2 of the same length, return true if s2 is a scrambled string of s1, otherwise, return false.",
+    starterCode: `function isScramble(s1, s2) {
+  // Write your code here
+  return false;
+}`,
+    bruteForce: {
+      code: `function isScrambleBrute(s1, s2) {
+  // Try all partition splits, and recursively check normal or swapped subproblems
+  // Time complexity: O(5^N)
+  return false;
+}`,
+      language: "javascript",
+      explanation: "Checks every single split partition recursively without memoization, leading to exponential search space explosion.",
+    },
+    better: {
+      code: `function isScrambleMemo(s1, s2) {
+  const memo = {};
+  function check(a, b) {
+    if (a === b) return true;
+    if (a.length !== b.length) return false;
+    const key = a + '#' + b;
+    if (key in memo) return memo[key];
+    
+    // Prune with frequency arrays
+    const count = new Array(26).fill(0);
+    for (let i = 0; i < a.length; i++) {
+      count[a.charCodeAt(i) - 97]++;
+      count[b.charCodeAt(i) - 97]--;
+    }
+    for (let x of count) {
+      if (x !== 0) return memo[key] = false;
+    }
+    
+    const n = a.length;
+    for (let i = 1; i < n; i++) {
+      // Case 1: Not swapped
+      if (check(a.substring(0, i), b.substring(0, i)) && check(a.substring(i), b.substring(i))) {
+        return memo[key] = true;
+      }
+      // Case 2: Swapped
+      if (check(a.substring(0, i), b.substring(n - i)) && check(a.substring(i), b.substring(0, n - i))) {
+        return memo[key] = true;
+      }
+    }
+    return memo[key] = false;
+  }
+  return check(s1, s2);
+}`,
+      language: "javascript",
+      explanation: "Recursion with Memoization: Store result strings maps. Prune splits by checking character frequency maps. If character counts do not match, they cannot be scrambled. Recursively check swapped and non-swapped partitions of length `i` and `n - i`. Runs in O(N^4) worst case.",
+    },
+    optimal: {
+      code: `function isScrambleOptimal(s1, s2) {
+  const n = s1.length;
+  if (n !== s2.length) return false;
+  // dp[len][i][j] represents if s1[i...i+len-1] is scramble of s2[j...j+len-1]
+  const dp = Array.from({ length: n + 1 }, () => 
+    Array.from({ length: n }, () => new Array(n).fill(false))
+  );
+  
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      dp[1][i][j] = s1[i] === s2[j];
+    }
+  }
+  
+  for (let len = 2; len <= n; len++) {
+    for (let i = 0; i <= n - len; i++) {
+      for (let j = 0; j <= n - len; j++) {
+        for (let k = 1; k < len; k++) {
+          if ((dp[k][i][j] && dp[len - k][i + k][j + k]) || 
+              (dp[k][i][j + len - k] && dp[len - k][i + k][j])) {
+            dp[len][i][j] = true;
+            break;
+          }
+        }
+      }
+    }
+  }
+  
+  return dp[n][0][0];
+}`,
+      language: "javascript",
+      explanation: "3D Dynamic Programming tabulation. State dp[len][i][j] represents whether the substring of s1 starting at index i of length len can scramble to s2 starting at index j of length len. Transition splits the substring at length k (1 <= k < len) and matches non-swapped or swapped halves. Runs in O(N^4) time and O(N^3) space.",
+    },
+    timeComplexity: "O(n^4)",
+    spaceComplexity: "O(n^3)",
+    dryRun: [
+      { line: 1, variables: { s1: '"great"', s2: '"rgeat"', len: 1 }, description: "Base cases. Initialize single chars: dp[1][0][1] (g==g) = true, dp[1][1][0] (r==r) = true." },
+      { line: 2, variables: { len: 2, i: 0, j: 0, k: 1 }, description: "Check 'gr' and 'rg' (len=2). k=1 (split size 1): dp[1][0][1] && dp[1][1][0] are both true. Swap match succeeds, so dp[2][0][0] = true." },
+      { line: 3, variables: { len: 5, i: 0, j: 0 }, description: "Solve recursively up to len = 5. dp[5][0][0] resolves to true." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "How does character count pruning help in the memoization solution?",
+        answer: "Character count pruning runs in O(N) time but fails immediately if the two substrings do not contain the exact same set of characters. This skips all partition recursion paths, reducing typical runtimes from hours to milliseconds on long string inputs."
+      }
+    ],
+    edgeCases: [
+      "s1 and s2 are identical (returns true)",
+      "s1 and s2 have different lengths (returns false)",
+      "s1 and s2 do not contain the same character frequency set (returns false)"
+    ],
+    commonMistakes: [
+      "Forgetting to check the swapped matching state condition, only checking the non-swapped matching state.",
+      "Not checking string equality (s1 === s2) as an early exit optimization, leading to extensive recursion loops.",
+      "Off-by-one boundary conditions when splitting intervals in 3D DP space."
+    ]
   }
 ];

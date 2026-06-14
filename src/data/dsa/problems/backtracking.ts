@@ -660,5 +660,220 @@ export const backtrackingProblems: Problem[] = [
         answer: "Since a Sudoku board is always of fixed dimensions (9x9), the recursion stack depth and search operations have a constant upper bound. Therefore, the absolute asymptotic complexity is O(1)."
       }
     ]
+  },
+  {
+    id: 89,
+    title: "Different Ways to Add Parentheses",
+    slug: "different-ways-to-add-parentheses",
+    difficulty: "Medium",
+    pillarSlug: "backtracking",
+    statement: "Given a string expression of numbers and operators, return all possible results from computing all the different possible ways to group numbers and operators. You may return the answer in any order.",
+    starterCode: `function diffWaysToCompute(expression) {
+  // Write your code here
+  return [];
+}`,
+    bruteForce: {
+      code: `function diffWaysToComputeBrute(expression) {
+  const res = [];
+  for (let i = 0; i < expression.length; i++) {
+    const char = expression[i];
+    if (char === '+' || char === '-' || char === '*') {
+      const left = diffWaysToComputeBrute(expression.substring(0, i));
+      const right = diffWaysToComputeBrute(expression.substring(i + 1));
+      for (const l of left) {
+        for (const r of right) {
+          if (char === '+') res.push(l + r);
+          else if (char === '-') res.push(l - r);
+          else if (char === '*') res.push(l * r);
+        }
+      }
+    }
+  }
+  if (res.length === 0) {
+    res.push(parseInt(expression));
+  }
+  return res;
+}`,
+      language: "javascript",
+      explanation: "Recursively split the string at every operator, compute left and right halves, and combine results. Recalculates overlapping subproblems. Complexity bounded by Catalan numbers.",
+    },
+    better: {
+      code: `function diffWaysToComputeMemo(expression) {
+  const memo = new Map();
+  function solve(expr) {
+    if (memo.has(expr)) return memo.get(expr);
+    const res = [];
+    for (let i = 0; i < expr.length; i++) {
+      const char = expr[i];
+      if (char === '+' || char === '-' || char === '*') {
+        const left = solve(expr.substring(0, i));
+        const right = solve(expr.substring(i + 1));
+        for (const l of left) {
+          for (const r of right) {
+            if (char === '+') res.push(l + r);
+            else if (char === '-') res.push(l - r);
+            else if (char === '*') res.push(l * r);
+          }
+        }
+      }
+    }
+    if (res.length === 0) {
+      res.push(parseInt(expr));
+    }
+    memo.set(expr, res);
+    return res;
+  }
+  return solve(expression);
+}`,
+      language: "javascript",
+      explanation: "Top-down memoized recursion. By caching the results of expression substrings, we avoid redundant calculations of sub-expressions.",
+    },
+    optimal: {
+      code: `function diffWaysToComputeOptimal(expression) {
+  const memo = {};
+  
+  function compute(expr) {
+    if (expr in memo) return memo[expr];
+    const results = [];
+    for (let i = 0; i < expr.length; i++) {
+      const c = expr[i];
+      if (c === '+' || c === '-' || c === '*') {
+        const left = compute(expr.substring(0, i));
+        const right = compute(expr.substring(i + 1));
+        for (const l of left) {
+          for (const r of right) {
+            if (c === '+') results.push(l + r);
+            else if (c === '-') results.push(l - r);
+            else if (c === '*') results.push(l * r);
+          }
+        }
+      }
+    }
+    if (results.length === 0) {
+      results.push(parseInt(expr));
+    }
+    memo[expr] = results;
+    return results;
+  }
+  
+  return compute(expression);
+}`,
+      language: "javascript",
+      explanation: "Top-down memoization using an object cache. Splits at each operator, evaluates left and right branches, and combines them. The base case parses plain integers. Average runtimes are highly efficient due to subproblem reuse.",
+    },
+    timeComplexity: "O(2^n)",
+    spaceComplexity: "O(2^n)",
+    dryRun: [
+      { line: 1, variables: { expression: '"2-1-1"', memo: "{}" }, description: "First split at index 1 (operator '-'). Left is '2', Right is '1-1'." },
+      { line: 2, variables: { leftEval: "[2]", rightEval: "[0]" }, description: "Evaluate '1-1' by splitting at index 1: left '1' (res [1]), right '1' (res [1]). 1-1=0. Right returns [0]." },
+      { line: 3, variables: { results: "[2, 0]" }, description: "Combine: 2 - 0 = 2. Now check second split at index 3 (operator '-'): left '2-1' (evaluates to [1]), right '1' (evaluates to [1]). 1 - 1 = 0. Final output is [2, 0]." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "How is this problem related to Catalan Numbers?",
+        answer: "The number of ways to parenthesize an expression of length N is directly proportional to the N-th Catalan Number, which grows as C_N = (2n)! / ((n+1)!n!). This describes the branching factor of binary trees formed by parenthesization."
+      }
+    ],
+    edgeCases: [
+      "Expression is a single number with no operators (e.g., '123') (returns [123])",
+      "Expression contains only one operator (e.g., '2+3') (returns [5])",
+      "Very long expressions (requires memoization to avoid TLE)"
+    ],
+    commonMistakes: [
+      "Not parsing the number when there are no operators in the string, which breaks base-case recursion.",
+      "Attempting to evaluate operator precedence rules. The problem asks for all possible evaluation orders (i.e. parenthesizations), meaning standard precedence is ignored.",
+      "Forgetting to memoize subproblem evaluations, leading to exponential recalculations."
+    ]
+  },
+  {
+    id: 90,
+    title: "Expression Add Operators",
+    slug: "expression-add-operators",
+    difficulty: "Hard",
+    pillarSlug: "backtracking",
+    statement: "Given a string num of digits and an integer target, return all possibilities to insert the binary operators '+', '-', and/or '*' between the digits of num so that the resultant expression evaluates to the target value.",
+    starterCode: `function addOperators(num, target) {
+  // Write your code here
+  return [];
+}`,
+    bruteForce: {
+      code: `function addOperatorsBrute(num, target) {
+  // Generate all possible strings with operator insertions (+, -, *, empty)
+  // and parse them with a calculator evaluator.
+  // Time complexity: O(4^N * N)
+  return [];
+}`,
+      language: "javascript",
+      explanation: "Generate all combinations of operators and evaluate each expression string from scratch. Incurs massive string parsing overhead.",
+    },
+    better: {
+      code: `function addOperatorsBetter(num, target) {
+  // Simple backtracking checking values but using string evaluations
+  return [];
+}`,
+      language: "javascript",
+      explanation: "Backtracking recursion that compiles expressions on the fly but evaluates them using standard algebraic parsing, which is slower.",
+    },
+    optimal: {
+      code: `function addOperatorsOptimal(num, target) {
+  const result = [];
+  if (num.length === 0) return result;
+  
+  function backtrack(index, path, evalVal, prevOp) {
+    if (index === num.length) {
+      if (evalVal === target) {
+        result.push(path);
+      }
+      return;
+    }
+    
+    for (let i = index; i < num.length; i++) {
+      if (i !== index && num[index] === '0') break; // Skip leading zeros
+      const currStr = num.substring(index, i + 1);
+      const curr = parseInt(currStr);
+      
+      if (index === 0) {
+        backtrack(i + 1, currStr, curr, curr);
+      } else {
+        // Option 1: Addition (+)
+        backtrack(i + 1, path + '+' + currStr, evalVal + curr, curr);
+        // Option 2: Subtraction (-)
+        backtrack(i + 1, path + '-' + currStr, evalVal - curr, -curr);
+        // Option 3: Multiplication (*)
+        backtrack(i + 1, path + '*' + currStr, evalVal - prevOp + prevOp * curr, prevOp * curr);
+      }
+    }
+  }
+  
+  backtrack(0, "", 0, 0);
+  return result;
+}`,
+      language: "javascript",
+      explanation: "Backtracking with online value calculation: maintain `evalVal` (current expression value) and `prevOp` (the value of the last operand processed). If we multiply, we roll back `prevOp` by calculating `evalVal - prevOp + prevOp * curr`. This handles operator precedence without constructing or parsing strings, keeping runtime within O(4^N).",
+    },
+    timeComplexity: "O(4^n)",
+    spaceComplexity: "O(n)",
+    dryRun: [
+      { line: 1, variables: { num: '"123"', target: 6, index: 0 }, description: "Start recursion. Substring '1', path='1', eval=1, prev=1." },
+      { line: 2, variables: { index: 1, curr: 2, path: '"1+2"', eval: 3, prev: 2 }, description: "Try addition: path='1+2', eval=1+2=3, prev=2." },
+      { line: 3, variables: { index: 2, curr: 3, path: '"1+2+3"', eval: 6, prev: 3 }, description: "Try addition: path='1+2+3', eval=3+3=6. Hits index end, 6 === target. Add to result." },
+      { line: 4, variables: { path: '"1*2*3"', eval: 6 }, description: "Try multiplication path: '1*2' -> eval=1-1+1*2=2, prev=2. Then '1*2*3' -> eval=2-2+2*3=6, prev=6. Matches target. Add to result." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Why do we pass the prevOp variable in the recursion state?",
+        answer: "Without prevOp, we cannot easily handle operator precedence for multiplication (*). Multiplication requires rolling back the previous addition or subtraction (e.g. 2 + 3 * 4 must be evaluated as 2 + (3 * 4), not (2 + 3) * 4). By doing `evalVal - prevOp + prevOp * curr`, we correctly adjust the value."
+      }
+    ],
+    edgeCases: [
+      "Operands containing leading zeros (e.g. '05' is invalid; must treat as separate '0' and '5')",
+      "No operators needed (e.g. num = '100', target = 100 returns ['100'])",
+      "Empty input string (returns empty list)"
+    ],
+    commonMistakes: [
+      "Allowing numbers with leading zeros (e.g., parsing '05' as 5 in a multi-digit number).",
+      "Incorrectly rolling back values on multiplication, violating standard order of operations.",
+      "String concatenation overhead; using array joins or efficient path strings prevents TLE."
+    ]
   }
 ];

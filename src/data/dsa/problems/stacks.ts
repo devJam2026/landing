@@ -525,5 +525,102 @@ function simplifyPathArray(path) {
         answer: "Splitting the path by `/` converts consecutive slashes into empty strings `''`. The check `component === ''` ignores them, rendering them harmless."
       }
     ],
+  },
+  {
+    id: 51,
+    title: "Trapping Rain Water",
+    slug: "trapping-rain-water",
+    difficulty: "Hard",
+    pillarSlug: "stack",
+    statement: "Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+    starterCode: `function trap(height) {
+  // Write your code here
+  return 0;
+}`,
+    bruteForce: {
+      code: `function trapBrute(height) {
+  let ans = 0;
+  const size = height.length;
+  for (let i = 0; i < size; i++) {
+    let max_left = 0, max_right = 0;
+    for (let j = i; j >= 0; j--) {
+      max_left = Math.max(max_left, height[j]);
+    }
+    for (let j = i; j < size; j++) {
+      max_right = Math.max(max_right, height[j]);
+    }
+    ans += Math.min(max_left, max_right) - height[i];
+  }
+  return ans;
+}`,
+      language: "javascript",
+      explanation: "Iterate over each bar and find the maximum heights to its left and right, adding the trapped water. Runs in O(N^2) time.",
+    },
+    better: {
+      code: `function trapDP(height) {
+  if (height.length === 0) return 0;
+  const size = height.length;
+  const left_max = new Array(size).fill(0);
+  const right_max = new Array(size).fill(0);
+  left_max[0] = height[0];
+  for (let i = 1; i < size; i++) {
+    left_max[i] = Math.max(height[i], left_max[i - 1]);
+  }
+  right_max[size - 1] = height[size - 1];
+  for (let i = size - 2; i >= 0; i--) {
+    right_max[i] = Math.max(height[i], right_max[i + 1]);
+  }
+  let ans = 0;
+  for (let i = 1; i < size - 1; i++) {
+    ans += Math.min(left_max[i], right_max[i]) - height[i];
+  }
+  return ans;
+}`,
+      language: "javascript",
+      explanation: "Precompute left-max and right-max boundaries for each index using two pass DP arrays. Runs in O(N) time with O(N) space.",
+    },
+    optimal: {
+      code: `function trapOptimal(height) {
+  const stack = [];
+  let water = 0;
+  let current = 0;
+  while (current < height.length) {
+    while (stack.length > 0 && height[current] > height[stack[stack.length - 1]]) {
+      const top = stack.pop();
+      if (stack.length === 0) break;
+      const distance = current - stack[stack.length - 1] - 1;
+      const boundedHeight = Math.min(height[current], height[stack[stack.length - 1]]) - height[top];
+      water += distance * boundedHeight;
+    }
+    stack.push(current++);
+  }
+  return water;
+}`,
+      language: "javascript",
+      explanation: "Monotonic Stack approach: Keep a stack of indices representing a decreasing order of bar heights. When we see a bar higher than the stack top, it means we can trap water. Pop the top as the valley, and the new stack top and the current bar form the boundaries. Trapped water is distance * boundedHeight. Runs in O(N) time, O(N) space.",
+    },
+    timeComplexity: "O(n)",
+    spaceComplexity: "O(n)",
+    dryRun: [
+      { line: 1, variables: { height: "[0,1,0,2]", stack: "[]", water: 0 }, description: "Push 0 (height 0). Push 1 (height 1 > 0), pop index 0, no left boundary. Stack is now [1]." },
+      { line: 2, variables: { current: 2, stack: "[1, 2]", water: 0 }, description: "Height 0 < 1. Push index 2." },
+      { line: 3, variables: { current: 3, popped: 2, top: 1, water: 1 }, description: "Height 2 > 0. Pop index 2. Top is index 1. distance = 3 - 1 - 1 = 1. height = min(2,1) - 0 = 1. Add 1 water. Push 3." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Can we solve this in O(1) space?",
+        answer: "Yes, using the two-pointer approach. Maintain left and right pointers and keep track of left_max and right_max. Move the pointer pointing to the smaller height, updating the max and adding trapped water."
+      }
+    ],
+    edgeCases: [
+      "Fewer than 3 bars (cannot form a basin, returns 0)",
+      "Strictly ascending or descending heights (e.g., [1, 2, 3, 4] or [4, 3, 2], returns 0)",
+      "All heights are identical (returns 0)"
+    ],
+    commonMistakes: [
+      "Calculating distance incorrectly: forgetting to subtract the indices correctly, leading to off-by-one errors.",
+      "Adding absolute water amounts without subtracting the height of the valley floor (height[top]).",
+      "Using recursion or nested scans that degrade the O(N) runtime to O(N^2) on large inputs."
+    ]
   }
 ];

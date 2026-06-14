@@ -8,11 +8,7 @@ import {
   Terminal, 
   Copy, 
   Check, 
-  Scale, 
-  BookOpen,
-  Award,
-  Globe,
-  Layout
+  Scale
 } from "lucide-react";
 import { microFrontendsDetail } from "@/data/frontend/tracks/micro-frontends-detail";
 import { 

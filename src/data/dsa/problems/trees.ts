@@ -688,5 +688,87 @@ function deserializeOptimal(data) {
         answer: "Preorder DFS maintains structural parent-child relationships naturally via recursion. Deserializing is extremely simple and does not require building helper queues, keeping the implementation compact and efficient."
       }
     ],
+  },
+  {
+    id: 114,
+    title: "Binary Tree Maximum Path Sum",
+    slug: "binary-tree-maximum-path-sum",
+    difficulty: "Hard",
+    pillarSlug: "trees",
+    statement: "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. The path sum is the sum of the node's values in the path. Given the root of a binary tree, return the maximum path sum of any non-empty path.",
+    starterCode: `function maxPathSum(root) {
+  // Write your code here
+  return 0;
+}`,
+    bruteForce: {
+      code: `function maxPathSumBrute(root) {
+  // Evaluate all possible paths between every node pair.
+  // Time complexity is O(N^2) due to nested traversals.
+  return 0;
+}`,
+      language: "javascript",
+      explanation: "Iterate through every node, computing the maximum path sum starting at that node using DFS. Extremely slow."
+    },
+    better: {
+      code: `function maxPathSumBetter(root) {
+  let maxSum = -Infinity;
+  function dfs(node) {
+    if (node === null) return 0;
+    const left = dfs(node.left);
+    const right = dfs(node.right);
+    const current = node.val + Math.max(0, left) + Math.max(0, right);
+    if (current > maxSum) maxSum = current;
+    return node.val + Math.max(0, Math.max(left, right));
+  }
+  dfs(root);
+  return maxSum;
+}`,
+      language: "javascript",
+      explanation: "Recursive post-order DFS that calculates single branch gains, updating a global variable on overlaps. Still linear O(N) time but slightly less optimized on local variables reuse.",
+    },
+    optimal: {
+      code: `function maxPathSumOptimal(root) {
+  let maxSum = -Infinity;
+  
+  function gain(node) {
+    if (node === null) return 0;
+    const leftGain = Math.max(0, gain(node.left));
+    const rightGain = Math.max(0, gain(node.right));
+    
+    // Max path sum with split at the current node
+    const currentPathSum = node.val + leftGain + rightGain;
+    maxSum = Math.max(maxSum, currentPathSum);
+    
+    // Return the max branch gain to parent node
+    return node.val + Math.max(leftGain, rightGain);
+  }
+  
+  gain(root);
+  return maxSum;
+}`,
+      language: "javascript",
+      explanation: "Recursive post-order DFS: compute the maximum contribution (gain) that each subtree can make to a path. At each node, check the sum of the node value plus left and right subtree gains (which represents a path split at the current node), update the global max, and return the maximum single-branch path gain back to the parent. Runs in O(N) time."
+    },
+    timeComplexity: "O(n)",
+    spaceComplexity: "O(h)",
+    dryRun: [
+      { line: 1, variables: { root: "Node(-10)", left: "Node(9)", right: "Node(20)" }, description: "Call gain(root). Recurse left node 9 (gain 9), right node 20 (gain 20+max(left,right))." }
+    ],
+    interviewDiscussion: [
+      {
+        question: "Why do we perform `Math.max(0, ...)` on subtree gains?",
+        answer: "If a subtree's path sum is negative, adding it to our path will only decrease the total sum. By taking `Math.max(0, gain)`, we choose to discard negative path contributions, which matches the behavior of choosing not to include those subtrees."
+      }
+    ],
+    edgeCases: [
+      "Tree contains only negative values (max sum must be the single node with largest value, not 0)",
+      "Single-node tree (max path is just the root value)",
+      "Skewed binary tree representing a linked list"
+    ],
+    commonMistakes: [
+      "Returning node.val + leftGain + rightGain to the parent call. A path cannot split at multiple levels.",
+      "Forgetting to discard negative branch sums using Math.max(0, gain).",
+      "Using a global variable that is not reset between different test cases (always initialize state in the entry function)."
+    ]
   }
 ];

@@ -4,12 +4,29 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import PageHero from "@/components/page-hero";
+import { Metadata } from "next";
 import { ArrowLeft, BookOpen, Sparkles, HelpCircle, Code, ListFilter, AlertCircle, Compass } from "lucide-react";
 import { dsaConcepts } from "@/data/dsa/concepts";
 import { articles } from "@/data/articles";
+import VisualTracer from "./VisualTracer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await params;
+  const concept = dsaConcepts[resolvedParams.slug];
+  if (!concept) {
+    return {
+      title: "DSA Concept | DevJam",
+      description: "Master Data Structures and Algorithms with DevJam."
+    };
+  }
+  return {
+    title: `${concept.name} - DSA Concept Guide | DevJam`,
+    description: `Master ${concept.name} conceptually. Overview: ${concept.overview.substring(0, 150)}...`,
+  };
 }
 
 export async function generateStaticParams() {
@@ -136,15 +153,20 @@ export default async function DsaConceptDetailPage({ params }: PageProps) {
             </div>
 
             {/* 3. Visualization */}
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               <h3 className="text-sm font-bold text-orange-500 uppercase tracking-wider flex items-center gap-2 border-b border-card-border/40 pb-2">
                 <Sparkles className="h-4 w-4" />
                 Visual Explanation
               </h3>
-              <div className="relative border border-card-border/60 bg-[#030712] rounded-xl p-4 overflow-x-auto shadow-inner">
+              <div className="relative border border-card-border/60 bg-[#030712] rounded-xl p-4 overflow-x-auto shadow-inner mb-2">
                 <pre className="font-mono text-[10px] leading-relaxed text-cyan-400 select-all">
                   {concept.visualization.trim()}
                 </pre>
+              </div>
+
+              {/* Interactive Visualizer */}
+              <div id="visualizer" className="scroll-mt-24">
+                <VisualTracer conceptSlug={conceptSlug} />
               </div>
             </div>
 
