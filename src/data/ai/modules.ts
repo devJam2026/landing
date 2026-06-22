@@ -15,6 +15,120 @@ export type AIModule = {
 };
 
 export const foundationModules: Record<string, AIModule> = {
+  "python-for-ai-systems": {
+    id: "python-for-ai-systems",
+    slug: "python-for-ai-systems",
+    trackSlug: "python-for-ai-systems",
+    title: "Module 0: Python for AI Systems",
+    description: "Master core Python concepts, data handling with NumPy and Pandas, OOP design, dataclasses, typing with Pydantic, and building web endpoints with FastAPI.",
+    status: "complete",
+    submodules: [
+      "python-refresh-for-ai",
+      "python-data-handling",
+      "numpy-for-ai",
+      "pandas-for-ml",
+      "python-oop-for-ai",
+      "python-typing-validation",
+      "fastapi-basics-for-ai",
+      "async-python-for-ai"
+    ],
+    projects: [
+      "ai-data-cleaning-playground",
+      "numpy-vector-playground",
+      "fastapi-ml-inference-starter",
+      "async-ai-batch-processor"
+    ],
+    labs: [],
+    learningOutcomes: [
+      "Write clean, typed Python using type hints and Pydantic",
+      "Perform vectorized matrix manipulations in NumPy",
+      "Design and structure inference API endpoints in FastAPI"
+    ],
+    interviewQuestions: [
+      "Compare lists and NumPy arrays in terms of memory layout and performance.",
+      "How does async Python handle concurrent I/O operations for model queries?"
+    ]
+  },
+  "machine-learning-foundations": {
+    id: "machine-learning-foundations",
+    slug: "machine-learning-foundations",
+    trackSlug: "machine-learning-foundations",
+    title: "Module 0A: Machine Learning Foundations",
+    description: "Understand supervised and unsupervised classical ML pipelines: data preprocessing, regression, classification, model evaluations, clustering, tuning, and prediction APIs.",
+    status: "complete",
+    submodules: [
+      "what-is-machine-learning",
+      "ml-workflow",
+      "data-preprocessing",
+      "regression-foundations",
+      "classification-foundations",
+      "model-evaluation-foundations",
+      "feature-engineering-foundations",
+      "unsupervised-learning-foundations",
+      "model-selection-tuning",
+      "ml-deployment-thinking"
+    ],
+    projects: [
+      "house-price-prediction",
+      "customer-churn-predictor",
+      "spam-message-classifier",
+      "product-review-sentiment-analyzer",
+      "ml-model-evaluation-dashboard",
+      "triage-insight-clustering",
+      "dimensionality-reduction-visualizer"
+    ],
+    labs: [],
+    learningOutcomes: [
+      "Deconstruct data preprocessing pipelines to avoid data leakage",
+      "Train classification and regression models and tune hyper-parameters",
+      "Interpret confusion matrices, precision, recall, and ROC-AUC curves"
+    ],
+    interviewQuestions: [
+      "What is data leakage and how do you prevent it during feature engineering?",
+      "Why is accuracy a misleading metric for highly imbalanced classification datasets?"
+    ]
+  },
+  "deep-learning-fundamentals": {
+    id: "deep-learning-fundamentals",
+    slug: "deep-learning-fundamentals",
+    trackSlug: "deep-learning-fundamentals",
+    title: "Module 0B: Deep Learning Fundamentals",
+    description: "Build neural networks from scratch. Understand feedforward, activation functions, loss functions, optimizers, backpropagation, embeddings, sequence models, RNNs, CNNs, and the transition to attention/transformers.",
+    status: "complete",
+    submodules: [
+      "neural-network-intuition",
+      "perceptron-and-mlp",
+      "activation-functions-dl",
+      "loss-functions-dl",
+      "backpropagation-intuition",
+      "optimizers-dl",
+      "overfitting-regularization",
+      "embeddings-introduction",
+      "sequence-models-introduction",
+      "cnn-basics",
+      "deep-learning-frameworks",
+      "deep-learning-to-transformers"
+    ],
+    projects: [
+      "neural-network-from-scratch",
+      "mnist-digit-classifier",
+      "binary-classification-keras",
+      "overfitting-visualizer",
+      "word-embedding-playground",
+      "simple-rnn-text-classifier",
+      "cnn-image-classifier"
+    ],
+    labs: [],
+    learningOutcomes: [
+      "Compute forward passes and write backpropagation weight updates manually",
+      "Set up regularized training cycles using dropout and early stopping",
+      "Develop sequence classification models using RNNs and LSTMs"
+    ],
+    interviewQuestions: [
+      "How do vanishing gradients happen and how do activation functions like ReLU or architectures like LSTM resolve them?",
+      "Explain the limits of RNN recurrent sequences processing that motivated the attention mechanism."
+    ]
+  },
   "tokenization": {
     id: "tokenization",
     slug: "tokenization",
@@ -48,7 +162,14 @@ export const foundationModules: Record<string, AIModule> = {
     title: "Module 1.2: Context Engineering",
     description: "Manage context window capacities, chat history trimming, sliding window states, and RAG query packing.",
     status: "in-progress",
-    submodules: ["what-is-context-window", "context-budget-management", "prompt-trimming-strategies", "context-interview"],
+    submodules: [
+      "what-is-context-window",
+      "context-budget-management",
+      "prompt-trimming-strategies",
+      "sliding-window-conversation",
+      "context-overflow-failures",
+      "context-interview"
+    ],
     projects: ["context-window-diagnostics"],
     labs: [],
     learningOutcomes: [
@@ -66,7 +187,14 @@ export const foundationModules: Record<string, AIModule> = {
     title: "Module 1.3: Sampling and Generation",
     description: "Deconstruct LLM decoding logic. Explore Temperature, Softmax distribution curves, and penalties.",
     status: "complete",
-    submodules: ["hyperparameter-definitions", "softmax-sampling-mechanics", "deterministic-generation"],
+    submodules: [
+      "hyperparameter-definitions",
+      "softmax-sampling-mechanics",
+      "top-k-top-p",
+      "frequency-presence-penalty",
+      "deterministic-creative",
+      "sampling-interview"
+    ],
     projects: ["hyperparameter-playground"],
     labs: [],
     learningOutcomes: [
@@ -83,9 +211,17 @@ export const foundationModules: Record<string, AIModule> = {
     trackSlug: "foundation",
     title: "Module 1.4: Prompt Engineering",
     description: "Master prompt design topologies: system parameters, classifications, injection protections, and few-shots.",
-    status: "coming-soon",
-    submodules: ["prompt-structural-design", "classification-prompting", "prompt-injection-safeguards", "prompt-evals"],
-    projects: ["prompt-engineering-lab", "ai-scam-detector"],
+    status: "complete",
+    submodules: [
+      "what-is-prompt-engineering",
+      "instruction-design",
+      "few-shot-zero-shot",
+      "classification-prompts",
+      "prompt-injection-basics",
+      "explainable-responses",
+      "prompt-interview-guide"
+    ],
+    projects: ["ai-scam-detector"],
     labs: [],
     learningOutcomes: [
       "Differentiate between System, User, and Assistant prompt scopes",
@@ -101,8 +237,16 @@ export const foundationModules: Record<string, AIModule> = {
     trackSlug: "foundation",
     title: "Module 1.5: Structured Output",
     description: "Enforce schema structures on unstructured completions using JSON validation frameworks.",
-    status: "coming-soon",
-    submodules: ["schema-enforcement-json", "type-safe-validation", "retries-guardrails"],
+    status: "complete",
+    submodules: [
+      "why-raw-text-breaks",
+      "json-schema-basics",
+      "zod-validation",
+      "enum-array-constraints",
+      "retry-repair-strategies",
+      "production-logging",
+      "structured-output-interview"
+    ],
     projects: ["structured-output-validator"],
     labs: [],
     learningOutcomes: [
@@ -115,12 +259,20 @@ export const foundationModules: Record<string, AIModule> = {
   },
   "production-llm-processing": {
     id: "production-llm-processing",
-    slug: "production-llm-processing",
+    slug: "production-processing",
     trackSlug: "foundation",
     title: "Module 1.6: Production LLM Processing",
     description: "Scale ingestion pipelines. Manage batch loops, concurrency pipelines, and rate-limiting limits.",
     status: "coming-soon",
-    submodules: ["batch-loop-processing", "concurrency-backoff", "rate-limits-costs"],
+    submodules: [
+      "batch-processing",
+      "async-queues",
+      "rate-limits",
+      "retry-backoff",
+      "cost-tracking",
+      "human-review",
+      "production-processing-interview"
+    ],
     projects: ["product-review-insight-generator"],
     labs: [],
     learningOutcomes: [
@@ -138,7 +290,15 @@ export const foundationModules: Record<string, AIModule> = {
     title: "Module 1.7: Embeddings",
     description: "Convert textual characters into high-dimensional vectors to measure similarities mathematically.",
     status: "coming-soon",
-    submodules: ["text-to-vector-spaces", "distance-metrics-cosine", "similarity-searches"],
+    submodules: [
+      "what-are-embeddings",
+      "vector-similarity",
+      "cosine-similarity",
+      "chunking-embeddings",
+      "embedding-tradeoffs",
+      "matching-architecture",
+      "embeddings-interview"
+    ],
     projects: ["resume-jd-matcher"],
     labs: [],
     learningOutcomes: [
@@ -156,7 +316,15 @@ export const foundationModules: Record<string, AIModule> = {
     title: "Module 1.8: Vector Databases",
     description: "Manage database indexing, approximate nearest neighbor algorithms, and metadata search filters.",
     status: "coming-soon",
-    submodules: ["vector-db-fundamentals", "ann-indexing-hnsw", "hybrid-search-ranking-strategies"],
+    submodules: [
+      "why-vector-dbs",
+      "indexing-ann",
+      "metadata-filtering",
+      "hybrid-search",
+      "search-architecture",
+      "vector-db-failures",
+      "vector-db-interview"
+    ],
     projects: ["semantic-product-search"],
     labs: [],
     learningOutcomes: [
@@ -174,7 +342,15 @@ export const foundationModules: Record<string, AIModule> = {
     title: "Module 1.9: Self-Attention",
     description: "Deconstruct dot-product attention steps, QKV matrices, and context calculations mathematically.",
     status: "in-progress",
-    submodules: ["why-self-attention", "qkv-projection-matrices", "scaled-dot-product-attention", "causal-masking"],
+    submodules: [
+      "why-self-attention",
+      "query-key-value",
+      "scaled-dot-product",
+      "attention-weights",
+      "causal-masking",
+      "multi-head-attention",
+      "attention-interview"
+    ],
     projects: ["mini-attention-notebook"],
     labs: [],
     learningOutcomes: [
@@ -191,9 +367,17 @@ export const foundationModules: Record<string, AIModule> = {
     trackSlug: "foundation",
     title: "Module 1.10: Transformers",
     description: "Decode transformer architecture blocks. Study layer normalizations and feed-forward neural layers.",
-    status: "coming-soon",
-    submodules: ["rnn-vs-transformers", "multi-head-attention-layers", "layer-normalization-residuals", "output-logits-softmax"],
-    projects: [],
+    status: "in-progress",
+    submodules: [
+      "transformer-block-overview",
+      "residual-connections",
+      "layernorm",
+      "feed-forward-net",
+      "decoder-only",
+      "transformer-failures",
+      "transformer-interview"
+    ],
+    projects: ["mini-transformer-block-explainer"],
     labs: [],
     learningOutcomes: [
       "Detail the execution paths of a standard decoder block",
@@ -210,7 +394,15 @@ export const foundationModules: Record<string, AIModule> = {
     title: "Module 1.11: LLM Evaluation",
     description: "Design diagnostic evaluation metrics checking hallucination counts, faithfulness, and CI/CD validation checks.",
     status: "coming-soon",
-    submodules: ["evals-concepts-golden", "metric-eval-faithfulness", "automated-eval-cicd"],
+    submodules: [
+      "why-evals-matter",
+      "golden-datasets",
+      "eval-metrics",
+      "faithfulness-hallucinations",
+      "llm-as-a-judge",
+      "regression-cicd",
+      "eval-interview"
+    ],
     projects: ["llm-evaluation-lab"],
     labs: [],
     learningOutcomes: [

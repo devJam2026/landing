@@ -19,6 +19,96 @@ export type AICurriculumTrack = {
 
 export const aiTracks: AICurriculumTrack[] = [
   {
+    id: "python-for-ai-systems",
+    slug: "python-for-ai-systems",
+    title: "Module 0: Python for AI Systems",
+    order: 0,
+    description: "A quick revision module focused on Python skills required for AI systems, ML pipelines, LLM apps, RAG tools, backend APIs, and production AI workflows.",
+    status: "complete",
+    modules: ["python-for-ai-systems"],
+    plannedProjects: [
+      "ai-data-cleaning-playground",
+      "numpy-vector-playground",
+      "fastapi-ml-inference-starter",
+      "async-ai-batch-processor"
+    ],
+    learningOutcomes: [
+      "Write efficient Python code for data processing and cleaning",
+      "Utilize NumPy for vectorized matrix and tensor operations",
+      "Build inference endpoints using FastAPI with Pydantic schemas",
+      "Implement asynchronous batch processing for AI workloads"
+    ],
+    interviewValue: [
+      "Demonstrate proficiency in vectorized operations vs loops",
+      "Design async API schemas for handling concurrent model requests"
+    ]
+  },
+  {
+    id: "machine-learning-foundations",
+    slug: "machine-learning-foundations",
+    title: "Module 0A: Machine Learning Foundations",
+    order: 0.1,
+    description: "A required foundation module covering classical ML concepts, model training, feature engineering, evaluation, and deployment thinking.",
+    status: "complete",
+    modules: ["machine-learning-foundations"],
+    plannedProjects: [
+      "house-price-prediction",
+      "customer-churn-predictor",
+      "spam-message-classifier",
+      "product-review-sentiment-analyzer",
+      "ml-model-evaluation-dashboard",
+      "triage-insight-clustering",
+      "dimensionality-reduction-visualizer"
+    ],
+    learningOutcomes: [
+      "Understand supervised learning through regression and classification",
+      "Build regression models using structured data",
+      "Build classification models and interpret business outcomes",
+      "Apply NLP vectorization for text classification",
+      "Evaluate ML models using practical metrics",
+      "Understand unsupervised clustering for insight discovery",
+      "Use dimensionality reduction to simplify and visualize high-dimensional data"
+    ],
+    interviewValue: [
+      "Explain regression vs classification",
+      "Explain MAE, MSE, RMSE, and R²",
+      "Explain confusion matrix, precision, recall, F1-score, and ROC-AUC",
+      "Explain why accuracy alone can be misleading",
+      "Explain overfitting, underfitting, and bias-variance tradeoff",
+      "Explain clustering and when unsupervised learning is useful",
+      "Explain dimensionality reduction and why PCA/t-SNE/UMAP are useful",
+      "Explain how classical ML concepts connect to GenAI, embeddings, RAG, and agentic AI systems"
+    ]
+  },
+  {
+    id: "deep-learning-fundamentals",
+    slug: "deep-learning-fundamentals",
+    title: "Module 0B: Deep Learning Fundamentals",
+    order: 0.2,
+    description: "A required foundation module covering neural networks, training loops, loss functions, optimizers, embeddings, sequence models, and CNNs.",
+    status: "complete",
+    modules: ["deep-learning-fundamentals"],
+    plannedProjects: [
+      "neural-network-from-scratch",
+      "mnist-digit-classifier",
+      "binary-classification-keras",
+      "overfitting-visualizer",
+      "word-embedding-playground",
+      "simple-rnn-text-classifier",
+      "cnn-image-classifier"
+    ],
+    learningOutcomes: [
+      "Build feedforward neural networks and custom training loops from scratch",
+      "Tune model weights utilizing backpropagation, loss functions, and optimizers",
+      "Implement word embeddings and recurrent neural network sequence classifiers",
+      "Understand CNN filters and translate deep learning constructs to transformer attention layers"
+    ],
+    interviewValue: [
+      "Derive backpropagation gradient updates mathematically",
+      "Explain the limits of RNN sequence modeling and the origin of attention mechanisms"
+    ]
+  },
+  {
     id: "foundation",
     slug: "foundation",
     title: "Module 1: LLM Foundation",

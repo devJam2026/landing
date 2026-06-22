@@ -52,94 +52,52 @@ export default function AiEngineerRoadmapPage() {
             </h3>
             
             <div className="flex flex-col gap-4 overflow-x-auto pb-4">
-              {/* Row 1 */}
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 min-w-[1050px] bg-[#030712] p-6 rounded-xl border border-card-border/60 font-mono text-[9px] font-bold text-text-muted uppercase text-center">
-                
-                <div className="flex flex-col items-center gap-1 border border-orange-500/30 bg-orange-500/5 p-3 rounded-lg w-36">
-                  <span className="text-orange-400">LLM Foundation</span>
-                  <span className="text-[7px] opacity-60">In Progress</span>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-y-6 gap-x-3 items-center w-full">
+                {[
+                  { title: "Python for AI Systems", badge: "Quick Revision", styleType: "complete" },
+                  { title: "Machine Learning Foundations", badge: "Required Foundation", styleType: "complete" },
+                  { title: "Deep Learning Fundamentals", badge: "Required Foundation", styleType: "complete" },
+                  { title: "LLM Foundation", badge: "In Progress", styleType: "active" },
+                  { title: "Neural Networks", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "Sequence Models", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "Transformers", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "Embeddings / DB", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "RAG Engineering", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "Structured AI Apps", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "Agentic AI", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "MCP / Tools", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "Multi-Agent", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "AI System Design", badge: "Coming Soon", styleType: "coming-soon" },
+                  { title: "Production AI", badge: "Coming Soon", styleType: "coming-soon" }
+                ].map((card, idx) => {
+                  let cardClass = "";
+                  if (card.styleType === "active") {
+                    cardClass = "border-orange-500/30 bg-orange-500/5 text-orange-400";
+                  } else if (card.styleType === "complete") {
+                    cardClass = "border-emerald-500/30 bg-emerald-500/5 text-emerald-400";
+                  } else {
+                    cardClass = "border-card-border bg-[#050811] text-text-muted";
+                  }
 
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
+                  const isEndLg = (idx + 1) % 5 === 0;
+                  const isEndMd = (idx + 1) % 3 === 0;
 
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Neural Networks</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Sequence Models</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Transformers</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Embeddings / DB</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>RAG Engineering</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-              </div>
-
-              {/* Row 2 */}
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4 min-w-[1050px] bg-[#030712] p-6 rounded-xl border border-card-border/60 font-mono text-[9px] font-bold text-text-muted uppercase text-center mt-2">
-                
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Structured AI Apps</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Agentic AI</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>MCP / Tools</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Multi-Agent</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>AI System Design</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
-                <ArrowRight className="h-4 w-4 hidden md:block text-card-border" />
-
-                <div className="flex flex-col items-center gap-1 border border-card-border bg-[#050811] p-3 rounded-lg w-36">
-                  <span>Production AI</span>
-                  <span className="text-[7px] opacity-60 font-sans">Coming Soon</span>
-                </div>
-
+                  return (
+                    <div key={idx} className="flex items-center w-full gap-2">
+                      <div className={`flex flex-col items-center justify-center gap-1 border p-3 rounded-lg flex-grow h-20 text-center uppercase font-mono text-[9px] font-bold ${cardClass}`}>
+                        <span>{card.title}</span>
+                        <span className="text-[7px] opacity-60 font-sans normal-case">{card.badge}</span>
+                      </div>
+                      
+                      {idx < 14 && (
+                        <>
+                          <ArrowRight className={`h-4 w-4 text-card-border shrink-0 hidden lg:block ${isEndLg ? "lg:hidden" : ""}`} />
+                          <ArrowRight className={`h-4 w-4 text-card-border shrink-0 hidden md:block lg:hidden ${isEndMd ? "md:hidden" : ""}`} />
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

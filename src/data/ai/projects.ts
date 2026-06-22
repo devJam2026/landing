@@ -695,6 +695,220 @@ function createPlaceholderProject(
 export const aiProjects: Record<string, AIProject> = {
   ...foundationProjects,
 
+  // Python for AI Systems Projects
+  "ai-data-cleaning-playground": createPlaceholderProject(
+    "P0.1", "ai-data-cleaning-playground", "AI Data Cleaning Playground", "python-for-ai-systems",
+    "CSV & JSON Handling", "Build data loading, cleaning, and preprocessing utilities for structured and unstructured datasets.",
+    ["Python", "Pandas", "JSON"], "File I/O operations, string sanitizations, and missing values processing."
+  ),
+  "numpy-vector-playground": createPlaceholderProject(
+    "P0.2", "numpy-vector-playground", "NumPy Vector Playground", "python-for-ai-systems",
+    "Vectorized operations & Broadcasting", "Execute matrix arithmetic, broadcasting dot products, and shape transformations.",
+    ["Python", "NumPy"], "Vectorized transformations, matrix dot products, and multi-dimensional tensor representations."
+  ),
+  "fastapi-ml-inference-starter": createPlaceholderProject(
+    "P0.3", "fastapi-ml-inference-starter", "FastAPI ML Inference Starter", "python-for-ai-systems",
+    "Pydantic Validation & API Gateways", "Build a microservice displaying model predictions, validating inputs with Pydantic.",
+    ["Python", "FastAPI", "Pydantic"], "Request/response models definitions, dependency injection, and inference loops."
+  ),
+  "async-ai-batch-processor": createPlaceholderProject(
+    "P0.4", "async-ai-batch-processor", "Async AI Batch Processor", "python-for-ai-systems",
+    "Concurrency & Async loops", "Run concurrent async pipeline calls batch processing multiple textual inputs.",
+    ["Python", "asyncio", "HTTPX"], "Async/await routines, concurrency limits, and batch ingestion."
+  ),
+
+  // Machine Learning Foundations Projects
+  "house-price-prediction": {
+    id: "P0A-1",
+    slug: "house-price-prediction",
+    title: "ML House Price Prediction",
+    pillar: "AI Engineer",
+    trackSlug: "machine-learning-foundations",
+    moduleSlug: "machine-learning-foundations",
+    concept: "Regression, Supervised Learning & Preprocessing",
+    description: "Learn supervised regression by predicting continuous values from structured data. The main use case is house price prediction, and the same concepts can also be extended to a student score prediction dataset.",
+    status: "complete",
+    problemStatement: "Predicting continuous valuations requires robust preprocessing pipelines to prevent data leakage and handle diverse feature distributions.",
+    whatItTeaches: "Supervised learning basics, regression problem framing, feature selection, numerical and categorical feature preprocessing, train/test split, Linear Regression, Random Forest Regressor overview, MAE, MSE, RMSE, and R² metrics, prediction error analysis, and optional extension: Student Score Predictor using the same regression pipeline.",
+    whyItMatters: "Supervised regression is the mathematical foundation for predicting real-valued outputs and optimizing continuous loss functions.",
+    conceptsCovered: ["Supervised Regression", "Categorical Encodings", "Standardization & Scaling", "Data Leakage Prevention", "Prediction Error Analysis"],
+    learningOutcomes: [
+      "Fit preprocessing transformations only on training datasets to prevent features leakage",
+      "Construct regression models predicting continuous outputs and validate with R² and MSE metrics"
+    ],
+    interviewQuestions: [
+      "Compare Mean Absolute Error (MAE) and Mean Squared Error (MSE) outlier sensitivity in regression pipelines."
+    ],
+    architecture: {
+      summary: "Ingestion pipeline cleaning raw input, scaling features via fitted StandardScaler, training regression models, and calculating prediction error metrics.",
+      diagramType: "flow",
+      nodes: ["Raw Tabular Data", "Data Cleaner & Imputer", "Feature Scaling & One-Hot Encoding", "Linear & Random Forest Regressors", "Evaluation Metrics (MSE/R²)"],
+      edges: [
+        "Raw Tabular Data -> Data Cleaner & Imputer",
+        "Data Cleaner & Imputer -> Feature Scaling & One-Hot Encoding",
+        "Feature Scaling & One-Hot Encoding -> Linear & Random Forest Regressors",
+        "Linear & Random Forest Regressors -> Evaluation Metrics (MSE/R²)"
+      ]
+    },
+    dataFlow: [
+      "1. Load raw structured housing dataset.",
+      "2. Separate numerical and categorical features.",
+      "3. Fit StandardScaler and OneHotEncoder on train split only.",
+      "4. Train models and generate predictions.",
+      "5. Compute MAE, MSE, RMSE, and R² validation scores."
+    ],
+    techStack: ["Python", "Scikit-Learn", "Pandas", "NumPy"],
+    implementationPlan: [
+      "1. Implement split validation helper.",
+      "2. Write feature transformers class.",
+      "3. Fit baseline models and export validation error summaries."
+    ],
+    github: {
+      label: "GitHub",
+      url: "https://github.com/devJam2026/ml-house-price-prediction",
+      status: "available"
+    },
+    liveDemo: {
+      label: "Live Demo",
+      status: "coming-soon"
+    },
+    relatedProjects: ["customer-churn-predictor"],
+    futureImprovements: ["Optional extension: Student Score Predictor using the same regression pipeline", "Integrate automated hyperparameter tuning"],
+    evidence: {
+      repoChecked: true,
+      repoExists: true,
+      demoChecked: false,
+      demoExists: false,
+      notes: ["Verified repository ml-house-price-prediction exists on GitHub."]
+    }
+  },
+  "customer-churn-predictor": {
+    id: "P0A-2",
+    slug: "customer-churn-predictor",
+    title: "Customer Churn Predictor",
+    pillar: "AI Engineer",
+    trackSlug: "machine-learning-foundations",
+    moduleSlug: "machine-learning-foundations",
+    concept: "Binary Classification & Random Forests",
+    description: "Predict whether a customer is likely to churn using supervised classification.",
+    status: "complete",
+    problemStatement: "Customer retention is critical. Identifying high-risk customers requires probabilistic classification models to make business trade-offs.",
+    whatItTeaches: "Binary classification, decision trees, random forests, train/test split, confusion matrix, accuracy, precision, recall, F1-score, ROC-AUC, probability-based predictions, and business interpretation of churn risk.",
+    whyItMatters: "Classification models map feature patterns to categorical probabilities, which is essential for scam filtering, intent routing, and toxic input checks.",
+    conceptsCovered: ["Binary Classification", "Random Forest Classifier", "Confusion Matrix Metrics", "ROC-AUC Curves", "Probability Threshold Tuning"],
+    learningOutcomes: [
+      "Train classification models and evaluate outputs beyond simple accuracy metrics",
+      "Plot confusion matrices to interpret business cost tradeoffs of false positives vs false negatives"
+    ],
+    interviewQuestions: [
+      "Why is accuracy misleading for highly imbalanced datasets, and how do F1-score and ROC-AUC resolve this?"
+    ],
+    architecture: {
+      summary: "Pipeline ingest and preprocess customer profiles, train decision tree ensembles, evaluate classification metrics, and serialize model for API prediction.",
+      diagramType: "system",
+      nodes: ["Customer Profiling Logs", "Categorical Encoders", "Random Forest Ensemble Classifier", "Metrics Evaluator Engine", "Serialized Prediction API"],
+      edges: [
+        "Customer Profiling Logs -> Categorical Encoders",
+        "Categorical Encoders -> Random Forest Ensemble Classifier",
+        "Random Forest Ensemble Classifier -> Metrics Evaluator Engine",
+        "Random Forest Ensemble Classifier -> Serialized Prediction API"
+      ]
+    },
+    dataFlow: [
+      "1. Ingest raw subscriber active logs.",
+      "2. Preprocess categories and balance features.",
+      "3. Fit Random Forest Classifier on train split.",
+      "4. Calculate class probabilities for predictions.",
+      "5. Plot ROC-AUC and tune decision thresholds."
+    ],
+    techStack: ["Python", "Scikit-Learn", "Pandas", "NumPy"],
+    implementationPlan: [
+      "1. Build imbalanced sample handling workflow.",
+      "2. Write ensemble trees fit scripts.",
+      "3. Generate evaluation report comparing precision-recall tradeoffs."
+    ],
+    github: {
+      label: "GitHub",
+      url: "https://github.com/devJam2026/customer-churn-predictor",
+      status: "available"
+    },
+    liveDemo: {
+      label: "Live Demo",
+      status: "coming-soon"
+    },
+    relatedProjects: ["house-price-prediction", "spam-message-classifier"],
+    futureImprovements: ["Implement dynamic threshold optimizer dashboard", "Add real-time data drift monitoring"],
+    evidence: {
+      repoChecked: true,
+      repoExists: true,
+      demoChecked: false,
+      demoExists: false,
+      notes: ["Verified repository customer-churn-predictor exists on GitHub."]
+    }
+  },
+  "spam-message-classifier": createPlaceholderProject(
+    "P0A-3", "spam-message-classifier", "Spam Message Classifier", "machine-learning-foundations",
+    "NLP Vectorization & Naive Bayes", "Classify spam messages using TF-IDF vectors and probabilistic models.",
+    ["Python", "Scikit-Learn", "TF-IDF"], "Text preprocessing, tokenization basics for classical ML, vocabulary creation, TF-IDF vectorization, Naive Bayes classification, classification metrics, and basic NLP pipeline thinking."
+  ),
+  "product-review-sentiment-analyzer": createPlaceholderProject(
+    "P0A-4", "product-review-sentiment-analyzer", "Product Review Sentiment Analyzer", "machine-learning-foundations",
+    "Text Feature Engineering & Sentiment Classification", "Analyze sentiment from product comments and reviews using classical ML techniques.",
+    ["Python", "Scikit-Learn", "Pandas"], "Bag-of-words mapping, text feature extraction, sentiment labels, linear classifiers, feature pipelines, model evaluation for text classification, and how sentiment analysis connects to product intelligence."
+  ),
+  "ml-model-evaluation-dashboard": createPlaceholderProject(
+    "P0A-5", "ml-model-evaluation-dashboard", "ML Model Evaluation Dashboard", "machine-learning-foundations",
+    "Diagnostics, Metrics & Model Selection", "Build a dashboard to compare model performance and understand evaluation tradeoffs.",
+    ["React", "TypeScript", "Chart.js"], "Confusion matrix, precision vs recall tradeoff, ROC curves, precision-recall curves, F1-score, threshold tuning, overfitting and underfitting, bias-variance tradeoff, and model comparison and selection."
+  ),
+  "triage-insight-clustering": createPlaceholderProject(
+    "P0A-6", "triage-insight-clustering", "Triage Insight Clustering", "machine-learning-foundations",
+    "Unsupervised Clustering", "Cluster support tickets, issue reports, or triage records into meaningful groups without labels.",
+    ["Python", "Scikit-Learn", "PCA"], "Unsupervised learning, K-Means clustering, vector distances, cluster interpretation, elbow method, silhouette score, dimensionality reduction with PCA, and turning unlabeled data into business insights."
+  ),
+  "dimensionality-reduction-visualizer": createPlaceholderProject(
+    "P0A-7", "dimensionality-reduction-visualizer", "Dimensionality Reduction Visualizer", "machine-learning-foundations",
+    "PCA, t-SNE & UMAP Overview", "Reduce high-dimensional datasets into 2D or 3D visualizations and explain how dimensionality reduction helps ML and AI systems.",
+    ["React", "TypeScript", "Three.js"], "Curse of dimensionality, PCA intuition, explained variance, 2D / 3D projection, t-SNE intuition, UMAP overview, embedding visualization, feature compression, and how dimensionality reduction connects to embeddings, semantic search, clustering, and GenAI systems."
+  ),
+
+  // Deep Learning Fundamentals Projects
+  "neural-network-from-scratch": createPlaceholderProject(
+    "P0B.1", "neural-network-from-scratch", "Neural Network From Scratch", "deep-learning-fundamentals",
+    "Matrix multipliers & gradients", "Build forward pass and backpropagation updates manually in pure Python.",
+    ["Python", "NumPy"], "Dense layers dot-products, activation derivatives, and chain-rule weights updates."
+  ),
+  "mnist-digit-classifier": createPlaceholderProject(
+    "P0B.2", "mnist-digit-classifier", "MNIST Digit Classifier", "deep-learning-fundamentals",
+    "Image classification MLPs", "Train multi-layer perceptrons on handwritten digits dataset, mapping hidden shapes.",
+    ["PyTorch", "NumPy"], "DataLoader batching, multi-class categorical cross-entropy, and Adam optimizers."
+  ),
+  "binary-classification-keras": createPlaceholderProject(
+    "P0B.3", "binary-classification-keras", "Binary Classification with Keras", "deep-learning-fundamentals",
+    "Keras workflows", "Train classification networks using high-level deep learning API suites.",
+    ["TensorFlow", "Keras"], "Model compile operations, binary cross-entropy loss, and metrics tracking."
+  ),
+  "overfitting-visualizer": createPlaceholderProject(
+    "P0B.4", "overfitting-visualizer", "Overfitting Visualizer", "deep-learning-fundamentals",
+    "Regularizations diagnostics", "Inspect how dropout scales and weight decays restrict overfitting on validation sets.",
+    ["React", "TypeScript", "Recharts"], "Dropout activations math, early stopping limits, and train/val loss curves."
+  ),
+  "word-embedding-playground": createPlaceholderProject(
+    "P0B.5", "word-embedding-playground", "Word Embedding Playground", "deep-learning-fundamentals",
+    "Word vectors & semantic math", "Query continuous embedding spaces, calculating cosine similarities and synonyms matches.",
+    ["Python", "Gensim", "React"], "Semantic projection mappings, cosine angle similarity, and vector arithmetic."
+  ),
+  "simple-rnn-text-classifier": createPlaceholderProject(
+    "P0B.6", "simple-rnn-text-classifier", "Simple RNN Text Classifier", "deep-learning-fundamentals",
+    "Recurrent sequence processing", "Classify sequence inputs using recurrent memory cells and token sequence padding.",
+    ["PyTorch", "Tokenizers"], "RNN hidden state updates, LSTM/GRU parameters, and sequence lengths."
+  ),
+  "cnn-image-classifier": createPlaceholderProject(
+    "P0B.7", "cnn-image-classifier", "CNN Image Classifier", "deep-learning-fundamentals",
+    "Convolutional feature mapping", "Extract visual features from images using grid filters and pooling layers.",
+    ["PyTorch", "Torchvision"], "Conv2d kernel sweeps, max-pooling reductions, and dense classification layers."
+  ),
+
   // Track 2 Neural Network Foundations Projects
   "neural-network-from-scratch-lab": createPlaceholderProject(
     "P12", "neural-network-from-scratch-lab", "Neural Network From Scratch Lab", "neural-networks",

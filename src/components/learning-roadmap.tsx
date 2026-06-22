@@ -14,6 +14,30 @@ interface Step {
 
 const aiSteps: Step[] = [
   {
+    id: "python-for-ai-systems",
+    title: "0. Python AI",
+    status: "Completed",
+    desc: "Master Python syntax, NumPy matrix maths, Pandas dataframes manipulation, type safety using Pydantic, and FastAPI async services.",
+    progress: "100%",
+    slug: "python-for-ai-systems",
+  },
+  {
+    id: "machine-learning-foundations",
+    title: "0A. ML Foundations",
+    status: "Completed",
+    desc: "Train classical supervised models for regression and classification, execute K-Means clustering, PCA transforms, and features engineering.",
+    progress: "100%",
+    slug: "machine-learning-foundations",
+  },
+  {
+    id: "deep-learning-fundamentals",
+    title: "0B. DL Fundamentals",
+    status: "Completed",
+    desc: "Build neural networks from scratch, compute backpropagation gradients, optimize training weights, and handle sequence RNNs.",
+    progress: "100%",
+    slug: "deep-learning-fundamentals",
+  },
+  {
     id: "foundation",
     title: "1. Foundation",
     status: "Active",

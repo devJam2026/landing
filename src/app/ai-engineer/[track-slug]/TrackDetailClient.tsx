@@ -12,6 +12,7 @@ import { aiTracks } from "@/data/ai/tracks";
 import { aiModules } from "@/data/ai/modules";
 import { aiSubmodules } from "@/data/ai/submodules";
 import { aiProjects } from "@/data/ai/projects";
+import { foundationModulesData } from "@/data/ai/foundationModules";
 import { ArrowLeft, BookOpen, Award, ShieldCheck, ChevronRight, Sparkles, CheckCircle2, LayoutGrid, Calendar } from "lucide-react";
 
 interface TrackDetailClientProps {
@@ -117,6 +118,8 @@ export default function TrackDetailClient({ trackSlug }: TrackDetailClientProps)
                         const moduleSubmodules = Object.values(aiSubmodules).filter(
                           (sm) => sm.moduleSlug === m.slug
                         );
+                        const foundationModule = track.slug === "foundation" ? foundationModulesData[m.slug] : null;
+
                         return (
                           <div
                             key={m.slug}
@@ -145,6 +148,26 @@ export default function TrackDetailClient({ trackSlug }: TrackDetailClientProps)
                                       <ChevronRight className="h-3 w-3 shrink-0 opacity-60" />
                                     </Link>
                                   ))}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Project Focus Connection */}
+                            {foundationModule && (
+                              <div className="flex flex-col gap-1 border-t border-card-border/40 pt-3">
+                                <span className="text-[9px] uppercase tracking-wider font-mono text-text-muted">Project Focus</span>
+                                <div className="flex items-center justify-between mt-1 text-[10px]">
+                                  <span className="text-foreground font-medium">{foundationModule.project.name}</span>
+                                  {foundationModule.project.githubUrl && (
+                                    <a
+                                      href={foundationModule.project.githubUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-cyan-400 hover:text-cyan-300 font-bold inline-flex items-center gap-0.5"
+                                    >
+                                      GitHub Link &rarr;
+                                    </a>
+                                  )}
                                 </div>
                               </div>
                             )}
